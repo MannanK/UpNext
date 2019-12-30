@@ -1,5 +1,5 @@
 import React from 'react';
-import SignupFormContainer from './signup_form__container';
+import SignupFormContainer from './signup_form_container';
 import LoginFormContainer from './login_form_container';
 import { connect } from 'react-redux';
 import { openModal } from '../../actions/modal_actions';

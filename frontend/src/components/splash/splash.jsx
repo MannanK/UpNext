@@ -1,11 +1,13 @@
 import React from 'react';
 import SignupFormContainer from './signup_form__container';
 import LoginFormContainer from './login_form_container';
+import { connect } from 'react-redux';
+import { openModal } from '../../actions/modal_actions';
 
 const SIGNUP = "signup";
 const LOGIN = "login";
 
-export default class Splash extends React.Component {
+class Splash extends React.Component {
   constructor(props) {
     super(props);
 
@@ -49,3 +51,12 @@ export default class Splash extends React.Component {
     );
   }
 }
+
+const msp = state => {
+}
+
+const mdp = dispatch => ({
+  openModal: modal => dispatch(openModal(modal))
+});
+
+export default connect(null, mdp)(Splash);

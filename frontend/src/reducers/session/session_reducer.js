@@ -1,6 +1,8 @@
 import {
   RECEIVE_CURRENT_USER,
-  RECEIVE_USER_LOGOUT } from '../../actions/session_actions';
+  RECEIVE_USER_LOGOUT,
+  RECEIVE_USER_SIGN_IN
+ } from '../../actions/session_actions';
 
 
 const initialState = {
@@ -23,6 +25,8 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         currentUser: undefined
       };
+    case RECEIVE_USER_SIGN_IN:
+      return Object.assign({}, state, {isSignedIn: true});
     default:
       return state;
   }

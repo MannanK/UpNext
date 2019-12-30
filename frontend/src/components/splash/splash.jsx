@@ -1,9 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { openModal } from '../../actions/modal_actions';
 
-const Splash = () => {
+const Splash = ({ openModal }) => {
   return(
-    <h1>This is the temp compenentf1</h1>
+    <div>
+      <h1>This is the temp component</h1>
+      <button onClick={() => openModal('tester')}>clickme</button>
+    </div>
   );
 };
 
-export default Splash;
+const msp = state => {
+}
+
+const mdp = dispatch => ({
+  openModal: modal => dispatch(openModal(modal))
+});
+
+export default connect(null, mdp)(Splash);

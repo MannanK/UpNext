@@ -3,6 +3,7 @@ const users = require("./routes/api/users");
 const interests = require("./routes/api/interests");
 const recommendations = require("./routes/api/recommendations");
 const bodyParser = require('body-parser');
+const passport = require('passport');
 const app = express();
 
 const mongoose = require('mongoose');

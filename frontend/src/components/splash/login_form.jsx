@@ -55,6 +55,8 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div className="login-form-container">
+        <h2>Login</h2>
+
         <form onSubmit={this.handleSubmit}>
           <div className="login-form">
             <input type="text"
@@ -67,7 +69,7 @@ class LoginForm extends React.Component {
               onChange={this.update('password')}
               placeholder = "Password"
             />
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Login" />
 
             {this.renderErrors()}
           </div>

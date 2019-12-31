@@ -12,7 +12,7 @@ class Splash extends React.Component {
     super(props);
 
     this.state = {
-      formType: SIGNUP
+      formType: LOGIN
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -30,11 +30,14 @@ class Splash extends React.Component {
     const { formType } = this.state;
 
     let form;
+    let button;
 
     if (formType === SIGNUP) {
       form = <SignupFormContainer />;
+      button = <button id="login-button" onClick={this.handleClick(LOGIN)}>Login</button>;
     } else {
       form = <LoginFormContainer />;
+      button = <button id="sign-up-button" onClick={this.handleClick(SIGNUP)}>Sign Up</button>
     }
 
     return (
@@ -43,9 +46,8 @@ class Splash extends React.Component {
         
         { form }
 
-        <div className="form-buttons">
-          <button id="sign-up-button" onClick={this.handleClick(SIGNUP)}>Sign Up</button>
-          <button id="login-button" onClick={this.handleClick(LOGIN)}>Login</button>
+        <div className="form-button">
+          { button }
         </div>
       </div>
     );

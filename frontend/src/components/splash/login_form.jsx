@@ -1,5 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
+import { connect } from "react-redux";
+import { login, deleteErrors } from "../../actions/session_actions";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -90,4 +92,19 @@ class LoginForm extends React.Component {
   }
 }
 
-export default withRouter(LoginForm);
+////CONTAINER
+
+const msp = state => {
+  return {
+    errors: state.errors.session
+  };
+};
+
+const mdp = dispatch => {
+  return {
+    login: user => dispatch(login(user)),
+    deleteErrors: () => dispatch(deleteErrors())
+  };
+};
+
+export default connect(msp, mdp)(LoginForm);

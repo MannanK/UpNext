@@ -22,7 +22,7 @@ h1.splash-title {
   border-radius: 10px;
   border: 3px solid rgb(77, 4, 145);
   width: 66vw;
-  height: 50vh;
+  height: 55vh;
   position: relative;
   padding: 4%;
   background-color: $main-color;
@@ -58,11 +58,10 @@ h1.splash-title {
   justify-content: center;
 
   @media (min-width: 900px) {
-    width: 350px;
+    width: 380px;
     margin-top: 25px;
   }
 }
-
 
 .signup-form input, .login-form input {
   width: 100%;
@@ -79,6 +78,7 @@ h1.splash-title {
   }
 }
 
+//INPUT FIELD HIGHLIGHT
 .signup-form input:focus, .login-form input:focus {
   box-shadow: 0 0 8px rgb(102, 0, 170);
   border: 1px solid rgba(102, 0, 170, .8);
@@ -116,6 +116,11 @@ button#demo-button {
   padding: 6px 4px;
   box-sizing: border-box;
   font-size: 1.1em;
+  
+  @media (min-width: 900px) {
+    padding: 9px;
+  }
+
 }
 
 .form-button {
@@ -123,22 +128,35 @@ button#demo-button {
   bottom: 0;
   margin-bottom: 1vh;
   width: 65vw;
-  display: flex;
-  justify-content: space-between;
 
   @media (min-width: 900px) {
     width: 500px;
   }
 }
 
-.form-button button {
-  font-size: 1.2em;
+
+///FORM REDIRECT SPAN
+.form-button .redirect {
+  font-size: 12px;
+  
+  @media (min-width: 900px) {
+    font-size: 14px;
+  }
+}
+
+.redirect span {
   font-weight: 700;
 }
 
+.redirect span:hover{
+  cursor: pointer;
+  text-decoration: underline;
+  
+}
+
+
+
 /////ERROR MESSAGES
-
-
 .error-caption {
   position: relative;
   top: -12px;

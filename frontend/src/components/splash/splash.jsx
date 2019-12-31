@@ -1,6 +1,6 @@
 import React from 'react';
-import SignupFormContainer from './signup_form_container';
-import LoginFormContainer from './login_form_container';
+import SignupFormContainer from './signup_form';
+import LoginFormContainer from './login_form';
 import { login } from '../../actions/session_actions';
 import { connect } from 'react-redux';
 import { openModal } from '../../actions/modal_actions';
@@ -43,11 +43,23 @@ class Splash extends React.Component {
 
     if (formType === SIGNUP) {
       form = <SignupFormContainer />;
-      button = <button id="login-button" onClick={this.handleClick(LOGIN)}>Login</button>;
+      button = (
+        <span className="redirect">
+          Have an account?{" "}
+          <span onClick={this.handleClick(LOGIN)}>Log in!</span>
+        </span>
+      );
+              // <button id="login-button" onClick={this.handleClick(LOGIN)}>Login</button>;
       demo = "";
     } else {
       form = <LoginFormContainer />;
-      button = <button id="sign-up-button" onClick={this.handleClick(SIGNUP)}>Sign Up</button>
+      button = (
+        <span className="redirect">
+          New to UpNext?{" "}
+          <span onClick={this.handleClick(SIGNUP)}>Sign up!</span>
+        </span>
+      );
+      // <button id="sign-up-button" onClick={this.handleClick(SIGNUP)}>Sign Up</button>
       demo = <button id="demo-button" onClick={this.handleDemo}>DEMO</button>;
     }
 

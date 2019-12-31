@@ -40,13 +40,11 @@ class LoginForm extends React.Component {
 
     renderErrors() {
         return (
-            <ul>
-                {Object.keys(this.state.errors).map((error,i) => (
-                    <li key={`error-${i}`}>
-                        {this.state.errors[error]}
-                    </li>
-                ))}
-            </ul>
+          <ul className="session-errors">
+            {Object.keys(this.state.errors).map((error, i) => (
+              <li key={`error-${i}`}>{this.state.errors[error]}</li>
+            ))}
+          </ul>
         );
     }
 
@@ -71,7 +69,7 @@ class LoginForm extends React.Component {
                             onChange={this.update('password')}
                             placeholder = "Password"
                         />
-                        <input type="submit" value="Submit" />
+                        <input className="form-submit" type="submit" value="Submit" />
 
                         {this.renderErrors()}
                     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './components/root';
+import "./css/master.css";
 import configureStore from './store/store';
 // We will use this to parse the user's session token
 import jwt_decode from 'jwt-decode';

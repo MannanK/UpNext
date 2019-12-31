@@ -1,0 +1,46 @@
+.signup-form-container, .login-form-container{
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+}
+
+.signup-form-container form, .login-form-container form {
+    /* border: 3px solid rgb(77, 4, 145);
+    width: 40vw;
+    height: 30vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+    background-color: rgb(104, 0, 201);
+    border-radius: 100%; */
+
+    border-radius: 10px;
+    border: 3px solid rgb(77, 4, 145);
+    width: 40vw;
+    height: 30vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+    background-color: rgb(104, 0, 201);
+    /* border-radius: 100%; */
+}
+
+.signup-form, .login-form{
+  /* border: 1px solid black; */
+  width: 25vw;
+  margin-top: 2vw;
+}
+
+.signup-form input, .login-form input {
+    width: 100%;
+    font-size: 1.3em;
+    margin-bottom: 2.2vw;
+    padding: 0.3vw 0.4vw;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border-style: none;
+}

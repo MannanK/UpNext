@@ -36,13 +36,12 @@ class LoginForm extends React.Component {
       email: this.state.email,
       password: this.state.password
     };
-
-    this.props.login(user);
   }
+
 
   renderErrors() {
     return (
-      <ul>
+      <ul className="session-errors">
         {Object.keys(this.props.errors).map((error,i) => (
           <li key={`error-${i}`}>
             {this.props.errors[error]}
@@ -52,24 +51,30 @@ class LoginForm extends React.Component {
     );
   }
 
-  render() {
-    return (
-      <div className="login-form-container">
-        <h2>Login</h2>
+    render() {
+      return (
+        <div className="login-form-container">
+            <h2>Login</h2>
 
-        <form onSubmit={this.handleSubmit}>
-          <div className="login-form">
-            <input type="text"
-              value={this.state.email}
-              onChange={this.update('email')}
-              placeholder = "Email"
-            />
-            <input type="password"
-              value={this.state.password}
-              onChange={this.update('password')}
-              placeholder = "Password"
-            />
-            <input type="submit" value="Login" />
+            <form onSubmit={this.handleSubmit}>
+                <div className="login-form">
+                    <input type="text"
+                        value={this.state.username}
+                        onChange={this.update('username')}
+                        placeholder = "Username"
+                    />
+                    <input type="text"
+                        value={this.state.email}
+                        onChange={this.update('email')}
+                        placeholder = "Email"
+                    />
+                    <input type="password"
+                        value={this.state.password}
+                        onChange={this.update('password')}
+                        placeholder = "Password"
+                    />
+                    <input className="form-submit" type="submit" value="Login" />
+
 
             {this.renderErrors()}
           </div>

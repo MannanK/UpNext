@@ -1,5 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import { signup, deleteErrors } from "../../actions/session_actions";
+
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -102,4 +105,20 @@ class SignupForm extends React.Component {
   }
 }
 
-export default withRouter(SignupForm);
+////CONTAINER
+
+const mapStateToProps = state => {
+  return {
+    signedIn: state.session.isSignedIn,
+    errors: state.errors.session
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signup: user => dispatch(signup(user)),
+    deleteErrors: () => dispatch(deleteErrors())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);

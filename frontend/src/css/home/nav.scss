@@ -1,0 +1,39 @@
+// Nav main container
+.nav-container {
+  height: 12vh;
+
+  background: green;
+}
+
+// Nav header container
+.nav-header {
+  height: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0px 15px;
+}
+
+.logout-button {
+  padding: 5px 10px;
+  border-radius: 3px;
+  
+  background: red;
+}
+
+// Nav search container
+.nav-search {
+  height: 50%;
+}
+
+// Nav search input
+.nav-search-input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  
+  font-size: 16px;
+
+  padding: 5px 10px;
+}

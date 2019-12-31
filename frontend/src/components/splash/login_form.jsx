@@ -10,7 +10,7 @@ class LoginForm extends React.Component {
       };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.renderErrors = this.renderErrors.bind(this);
+    this.renderErrorHighlight = this.renderErrorHighlight.bind(this);
   }
  
   // componentDidUpdate(prevProps){
@@ -41,43 +41,51 @@ class LoginForm extends React.Component {
 
 
 
-  renderErrors() {
-    return (
-      <ul className="session-errors">
-        {Object.keys(this.props.errors).map((error,i) => (
-          <li key={`error-${i}`}>
-            {this.props.errors[error]}
-          </li>
-        ))}
-      </ul>
-    );
-  }
+//   renderErrors() {
+//     return (
+//       <ul className="session-errors">
+//         {Object.keys(this.props.errors).map((error,i) => (
+//           <li key={`error-${i}`}>
+//             {this.props.errors[error]}
+//           </li>
+//         ))}
+//       </ul>
+//     );
+//   }
+
+    renderErrorHighlight(type) {
+        return (this.props.errors[type]) ? "error" : "";
+    }
 
     render() {
+
       return (
-        <div className="login-form-container">
+        <>
           <form onSubmit={this.handleSubmit}>
-            <h2>Login</h2>
+            <h2 className="form-heading">Login</h2>
             <div className="login-form">
               <input
+                className={this.renderErrorHighlight("email")}
                 type="email"
                 value={this.state.email}
                 onChange={this.update("email")}
                 placeholder="Email"
               />
+              <div className="error-caption">{this.props.errors.email}</div>
+
               <input
+                className={this.renderErrorHighlight("password")}
                 type="password"
                 value={this.state.password}
                 onChange={this.update("password")}
                 placeholder="Password"
               />
-              <input className="form-submit" type="submit" value="Login" />
+              <div className="error-caption">{this.props.errors.password}</div>
 
-              {this.renderErrors()}
+              <input className="form-submit" type="submit" value="Login" />
             </div>
           </form>
-
-        </div>
+        </>
       );
   }
 }

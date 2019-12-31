@@ -32,8 +32,6 @@ class Splash extends React.Component {
     this.props.login({ email: "tommy@duek.com", password: "hunter2" }); 
   }
 
-
-
   render() {
     const { formType } = this.state;
 
@@ -78,9 +76,6 @@ class Splash extends React.Component {
       </div>
     );
   }
-}
-
-const msp = state => {
 }
 
 const mdp = dispatch => ({

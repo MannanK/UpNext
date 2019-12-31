@@ -39,24 +39,29 @@ class Splash extends React.Component {
 
     let form;
     let button;
+    let demo;
 
     if (formType === SIGNUP) {
       form = <SignupFormContainer />;
       button = <button id="login-button" onClick={this.handleClick(LOGIN)}>Login</button>;
+      demo = "";
     } else {
       form = <LoginFormContainer />;
       button = <button id="sign-up-button" onClick={this.handleClick(SIGNUP)}>Sign Up</button>
+      demo = <button id="demo-button" onClick={this.handleDemo}>DEMO</button>;
     }
 
     return (
       <div className="splash-container">
         <h1 className="splash-title">UpNext</h1>
-        
-        { form }
 
-        <div className="form-button">
-          { button }
-          <button onClick={this.handleDemo}>DEMO</button>
+        <div className={`${formType.toLowerCase()}-form-container`}>
+          {form}
+
+          <div className="form-button">
+            {button}
+            {demo}
+          </div>
         </div>
       </div>
     );

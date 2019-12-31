@@ -55,9 +55,9 @@ class LoginForm extends React.Component {
 
     render() {
       return (
-        <div className="login-form-container">
+        <>
           <form onSubmit={this.handleSubmit}>
-            <h2>Login</h2>
+            <h2 className="form-heading">Login</h2>
             <div className="login-form">
               <input
                 type="email"
@@ -76,8 +76,7 @@ class LoginForm extends React.Component {
               {this.renderErrors()}
             </div>
           </form>
-
-        </div>
+        </>
       );
   }
 }

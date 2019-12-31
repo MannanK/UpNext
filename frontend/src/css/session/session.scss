@@ -1,12 +1,59 @@
-.signup-form-container, .login-form-container{
+@import "color.scss";
+
+.splash-container {
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1.splash-title {
+  text-align: center;
   width: 100%;
-  height: 100%;
-  /* border: 1px solid red; */
-  display: flex;
-  justify-content: center;
+  height: 5vh;
+  font-size: 3em;
+  font-weight: 700;
+}
+
+.signup-form-container, .login-form-container{
+  border-radius: 10px;
+  border: 3px solid rgb(77, 4, 145);
+  width: 66vw;
+  height: 70vw;
+  position: relative;
+  padding: 2%;
+  background-color: $main-color;
+
+  @media (min-width: 900px) {
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.form-heading {
+  font-size: 2em;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2vh;
 }
 
 .signup-form-container form, .login-form-container form {
+  width: 100%;
+    // border-radius: 10px;
+    // border: 3px solid rgb(77, 4, 145);
+    // width: 40vw;
+    // height: 30vw;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // padding: 2%;
+    // background-color: $main-color;
+
+  @media (min-width: 900px) {
     /* border: 3px solid rgb(77, 4, 145);
     width: 40vw;
     height: 30vw;
@@ -17,25 +64,37 @@
     background-color: rgb(104, 0, 201);
     border-radius: 100%; */
 
-    border-radius: 10px;
-    border: 3px solid rgb(77, 4, 145);
-    width: 40vw;
-    height: 30vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2%;
-    background-color: rgba(204, 93, 255, 0.5);
-    /* border-radius: 100%; */
+    // border-radius: 10px;
+    // border: 3px solid rgb(77, 4, 145);
+    // width: 40vw;
+    // height: 30vw;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // padding: 2%;
+    // background-color: $main-color;
+  }
 }
 
 .signup-form, .login-form{
   /* border: 1px solid black; */
-  width: 25vw;
-  margin-top: 2vw;
+
+  @media (min-width: 900px) {
+    width: 25vw;
+    margin-top: 2vw;
+  }
 }
 
 .signup-form input, .login-form input {
+  width: 100%;
+  font-size: 1.2em;
+  margin-bottom: 3vw;
+  padding: 1vw;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border-style: none;
+
+  @media (min-width: 900px) {
     width: 100%;
     font-size: 1.3em;
     margin-bottom: 2.2vw;
@@ -43,4 +102,12 @@
     box-sizing: border-box;
     border-radius: 3px;
     border-style: none;
+  }
 }
+
+
+.form-button {
+  position: absolute;
+  bottom: 0;
+}
+

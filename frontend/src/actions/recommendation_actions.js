@@ -1,4 +1,4 @@
-import * as APIUtil from '../util/recommendations_api_util';
+import * as RecommendationAPIUtil from '../util/recommendations_api_util';
 
 export const RECEIVE_RECOMMENDATIONS = "RECEIVE_RECOMMENDATIONS";
 
@@ -7,8 +7,14 @@ export const receiveRecommendations = recommendations => ({
   recommendations
 });
 
+export const getRecommendations = () => dispatch => (
+  RecommendationAPIUtil.getRecommendations().then(res => {
+    dispatch(receiveRecommendations(res.data));
+  })
+);
+
 export const changeRecommendations = data => dispatch => (
-  APIUtil.changeRecommendations(data).then(res => {
+  RecommendationAPIUtil.changeRecommendations(data).then(res => {
     dispatch(receiveRecommendations(res.data));
   })
 );

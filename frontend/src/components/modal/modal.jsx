@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../../actions/modal_actions';
-// import AddServer from '../modal/add_server/add_server';
+import Search from '../modal/search';
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) {
@@ -9,19 +9,22 @@ const Modal = ({ modal, closeModal }) => {
   }
 
   let component;
+  let modalBackClass;
+  let modalChildClass;
 
   switch (modal) {
     case 'tester':
-      // component = <AddServer />
-      component = <h1>thisismdodal</h1>
+      component = <Search />
+      modalBackClass = 'grey-background';
+      modalChildClass = 'search-child';
       break;
     default:
       return null;
   }
 
   return (
-    <div className='modal-background' onClick={closeModal}>
-      <div className='modal-child' onClick={e => e.stopPropagation()}>
+    <div className={modalBackClass} onClick={closeModal}>
+      <div className={modalChildClass} onClick={e => e.stopPropagation()}>
         {component}
       </div>
     </div>

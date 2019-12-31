@@ -23,6 +23,7 @@ class Nav extends React.Component {
           <input
             type="text"
             placeholder="Search..."
+            className='nav-search-input'
             onClick={() => openModal('tester')}/>
         </div>
       </nav>

@@ -2,10 +2,8 @@ import React from 'react';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import { Switch, Route } from 'react-router-dom';
 import Modal from './modal/modal';
-
 import Splash from './splash/splash';
-
-// import MainPage from './main/main_page';
+import Home from './home/home';
 
 const App = () => (
   <div>
@@ -13,7 +11,7 @@ const App = () => (
     
     <Switch>
       <AuthRoute exact path="/" component={Splash} />
-      {/* <AuthRoute exact path="/" component={MainPage} /> */}
+      <ProtectedRoute exact path="/home" component={Home} />
     </Switch>
   </div>
 );

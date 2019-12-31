@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import SimpleSlider from './simpleslider';
 
 class Interests extends React.Component {
 
@@ -7,6 +8,7 @@ class Interests extends React.Component {
     return (
       <div className='interests-container'>
         This is the intesrsts323
+        <SimpleSlider />
       </div>
     );
   }

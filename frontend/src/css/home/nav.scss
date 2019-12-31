@@ -1,13 +1,13 @@
 // Nav main container
 .nav-container {
-  height: 12vh;
+  height: 16vh;
 
   background: green;
 }
 
 // Nav header container
 .nav-header {
-  height: 50%;
+  height: 60%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,7 +24,7 @@
 
 // Nav search container
 .nav-search {
-  height: 50%;
+  height: 40%;
 }
 
 // Nav search input

@@ -8,8 +8,7 @@ class SignupForm extends React.Component {
       email: '',
       username: '',
       password: '',
-      password2: '',
-      errors: {}
+      password2: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,6 +22,10 @@ class SignupForm extends React.Component {
   //     this.setState({errors: prevProps.errors});
   // }
 
+  componentWillUnmount() {
+    this.props.deleteErrors();
+  }
+
   update(field) {
     return e => this.setState({
       [field]: e.currentTarget.value
@@ -32,10 +35,10 @@ class SignupForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let user = {
-        username: this.state.username,
-        email: this.state.email,
-        password: this.state.password,
-        password2: this.state.password2
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password,
+      password2: this.state.password2
     };
 
     this.props.signup(user, this.props.history); 
@@ -44,9 +47,9 @@ class SignupForm extends React.Component {
   renderErrors() {
     return(
       <ul>
-        {Object.keys(this.state.errors).map((error, i) => (
+        {Object.keys(this.props.errors).map((error, i) => (
           <li key={`${i}`}>
-            {this.state.errors[error]}
+            {this.props.errors[error]}
           </li>
         ))}
       </ul>
@@ -59,27 +62,27 @@ class SignupForm extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <div className="signup-form">
             <input type="text"
-                value={this.state.username}
-                onChange={this.update('username')}
-                placeholder="Username"
+              value={this.state.username}
+              onChange={this.update('username')}
+              placeholder="Username"
             />
 
             <input type="text"
-                value={this.state.email}
-                onChange={this.update('email')}
-                placeholder="Email"
+              value={this.state.email}
+              onChange={this.update('email')}
+              placeholder="Email"
             />
         
             <input type="password"
-                value={this.state.password}
-                onChange={this.update('password')}
-                placeholder="Password"
+              value={this.state.password}
+              onChange={this.update('password')}
+              placeholder="Password"
             />
         
             <input type="password"
-                value={this.state.password2}
-                onChange={this.update('password2')}
-                placeholder="Confirm Password"
+              value={this.state.password2}
+              onChange={this.update('password2')}
+              placeholder="Confirm Password"
             />
             
             <input type="submit" value="Submit" />

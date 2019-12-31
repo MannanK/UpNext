@@ -12,7 +12,7 @@ const App = () => (
     <Modal />
     
     <Switch>
-      <Route exact path="/" component={Splash} />
+      <AuthRoute exact path="/" component={Splash} />
       {/* <AuthRoute exact path="/" component={MainPage} /> */}
     </Switch>
   </div>

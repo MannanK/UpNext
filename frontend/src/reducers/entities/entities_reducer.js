@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
 import interestsReducer from './interests_reducer';
-import recommendationsReducer from './recommendations_reducer';
+// import recommendationsReducer from './recommendations_reducer';
 
-export default combineReducer({
+export default combineReducers({
     interests: interestsReducer,
-    recommendations: recommendationsReducer
+    // recommendations: recommendationsReducer
 });

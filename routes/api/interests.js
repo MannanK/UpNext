@@ -1,6 +1,20 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
+const Interest = require("../../models/Interest");
 
-router.get("/test", (req, res) => res.json({ msg: "This is the interests route" }));
+router.get("/", passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.json({
+      id: req.user.id
+    });
+  }
+);
+
+router.post("/", passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.json({
+      id: req.user.id
+    });
+  }
+);
 
 module.exports = router;

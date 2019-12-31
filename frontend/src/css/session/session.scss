@@ -26,6 +26,11 @@ h1.splash-title {
   position: relative;
   padding: 4%;
   background-color: $main-color;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+
 
   @media (min-width: 900px) {
     width: 500px;
@@ -87,7 +92,7 @@ input.error {
 
 //For Sign-in and Log-in button
 input.form-submit {
-  width: 50%;
+  width: 140px;
   font-weight: bold;
   background-color: $button-color;
   border-radius: 0;
@@ -100,6 +105,17 @@ input.form-submit:hover {
     cursor: pointer;
     background-color: $button-color-hover;
   }
+}
+
+button#demo-button {
+  width: 140px;
+  font-weight: bold;
+  background-color: #7e56eb;
+  border-radius: 0;
+  text-align: center;
+  padding: 6px 4px;
+  box-sizing: border-box;
+  font-size: 1.1em;
 }
 
 .form-button {

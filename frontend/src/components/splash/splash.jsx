@@ -58,9 +58,9 @@ class Splash extends React.Component {
         <div className={`${formType.toLowerCase()}-form-container`}>
           {form}
 
+          {demo}
           <div className="form-button">
             {button}
-            {demo}
           </div>
         </div>
       </div>

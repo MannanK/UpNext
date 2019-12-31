@@ -17,10 +17,4 @@ class Home extends React.Component {
   }
 }
 
-const msp = state => {
-}
-
-const mdp = dispatch => {
-}
-
 export default connect(null, null)(Home);

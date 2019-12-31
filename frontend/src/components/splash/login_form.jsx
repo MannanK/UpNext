@@ -36,7 +36,9 @@ class LoginForm extends React.Component {
       email: this.state.email,
       password: this.state.password
     };
+    this.props.login(user, this.props.history);
   }
+
 
 
   renderErrors() {
@@ -54,33 +56,29 @@ class LoginForm extends React.Component {
     render() {
       return (
         <div className="login-form-container">
+          <form onSubmit={this.handleSubmit}>
             <h2>Login</h2>
+            <div className="login-form">
+              <input
+                type="email"
+                value={this.state.email}
+                onChange={this.update("email")}
+                placeholder="Email"
+              />
+              <input
+                type="password"
+                value={this.state.password}
+                onChange={this.update("password")}
+                placeholder="Password"
+              />
+              <input className="form-submit" type="submit" value="Login" />
 
-            <form onSubmit={this.handleSubmit}>
-                <div className="login-form">
-                    <input type="text"
-                        value={this.state.username}
-                        onChange={this.update('username')}
-                        placeholder = "Username"
-                    />
-                    <input type="text"
-                        value={this.state.email}
-                        onChange={this.update('email')}
-                        placeholder = "Email"
-                    />
-                    <input type="password"
-                        value={this.state.password}
-                        onChange={this.update('password')}
-                        placeholder = "Password"
-                    />
-                    <input className="form-submit" type="submit" value="Login" />
+              {this.renderErrors()}
+            </div>
+          </form>
 
-
-            {this.renderErrors()}
-          </div>
-        </form>
-      </div>
-    );
+        </div>
+      );
   }
 }
 

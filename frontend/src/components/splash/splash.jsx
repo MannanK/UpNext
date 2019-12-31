@@ -1,6 +1,7 @@
 import React from 'react';
 import SignupFormContainer from './signup_form_container';
 import LoginFormContainer from './login_form_container';
+import { login } from '../../actions/session_actions';
 import { connect } from 'react-redux';
 import { openModal } from '../../actions/modal_actions';
 
@@ -16,6 +17,7 @@ class Splash extends React.Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.handleDemo = this.handleDemo.bind(this);
   }
 
   handleClick(field) {
@@ -25,6 +27,12 @@ class Splash extends React.Component {
       })
     );
   }
+
+  handleDemo(e) {
+    this.props.login({ email: "tommy@duek.com", password: "hunter2" }); 
+  }
+
+
 
   render() {
     const { formType } = this.state;
@@ -48,6 +56,7 @@ class Splash extends React.Component {
 
         <div className="form-button">
           { button }
+          <button onClick={this.handleDemo}>DEMO</button>
         </div>
       </div>
     );
@@ -58,6 +67,7 @@ const msp = state => {
 }
 
 const mdp = dispatch => ({
+  login: user => dispatch(login(user)),
   openModal: modal => dispatch(openModal(modal))
 });
 

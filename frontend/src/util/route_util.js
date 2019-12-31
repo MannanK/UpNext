@@ -8,7 +8,7 @@ const Auth = ({ component: Component, path, loggedIn, exact }) => (
       <Component {...props} />
     ) : (
         // CHANGE REDIRECT WHEN READY
-        <Redirect to="/" />
+        <Redirect to="/home" />
       )
   )} />
 );

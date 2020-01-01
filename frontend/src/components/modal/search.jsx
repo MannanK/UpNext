@@ -63,16 +63,16 @@ class Search extends React.Component {
     console.log(this.state.searchResults);
     const {searchResults} = this.state;
 
-    let results = searchResults.map((result, idx) => {
-          return <li onClick={this.handleClick} key={idx}> {result.Title} </li>
-        });
-
-    // let results = (searchResults.length > 0) ? (
-    //   <ul className="search-results">
-    //     {searchResults.map((result, idx) => {
+    // let results = searchResults.map((result, idx) => {
     //       return <li onClick={this.handleClick} key={idx}> {result.Title} </li>
-    //     })}
-    // </ul> ) : "";
+    //     });
+
+    let results = (searchResults.length > 0) ? (
+      <ul className="search-results">
+        {searchResults.map((result, idx) => {
+          return <li onClick={this.handleClick} key={idx}> {result.Title} </li>
+        })}
+    </ul> ) : "";
 
 
     return(
@@ -84,9 +84,9 @@ class Search extends React.Component {
           onChange={this.handleInput}
           autoFocus/>
         <div>
-          <ul className="search-results">
+          {/* <ul className="search-results"> */}
             {results}
-          </ul>
+          {/* </ul> */}
         </div>
       </div>
     );

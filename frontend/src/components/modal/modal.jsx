@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../../actions/modal_actions';
 import Search from './search';
+import Details from './details';
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) {
@@ -12,9 +13,16 @@ const Modal = ({ modal, closeModal }) => {
   let modalBackClass;
   let modalChildClass;
 
-  switch (modal) {
+  switch (modal.type) {
     case 'tester':
       component = <Search closeModal={closeModal}/>
+      modalBackClass = 'grey-background';
+      modalChildClass = 'search-child';
+      break;
+    case 'details':
+      component = <Details closeModal={closeModal} 
+        detailsId={modal.detailsId} 
+        detailsType={modal.detailsType}/>
       modalBackClass = 'grey-background';
       modalChildClass = 'search-child';
       break;

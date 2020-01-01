@@ -55,7 +55,7 @@ class Search extends React.Component {
   // first make a call to omdb to get the full interest info
   // then make a call to our own backend with the return value of that, to add
     // a new interest
-  handleClick(title) {
+  handleClick(title, year) {
     return e => {
       e.preventDefault();
 
@@ -64,11 +64,12 @@ class Search extends React.Component {
       instance.defaults.headers.common.accept = 'application/json';
 
       instance
-        .get(`http://www.omdbapi.com/?t=${title}&apikey=${omdbApiKey}`)
+        .get(`http://www.omdbapi.com/?t=${title}&y=${year}&apikey=${omdbApiKey}`)
         .then(response => {
           console.log(response.data);
 
           this.props.createInterest(response.data);
+          this.props.closeModal();
         });
     };
   }
@@ -78,7 +79,7 @@ class Search extends React.Component {
 
     let results = !isEmpty(searchResults) ? (
       searchResults.map((result, idx) => {
-        return <li onClick={this.handleClick(result.Title)} key={idx}>{result.Title}</li>
+        return <li onClick={this.handleClick(result.Title, result.Year)} key={idx}>{result.Title} ({result.Year})</li>
       })
     ) : "";
 

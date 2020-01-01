@@ -6,14 +6,13 @@ const InterestsReducer = (state = {}, action) => {
 
   switch(action.type) {
     case RECEIVE_INTERESTS:
-      newState.all = action.interests.data;
+      newState = action.interests.data;
       return newState;
     case RECEIVE_NEW_INTEREST:
-      // newState.all = action.interest.data;
-      newState.all = Object.assign({}, newState.all, { [action.interest.data._id] : action.interest.data });
+      newState[action.interest.data._id] = action.interest.data;
       return newState;
     case REMOVE_INTEREST:
-      newState.all = action.interest.data;
+      newState = action.interest.data;
       return newState;
     default:
       return state;

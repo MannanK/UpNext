@@ -61,10 +61,19 @@ class Search extends React.Component {
 
   render() {
     console.log(this.state.searchResults);
+    const {searchResults} = this.state;
 
-    let results = this.state.searchResults.map((result, idx) => {
-      return <li onClick={this.handleClick} key={idx}> {result.Title} </li>
-    });
+    let results = searchResults.map((result, idx) => {
+          return <li onClick={this.handleClick} key={idx}> {result.Title} </li>
+        });
+
+    // let results = (searchResults.length > 0) ? (
+    //   <ul className="search-results">
+    //     {searchResults.map((result, idx) => {
+    //       return <li onClick={this.handleClick} key={idx}> {result.Title} </li>
+    //     })}
+    // </ul> ) : "";
+
 
     return(
       <div className='search-container'>

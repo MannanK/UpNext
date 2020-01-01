@@ -1,4 +1,47 @@
 .interests-container {
   height: 28vh;
+  width: 100%;
   background: purple;
+  position: relative;
 }
+
+//FOR TEMP HEADING "this is interests"
+.interests-container span {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+////
+
+
+///SIMPLE SLIDER
+
+.interests-slider {
+}
+
+.slick-slider {
+  height: 21.5vh;
+  // height: 150px;
+}
+
+
+///FOR TEMP SLIDE CONTENT
+.slick-slide h3 {
+  text-align: center;
+}
+///
+
+
+//ARROWS
+.slick-arrow {
+  position: absolute;
+}
+
+.slick-next {
+  right: 0;
+}
+
+.slick-prev {
+  left: 0;
+}
+///ARROWS

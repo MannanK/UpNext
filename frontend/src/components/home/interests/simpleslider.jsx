@@ -13,7 +13,7 @@ export default class SimpleSlider extends Component {
       slidesToScroll: 1
     };
     return (
-      <div>
+      <div className="interests-slider">
         <h2> Single Item</h2>
         <Slider {...settings}>
           <div>

@@ -6,7 +6,7 @@ class Recommendations extends React.Component {
   render() {
     return (
       <div className='recommendations-container'>
-        This is the recs gangagnagn
+        These are your recs
       </div>
     );
   }

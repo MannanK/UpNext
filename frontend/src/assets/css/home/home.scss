@@ -1,9 +1,4 @@
 .home-main {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
   @media (min-width: 900px) {
     max-width: 900px;
     ///since outer container is 'div root' and shouldn't be flex

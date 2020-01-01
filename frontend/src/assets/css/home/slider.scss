@@ -1,0 +1,34 @@
+// Slider
+.slick-slider {
+  height: 100%;
+  text-align: center;
+
+  // Ensures that slider items don't grow beyond their size
+  div {
+    height: 100%;
+  }
+}
+
+// Arrows - keeps them from going off screen
+.slick-arrow {
+  position: absolute;
+  z-index: 2;
+}
+
+.slick-next {
+  right: 0;
+}
+
+.slick-prev {
+  left: 0;
+}
+
+
+// Slider item
+.slider-item {
+  
+  img {
+    width: auto;
+    height: 100%;
+  }
+}

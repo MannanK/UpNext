@@ -6,8 +6,8 @@ class Interests extends React.Component {
 
   render() {
     return (
-      <div className='interests-container'>
-        This is the intesrsts323
+      <div className="interests-container">
+        <span>This is the intesrsts323</span>
         <SimpleSlider />
       </div>
     );

@@ -4,6 +4,7 @@ import LoginFormContainer from './login_form';
 import { login } from '../../actions/session_actions';
 import { connect } from 'react-redux';
 import { openModal } from '../../actions/modal_actions';
+// import {} from "../../assets/images/logo_3.png"
 
 const SIGNUP = "signup";
 const LOGIN = "login";
@@ -47,7 +48,6 @@ class Splash extends React.Component {
           <span onClick={this.handleClick(LOGIN)}>Log in!</span>
         </span>
       );
-              // <button id="login-button" onClick={this.handleClick(LOGIN)}>Login</button>;
       demo = "";
     } else {
       form = <LoginFormContainer />;
@@ -57,21 +57,21 @@ class Splash extends React.Component {
           <span onClick={this.handleClick(SIGNUP)}>Sign up!</span>
         </span>
       );
-      // <button id="sign-up-button" onClick={this.handleClick(SIGNUP)}>Sign Up</button>
       demo = <button id="demo-button" onClick={this.handleDemo}>DEMO</button>;
     }
 
     return (
       <div className="splash-container">
-        <h1 className="splash-title">UpNext</h1>
+        {/* <h1 className="splash-title">UpNext</h1> */}
+        <div className="splash-header">
+          <img src={require("../../assets/images/logo_3.png")} alt="logo" />
+        </div>
 
         <div className={`${formType.toLowerCase()}-form-container`}>
           {form}
 
           {demo}
-          <div className="form-button">
-            {button}
-          </div>
+          <div className="form-button">{button}</div>
         </div>
       </div>
     );

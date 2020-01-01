@@ -75,13 +75,15 @@ class Search extends React.Component {
   }
 
   render() {
-    const { searchResults } = this.state;
+    const {searchResults} = this.state;
 
     let results = !isEmpty(searchResults) ? (
-      searchResults.map((result, idx) => {
-        return <li onClick={this.handleClick(result.Title, result.Year)} key={idx}>{result.Title} ({result.Year})</li>
-      })
-    ) : "";
+      <ul className="search-results">
+        {searchResults.map((result, idx) => {
+          return <li onClick={this.handleClick(result.Title, result.Year)} key={idx}>{result.Title} ({result.Year})</li>
+        })}
+      </ul> ) : "";
+
 
     return(
       <div className='search-container'>
@@ -92,9 +94,7 @@ class Search extends React.Component {
           onChange={this.handleInput}
           autoFocus/>
         <div>
-          <ul className="search-results">
-            {results}
-          </ul>
+          {results}
         </div>
       </div>
     );

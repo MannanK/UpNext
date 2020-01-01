@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../../actions/modal_actions';
-import Search from '../modal/search';
+import Search from './search';
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) {

@@ -9,23 +9,39 @@
 
 }
 
-h1.splash-title {
-  text-align: center;
-  font-size: 3em;
-  font-weight: 700;
+.splash-header {
+  width: 100%;
+  height: 130px;
   position: absolute;
-  padding: 10px;
   top: 0;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
 }
+
+.splash-header img {
+  height: 100%;
+  width: auto;
+  filter: brightness(2);
+}
+
+// h1.splash-title {
+//   text-align: center;
+//   font-size: 3em;
+//   font-weight: 700;
+//   position: absolute;
+//   padding: 10px;
+//   top: 0;
+// }
 
 .signup-form-container, .login-form-container{
   border-radius: 10px;
-  border: 3px solid rgb(77, 4, 145);
+  // border: 3px solid rgb(77, 4, 145);
   width: 66vw;
-  height: 55vh;
+  min-height: 55vh;
   position: relative;
   padding: 4%;
-  background-color: $main-color;
+  background-color: $main-color-transparent;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -163,6 +179,6 @@ button#demo-button {
   font-size: 0.7em;
   width: 100%;
   padding-left: 5px;
-  color: red;
+  color: rgb(255, 253, 134);
   
 }

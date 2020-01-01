@@ -33,17 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (decodedUser.exp < currentTime) {
       // Logout the user and redirect to the login page
       store.dispatch(logout());
-      window.location.href = '/login';
+      window.location.href = '/';
     }
   } else {
     store = configureStore({});
   }
 
-
   //remove these, for testing only
   window.getState = store.getState;
   window.dispatch = store.dispatch;
-
 
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);

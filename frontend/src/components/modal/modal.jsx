@@ -14,7 +14,7 @@ const Modal = ({ modal, closeModal }) => {
 
   switch (modal) {
     case 'tester':
-      component = <Search />
+      component = <Search closeModal={closeModal}/>
       modalBackClass = 'grey-background';
       modalChildClass = 'search-child';
       break;

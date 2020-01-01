@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { omdbApiKey } from '../../config/keys';
-// import debounce from "lodash.debounce";
+import { createInterest } from '../../actions/interest_actions';
+
 const debounce = require("lodash.debounce");
+const isEmpty = require("lodash.isempty");
 
 class Search extends React.Component {
   constructor(props) {
@@ -14,7 +16,6 @@ class Search extends React.Component {
       searchResults: []
     };
 
-    // this.handleInput = this.handleInput.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.makeDebouncedSearch = debounce(this.makeDebouncedSearch, 700);
     this.handleClick = this.handleClick.bind(this);
@@ -24,13 +25,12 @@ class Search extends React.Component {
     let keyword = e.currentTarget.value;
 
     this.setState({keyword});
-    console.log(this.state.keyword);
 
     // 1. make the omdb call to get the final interest the user chose
     if (keyword !== "") {
       this.makeDebouncedSearch(keyword);
     }
-  };
+  }
 
   makeDebouncedSearch(keyword) {
     const instance = axios.create();
@@ -38,10 +38,11 @@ class Search extends React.Component {
     instance.defaults.headers.common.accept = 'application/json';
 
     instance
-      .get(`http://www.omdbapi.com/?s=${keyword}&apikey=${omdbApiKey}`)
+      .get(`http://www.omdbapi.com/?s=${keyword}&type=movie&apikey=${omdbApiKey}`)
       .then(response => {
-        let searchResults = response.data["Search"];
-        if (searchResults !== null) {
+        let searchResults = response.data.Search;
+
+        if (!isEmpty(searchResults)) {
           searchResults = searchResults.slice(0, 9);
         }
 
@@ -54,25 +55,34 @@ class Search extends React.Component {
   // first make a call to omdb to get the full interest info
   // then make a call to our own backend with the return value of that, to add
     // a new interest
-  handleClick(e) {
-    
-    
+  handleClick(title, year) {
+    return e => {
+      e.preventDefault();
+
+      const instance = axios.create();
+      instance.defaults.headers.common = {};
+      instance.defaults.headers.common.accept = 'application/json';
+
+      instance
+        .get(`http://www.omdbapi.com/?t=${title}&y=${year}&apikey=${omdbApiKey}`)
+        .then(response => {
+          console.log(response.data);
+
+          this.props.createInterest(response.data);
+          this.props.closeModal();
+        });
+    };
   }
 
   render() {
-    console.log(this.state.searchResults);
     const {searchResults} = this.state;
 
-    // let results = searchResults.map((result, idx) => {
-    //       return <li onClick={this.handleClick} key={idx}> {result.Title} </li>
-    //     });
-
-    let results = (searchResults.length > 0) ? (
+    let results = !isEmpty(searchResults) ? (
       <ul className="search-results">
         {searchResults.map((result, idx) => {
-          return <li onClick={this.handleClick} key={idx}> {result.Title} </li>
+          return <li onClick={this.handleClick(result.Title, result.Year)} key={idx}>{result.Title} ({result.Year})</li>
         })}
-    </ul> ) : "";
+      </ul> ) : "";
 
 
     return(
@@ -84,13 +94,15 @@ class Search extends React.Component {
           onChange={this.handleInput}
           autoFocus/>
         <div>
-          {/* <ul className="search-results"> */}
-            {results}
-          {/* </ul> */}
+          {results}
         </div>
       </div>
     );
   }
 }
 
-export default connect(null, null)(Search);
+const mdp = dispatch => ({
+  createInterest: data => dispatch(createInterest(data))
+});
+
+export default connect(null, mdp)(Search);

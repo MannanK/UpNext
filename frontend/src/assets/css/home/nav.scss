@@ -2,7 +2,7 @@
 .nav-container {
   height: 16vh;
   width: 100%;
-  background: green;
+  background: transparent;
 }
 
 // Nav header container
@@ -11,15 +11,38 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 0px 15px;
 }
 
+///NAV LOGO
+.nav-logo {
+  width: 185px;
+}
+
+.nav-logo img {
+  filter: brightness(1.5);  
+}
+////
+
 .logout-button {
-  padding: 5px 10px;
-  border-radius: 3px;
+  // padding: 5px 10px;
+  // border-radius: 3px;
+  // background: red;
+
+  width: 100px;
+  font-weight: bold;
+  background-color: #7e56eb;
+  border-radius: 0;
+  text-align: center;
+  padding: 6px 4px;
+  box-sizing: border-box;
+  font-size: 1em;
   
-  background: red;
+  @media (min-width: 900px) {
+    padding: 9px;
+    font-size: 1.1em;
+    width: 120px;
+  }
 }
 
 // Nav search container

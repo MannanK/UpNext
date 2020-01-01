@@ -25,26 +25,28 @@ class Details extends React.Component {
   render() {
     const detailsItem = this.props.detailsItem || {};
 
-    let score = {
-      width: `${(detailsItem.voteAverage / 10) * 100}%`
-    };
+    // let score = {
+    //   width: `${(detailsItem.voteAverage / 10) * 100}%`
+    // };
 
     return (
       <section className="detail-container">
 
         <div className="poster">
-          <img src="" alt="poster"/>
+          {/* <img src="" alt="poster"/> */}
         </div>
 
-        <h3>{detailsItem.title}</h3>
+        {/* <h3>{detailsItem.title}</h3> */}
+        <h3 className="detail-title">The Lord of the Rings: The Return of the King</h3>
 
         <div className="runtime-scores">
 
-          <span>{detailsItem.year}</span>
-          <span>{detailsItem.runtime}</span>
+          {/* <span>{detailsItem.year}</span>
+          <span>{detailsItem.runtime}</span> */}
 
           <div className="score">
-            <span className="stars" style={score}>
+            {/* <span className="stars" style={score}> */}
+            <span className="stars" >
               <i className="fas fa-star"></i>
               <i className="fas fa-star"></i>
               <i className="fas fa-star"></i>
@@ -58,14 +60,14 @@ class Details extends React.Component {
             </span>
           </div>
 
-          <div>
-            {detailsItem.voteCount}
+          <div className="vote-count">
+            {/* {detailsItem.voteCount} */}
           </div>
 
         </div>
 
         <div className="overview">
-          {detailsItem.overview}
+          {/* {detailsItem.overview} */}
         </div>
 
         <button className="add-interest" 
@@ -80,16 +82,16 @@ class Details extends React.Component {
 }
 
 
-const msp = (state, ownProps) => {
-  let detailsItem = state.entities[ownProps.detailsType][ownProps.detailsId];
+// const msp = (state, ownProps) => {
+//   let detailsItem = state.entities[ownProps.detailsType][ownProps.detailsId];
 
-  return {
-    detailsItem
-  }
-}
+//   return {
+//     detailsItem
+//   }
+// }
 const mdp = dispatch => ({
   createInterest: data => dispatch(createInterest(data)),
   deleteInterest: dataId => dispatch(deleteInterest(dataId))
 });
 
-export default connect(msp, mdp)(Details);
+export default connect(null, mdp)(Details);

@@ -1,0 +1,31 @@
+.detail-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+section.detail-container {
+  border-radius: 10px;
+  height: 600px;
+  width: 310px;  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  position: relative;
+  // padding: 4%;
+  background-color: $main-color-transparent;
+}
+
+
+.poster {
+  height: 200px;
+  width: 120px;
+  border: 1px solid black;
+}
+
+.detail-title {
+  margin: 0;
+  text-align: center;
+}

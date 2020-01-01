@@ -4,7 +4,6 @@ import LoginFormContainer from './login_form';
 import { login } from '../../actions/session_actions';
 import { connect } from 'react-redux';
 import { openModal } from '../../actions/modal_actions';
-// import {} from "../../assets/images/logo_3.png"
 
 const SIGNUP = "signup";
 const LOGIN = "login";
@@ -62,7 +61,7 @@ class Splash extends React.Component {
 
     return (
       <div className="splash-container">
-        {/* <h1 className="splash-title">UpNext</h1> */}
+
         <div className="splash-header">
           <img src={require("../../assets/images/logo_3.png")} alt="logo" />
         </div>

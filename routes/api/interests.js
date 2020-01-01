@@ -11,9 +11,17 @@ router.get("/", passport.authenticate('jwt', { session: false }), (req, res) => 
 );
 
 router.post("/", passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.json({
-      id: req.user.id
+    // user id: req.user.id
+
+    const newInterest = new Interest({
+      title: req.body.Title,
+      type: req.body.Type,
+      poster: req.body.Poster
     });
+
+    newInterest.save()
+      .then(interest => res.json(interest))
+      .catch(err => console.log(err));
   }
 );
 

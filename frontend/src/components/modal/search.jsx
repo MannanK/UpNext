@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { omdbApiKey } from '../../config/keys';
+import { createInterest } from '../../actions/interest_actions';
 
 const debounce = require("lodash.debounce");
 const isEmpty = require("lodash.isempty");
@@ -66,6 +67,8 @@ class Search extends React.Component {
         .get(`http://www.omdbapi.com/?t=${title}&apikey=${omdbApiKey}`)
         .then(response => {
           console.log(response.data);
+
+          this.props.createInterest(response.data);
         });
     };
   }
@@ -97,4 +100,8 @@ class Search extends React.Component {
   }
 }
 
-export default connect(null, null)(Search);
+const mdp = dispatch => ({
+  createInterest: data => dispatch(createInterest(data))
+});
+
+export default connect(null, mdp)(Search);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { omdbApiKey } from '../../config/keys';
+import { tmdbApiKey } from '../../config/keys';
 import { createInterest } from '../../actions/interest_actions';
 
 const debounce = require("lodash.debounce");
@@ -17,18 +17,27 @@ class Search extends React.Component {
     };
 
     this.handleInput = this.handleInput.bind(this);
-    this.makeDebouncedSearch = debounce(this.makeDebouncedSearch, 700);
+    this.makeDebouncedSearch = debounce(this.makeDebouncedSearch, 350);
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentWillUnmount() {
+    // without this, we get a memory leak error
+    // after unmounting the debounced function was still getting called, and
+      // therefore we were trying to setState for searchResults after the
+      // component had already unmounted
+    this.makeDebouncedSearch.cancel();
   }
 
   handleInput(e) {
     let keyword = e.currentTarget.value;
 
-    this.setState({keyword});
-
     // 1. make the omdb call to get the final interest the user chose
     if (keyword !== "") {
+      this.setState({ keyword });
       this.makeDebouncedSearch(keyword);
+    } else {
+      this.props.closeModal();
     }
   }
 
@@ -37,10 +46,12 @@ class Search extends React.Component {
     instance.defaults.headers.common = {};
     instance.defaults.headers.common.accept = 'application/json';
 
+    // https://developers.themoviedb.org/3/search/search-movies
+
     instance
-      .get(`http://www.omdbapi.com/?s=${keyword}&type=movie&apikey=${omdbApiKey}`)
+      .get(`https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${keyword}&include_adult=false`)
       .then(response => {
-        let searchResults = response.data.Search;
+        let searchResults = response.data.results;
 
         if (!isEmpty(searchResults)) {
           searchResults = searchResults.slice(0, 9);
@@ -55,7 +66,7 @@ class Search extends React.Component {
   // first make a call to omdb to get the full interest info
   // then make a call to our own backend with the return value of that, to add
     // a new interest
-  handleClick(title, year) {
+  handleClick(id) {
     return e => {
       e.preventDefault();
 
@@ -63,8 +74,10 @@ class Search extends React.Component {
       instance.defaults.headers.common = {};
       instance.defaults.headers.common.accept = 'application/json';
 
+      // https://developers.themoviedb.org/3/movies/get-movie-details
+
       instance
-        .get(`http://www.omdbapi.com/?t=${title}&y=${year}&apikey=${omdbApiKey}`)
+        .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${tmdbApiKey}`)
         .then(response => {
           console.log(response.data);
 
@@ -76,11 +89,14 @@ class Search extends React.Component {
 
   render() {
     const {searchResults} = this.state;
+    
+    let sorted = searchResults.sort((a, b) => (a.release_date < b.release_date) ? 1 : -1);
 
     let results = !isEmpty(searchResults) ? (
       <ul className="search-results">
-        {searchResults.map((result, idx) => {
-          return <li onClick={this.handleClick(result.Title, result.Year)} key={idx}>{result.Title} ({result.Year})</li>
+        {sorted.map((result, idx) => {
+          let year = result.release_date.slice(0,4);
+          return <li onClick={this.handleClick(result.id)} key={idx}>{result.title} ({year})</li>
         })}
       </ul> ) : "";
 

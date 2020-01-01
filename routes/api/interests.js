@@ -4,24 +4,30 @@ const passport = require("passport");
 const Interest = require("../../models/Interest");
 
 router.get("/", passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.json({
-      id: req.user.id
-    });
-  }
-);
+  Interest.find({ user: req.user.id })
+    .then(interests => res.json(interests))
+    .catch(err => console.log(err));
+});
 
 router.post("/", passport.authenticate('jwt', { session: false }), (req, res) => {
     // user id: req.user.id
-    Interest.findOne({ title: req.body.Title, year: req.body.Year })
+    Interest.findOne({ user: req.user.id, movieId: req.body.id })
       .then(interest => {
         if (interest) {
           return res.status(400).json({ title: "You have already added this movie"}); 
         } else {
           const newInterest = new Interest({
-            title: req.body.Title,
-            year: req.body.Year,
-            type: req.body.Type,
-            poster: req.body.Poster
+            user: req.user.id,
+            movieId: req.body.id,
+            title: req.body.title,
+            year: req.body.release_date,
+            genres: req.body.genres,
+            type: "movie",
+            poster: req.body.poster_path,
+            overview: req.body.overview,
+            runtime: req.body.runtime,
+            voteAverage: req.body.vote_average,
+            voteCount: req.body.vote_count
           });
 
           newInterest.save()

@@ -38,4 +38,9 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
   }
 );
 
+router.delete(`/${req}`, passport.authenticate('jwt', {session: false}), (req, res) => {
+  Interest.findOne({ _id: req., })
+}
+);
+
 module.exports = router;

@@ -38,10 +38,6 @@ class Details extends React.Component {
   render() {
     const detailsItem = this.props.detailsItem || {};
 
-    // let score = {
-    //   width: `${(detailsItem.voteAverage / 10) * 100}%`
-    // };
-
     ///RENDER BUTTONS
     let button = (this.props.detailsType === "recommendations") ? (
       <button className="interest-button" onClick={this.addInterest}>
@@ -60,7 +56,10 @@ class Details extends React.Component {
     return (
       <>
         {/* <h3 className="detail-title">The Lord of the Rings: The Return of the King</h3> */}
-        <h3 className="detail-title">{detailsItem.title}</h3>
+        <div className="detail-heading">
+          <h3 className="detail-title">{detailsItem.title}</h3>
+        </div>
+
         <section className="detail-container">
           <section className="top-half">
             <div className="poster">
@@ -73,20 +72,6 @@ class Details extends React.Component {
             <div className="runtime-scores">
 
               <div className="ratings-container">
-                {/* <div className="score">
-                  <span className="stars" style={score}>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                  </span>
-                </div> */}
                 <div className="star">
                   <i className="fas fa-star"></i>
                 </div>

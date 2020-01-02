@@ -2,16 +2,20 @@
 .nav-container {
   height: 16vh;
   width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   background: transparent;
 }
 
 // Nav header container
 .nav-header {
   height: 60%;
+  width: 95vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 15px;
+  // padding: 0px 15px;
 }
 
 ///NAV LOGO
@@ -53,6 +57,7 @@
 // Nav search container
 .nav-search {
   height: 40%;
+  width: 95vw;
 }
 
 // Nav search input

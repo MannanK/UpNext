@@ -33,7 +33,7 @@ export default class SimpleSlider extends Component {
 
 
   render() {
-    const interests = Object.values(this.props.items);
+    const interests = Object.values(this.props.items).reverse();
 
     const sliderItems = interests.map((interest, index) => {
       return(
@@ -51,7 +51,7 @@ export default class SimpleSlider extends Component {
       speed: 500,
       slidesToShow: numSlides + 0.1,
       slidesToScroll: numSlides,
-      rtl: true
+      // rtl: true
       // arrows: false,
     };
 

@@ -9,11 +9,6 @@
   }
 }
 
-// .slick-track {
-//   display: flex;
-//   flex-direction: row-reverse;
-// }
-
 // Media query to add a small margin to the left for desktop view
 @media (min-width: 900px) {
   .slick-track {
@@ -48,5 +43,6 @@
 .slider-image {
   width: auto;
   height: 100%;
+  max-width:118px;
   border-radius: 3px;
 }

@@ -99,7 +99,7 @@ class Search extends React.Component {
                 recommendation.genres = movie.data.genres;
                 recommendation.runtime = movie.data.runtime;
 
-                this.props.createSimilarRecommendation(recommendation, recId);
+                // this.props.createSimilarRecommendation(recommendation, recId);
 
                 if (count === 15) this.props.closeModal();
               });

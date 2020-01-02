@@ -52,7 +52,7 @@ class Search extends React.Component {
     // https://developers.themoviedb.org/3/search/search-movies
 
     instance
-      .get(`https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${keyword}&include_adult=false`)
+      .get(`https://api.themoviedb.org/3/search/movie?api_key=${this.tmdbApiKey}&query=${keyword}&include_adult=false`)
       .then(response => {
         let searchResults = response.data.results;
 
@@ -80,7 +80,7 @@ class Search extends React.Component {
       // https://developers.themoviedb.org/3/movies/get-movie-details
 
       instance
-        .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${tmdbApiKey}`)
+        .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${this.tmdbApiKey}`)
         .then(response => {
           this.props.createInterest(response.data);
           this.props.closeModal();
@@ -88,13 +88,13 @@ class Search extends React.Component {
 
       // May refactor in the future so that recommendations are made only after and if createInterest and closeModal are successful
       instance
-        .get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${tmdbApiKey}`)
+        .get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${this.tmdbApiKey}`)
         .then(response => {
           let count = 0;
 
           response.data.results.forEach((recommendation) => {
             let recId = recommendation.id;
-            instance.get(`https://api.themoviedb.org/3/movie/${recId}?api_key=${tmdbApiKey}`)
+            instance.get(`https://api.themoviedb.org/3/movie/${recId}?api_key=${this.tmdbApiKey}`)
               .then(movie => {
                 count += 1;
 

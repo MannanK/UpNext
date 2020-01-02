@@ -11,14 +11,13 @@ class SimpleSliderItem extends React.Component {
     };
 
     const { interest } = this.props;
-    
+
     return(
-      <div className="slider-item"
-        onClick={() => this.props.openModal(modal)}>
-        <header className='slider-item-header'>this is a valiue rn</header>
+      <div className="slider-item">
         <img
-          className='slider-item-image'
-          src={require("../../../assets/images/shrek2.jpg")} alt="logo" />
+          className='slider-image'
+          src={`https://image.tmdb.org/t/p/w500/${interest.poster}`} alt="movie"
+          onClick={() => this.props.openModal(modal)} />
       </div>
     );
   }

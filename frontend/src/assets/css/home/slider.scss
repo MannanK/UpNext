@@ -2,6 +2,7 @@
 .slick-slider {
   height: 100%;
   text-align: center;
+  
 
   // Ensures that slider items don't grow beyond their size
   div {
@@ -17,6 +18,7 @@
 
 .slick-next {
   right: 0;
+  background: green;
 }
 
 .slick-prev {
@@ -26,9 +28,15 @@
 
 // Slider item
 .slider-item {
-  
-  img {
-    width: auto;
-    height: 100%;
-  }
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+
+  min-width: 80px;
+}
+
+.slider-image {
+  width: auto;
+  height: 100%;
+  border-radius: 3px;
 }

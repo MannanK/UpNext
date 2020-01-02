@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { tmdbApiKey } from '../../config/keys';
 import { createInterest } from '../../actions/interest_actions';
 import { createSimilarRecommendation } from '../../actions/recommendation_actions';
+
+const keys = require('../../config/keys');
+const tmdbApiKey = keys.tmdbApiKey;
 
 const debounce = require("lodash.debounce");
 const isEmpty = require("lodash.isempty");

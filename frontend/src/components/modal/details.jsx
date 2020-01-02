@@ -26,7 +26,7 @@ class Details extends React.Component {
 
   removeFromInterests(e) {
     e.preventDefault();
-    this.props.deleteInterest(this.props.detailsItem._id);
+    this.props.deleteInterest({ _id: this.props.detailsItem._id });
     this.props.closeModal();
   }
 

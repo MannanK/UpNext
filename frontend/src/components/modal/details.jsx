@@ -59,8 +59,8 @@ class Details extends React.Component {
 
     return (
       <>
-        <h3 className="detail-title">The Lord of the Rings: The Return of the King</h3>
-            {/* <h3 className="detail-title">{detailsItem.title}</h3> */}
+        {/* <h3 className="detail-title">The Lord of the Rings: The Return of the King</h3> */}
+        <h3 className="detail-title">{detailsItem.title}</h3>
         <section className="detail-container">
           <section className="top-half">
             <div className="poster">

@@ -4,13 +4,14 @@ import { openModal } from "../../../actions/modal_actions";
 
 class SimpleSliderItem extends React.Component {
   render() {
+    const { interest } = this.props;
+
     let modal = {
       type: "details",
       detailsType: "interests",
-      detailsId: "5e0e23dbc3a1c51dce1c4ad9"
+      detailsId: interest._id
     };
 
-    const { interest } = this.props;
 
     return(
       <div className="slider-item">

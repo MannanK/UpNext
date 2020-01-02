@@ -1,5 +1,4 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
 import { connect } from "react-redux";
 import { login, deleteErrors } from "../../actions/session_actions";
 

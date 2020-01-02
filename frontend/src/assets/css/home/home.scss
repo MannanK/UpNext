@@ -1,11 +1,3 @@
 .home-main {
-  @media (min-width: 900px) {
-    max-width: 900px;
-    ///since outer container is 'div root' and shouldn't be flex
-    display: block;
-    position: absolute;
-    left: 50vw;
-    transform: translateX(-50%);
-    ////
-  }
+
 }

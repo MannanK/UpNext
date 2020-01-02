@@ -10,7 +10,7 @@
 
 section.detail-container {
   border-radius: 10px;
-  height: 540px;
+  height: 520px;
   width: 300px;  
   display: flex;
   flex-wrap: wrap;
@@ -70,34 +70,31 @@ h3.detail-title {
 .runtime-scores {
   display: flex;
   width: 120px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
   height: 100%;
-  align-content: space-between;
 
   @media (min-width: 900px) {
     width: 220px;
   }
 }
 
-.runtime-scores > *, .year-time span:first-child {
-  margin-bottom: 10px;
-  @media (min-width: 900px) {
-    margin-bottom: 20px;
-  }
-}
+// .runtime-scores > *, .year-time span:first-child {
+//   margin-bottom: 10px;
+
+//   @media (min-width: 900px) {
+//     margin-bottom: 20px;
+//   }
+// }
 
 ///DATE AND RUNTIME
-.year-time {
-  display: flex;
-  font-size: 1.2em;
-  flex-wrap: wrap;
-  justify-content: flex-end;
 
-  
+.runtime-scores > span {
   @media (min-width: 900px) {
-    font-size: 1.5em;
+    font-size: 1.35em;
     width: 170px;
+    text-align: right;
   }
 }
 
@@ -124,47 +121,36 @@ h3.detail-title {
   font-size: 30px;
   color: yellow;
   height: fit-content;
+  padding-top: 2%;
+  margin-right: 5px;
   @media (min-width: 900px) {
     font-size: 50px;
   }
 }
 
-// .stars {
-//   display: none;
-//   color: rgb(214, 193, 0);
-//   overflow: hidden;
-//   // display: flex;
-//   margin: 0;
-
-//   @media (min-width: 900px) {
-//     display: flex;
-//   }
-
-// }
 
 .score-votes {
   display: flex;
   width: fit-content;
   flex-direction: column;
-    // width: 100px;
   height: fit-content;
   justify-content: flex-end;  
 
   
-  @media (min-width: 900px) {
-    // width: 120px;
-  }
+  // @media (min-width: 900px) {
+  //   // width: 120px;
+  // }
 }
 
 .score-num {
-  font-size: 35px;
+  font-size: 30px;
   @media (min-width: 900px) {
     font-size: 50px;
   }
 }
 
 .score-num span {
-  font-size: 18px;
+  font-size: 16px;
   @media (min-width: 900px) {
     font-size: 25px;
   }
@@ -178,17 +164,17 @@ h3.detail-title {
 }
 
 .genres {
-  font-size: 14px;
+  // font-size: 14px;
   text-align: right;
   @media (min-width: 900px) {
-    font-size: 22px;
+    font-size: 1.35em;
   }
 }
 ///////
 
 .overview {
   font-size: 16px;
-  max-height: 200px;
+  max-height: 180px;
   overflow-y: auto;
 
   @media (min-width: 900px) {
@@ -214,14 +200,14 @@ h3.detail-title {
   background-color: $button-color;
   border-radius: 5px;
   text-align: center;
-  padding: 6px 4px;
+  padding: 6px 8px;
   box-sizing: border-box;
   font-size: 1em;
   position: absolute;
   bottom: 25px;
   
   @media (min-width: 900px) {
-    padding: 9px;
+    padding: 9px 14px;
     font-size: 1.1em;
   }
 }

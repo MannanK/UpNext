@@ -12,10 +12,10 @@
 .nav-header {
   height: 60%;
   width: 95vw;
+  padding-top: 1vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // padding: 0px 15px;
 }
 
 ///NAV LOGO
@@ -56,8 +56,10 @@
 
 // Nav search container
 .nav-search {
-  height: 40%;
+  height: 6.4vh;
   width: 95vw;
+  top: 9.6vh;
+  position: absolute;
 }
 
 // Nav search input

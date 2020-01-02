@@ -20,6 +20,9 @@ class Search extends React.Component {
 
     this.tmdbApiKey = keys.tmdbApiKey;
     console.log("------------------------------------API KEY------------------------------------");
+    console.log(process.env);
+    console.log(process.env.TMDB_API_KEY);
+    console.log(keys);
     console.log(keys.tmdbApiKey);
 
     this.handleInput = this.handleInput.bind(this);

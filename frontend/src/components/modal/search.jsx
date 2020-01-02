@@ -57,13 +57,21 @@ class Search extends React.Component {
       .get(`https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${keyword}&include_adult=false`)
       .then(response => {
         let searchResults = response.data.results;
+        
+        // Removes any search results that are missing metadata like date or poster
+        let sanitizedResults = searchResults.reduce((store, entry) => {
+          if (!Object.values(entry).some(field => field === null)) {
+            store.push(entry);
+          }
+          return store;
+        }, []);
 
-        if (!isEmpty(searchResults)) {
-          searchResults = searchResults.slice(0, 9);
+        if (!isEmpty(sanitizedResults)) {
+          sanitizedResults = sanitizedResults.slice(0, 10);
         }
 
         this.setState({
-          searchResults
+          searchResults: sanitizedResults
         });
       });
   }

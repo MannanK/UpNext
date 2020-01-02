@@ -7,25 +7,95 @@
 
 section.detail-container {
   border-radius: 10px;
-  height: 600px;
+  height: 580px;
   width: 310px;  
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-content: flex-start;
   position: relative;
-  // padding: 4%;
+  padding: 10px 5px;
   background-color: $main-color-transparent;
 }
 
 
 .poster {
-  height: 200px;
-  width: 120px;
-  border: 1px solid black;
+  width: 150px;
 }
 
 .detail-title {
   margin: 0;
   text-align: center;
+}
+
+.runtime-scores {
+  display: flex;
+  flex-wrap: wrap;
+  width: 200px;
+  justify-content: center;
+}
+
+.year-time {
+  width: 250px;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.ratings-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 250px;
+}
+
+.score {
+  margin-bottom: 5px
+}
+
+.stars {
+  color: rgb(214, 193, 0);
+  overflow: hidden;
+  display: flex;
+  margin: 0;
+}
+
+.score-votes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.score-num {
+  font-size: 22px;
+}
+
+.score-num span {
+  font-size: 14px;
+}
+
+.vote-count {
+  font-size: 10px;
+}
+
+.overview {
+  font-size: 16px;
+  margin: 5px;
+}
+
+.add-interest {
+  width: 170px;
+  font-weight: bold;
+  background-color: #7e56eb;
+  border-radius: 0;
+  text-align: center;
+  padding: 6px 4px;
+  box-sizing: border-box;
+  font-size: 1em;
+  
+  @media (min-width: 900px) {
+    padding: 9px;
+    font-size: 1.1em;
+    width: 120px;
+  }
 }

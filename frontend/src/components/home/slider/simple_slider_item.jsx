@@ -3,11 +3,18 @@ import { connect } from 'react-redux';
 import { openModal } from "../../../actions/modal_actions";
 
 class SimpleSliderItem extends React.Component {
+  
 
   render() {
+    let modal = {
+      type: "details",
+      detailsType: "interests",
+      detailsId: "5e0d1ebafbf0cd1ceb8f11e0"
+    };
+    
     return(
       <div className="slider-item"
-        onClick={() => this.props.openModal({"type": "details"})}>
+        onClick={() => this.props.openModal(modal)}>
         <header className='slider-item-header'>this is a valiue rn</header>
         <img
           className='slider-item-image'

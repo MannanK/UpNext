@@ -16,6 +16,11 @@ section.detail-container {
   position: relative;
   padding: 10px 5px;
   background-color: $main-color-transparent;
+  position: relative;
+
+  @media (min-width: 900px) {
+    width: 500px;  
+  }
 }
 
 
@@ -35,6 +40,7 @@ section.detail-container {
   justify-content: center;
 }
 
+///DATE AND RUNTIME
 .year-time {
   width: 250px;
   display: flex;
@@ -42,6 +48,7 @@ section.detail-container {
   margin-bottom: 10px;
 }
 
+////RATINGS AND VOTES
 .ratings-container {
   display: flex;
   align-items: center;
@@ -77,6 +84,7 @@ section.detail-container {
 .vote-count {
   font-size: 10px;
 }
+///////
 
 .overview {
   font-size: 16px;
@@ -92,6 +100,8 @@ section.detail-container {
   padding: 6px 4px;
   box-sizing: border-box;
   font-size: 1em;
+  position: absolute;
+  bottom: 10px;
   
   @media (min-width: 900px) {
     padding: 9px;

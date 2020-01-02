@@ -46,6 +46,10 @@ const InterestSchema = new Schema({
   voteCount: {
     type: Number,
     required: true
+  },
+  genres: {
+    type: Array,
+    required: true
   }
 });
 

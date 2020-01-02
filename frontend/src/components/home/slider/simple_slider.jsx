@@ -44,16 +44,22 @@ export default class SimpleSlider extends Component {
     let aspectRatio = this.state.width / this.state.height;
     // *6.5 enables aspect ratio to relate to number of slides
     let numSlides = Math.floor(aspectRatio * 7);
-
-    const settings = {
-      // dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: numSlides + 0.1,
-      slidesToScroll: numSlides,
-      // rtl: true
-      // arrows: false,
-    };
+    let settings = (window.matchMedia("(max-width: 570px)").matches) ?
+      {
+        infinite: true,
+        speed: 500,
+        slidesToShow: numSlides + 0.1,
+        swipeToSlide: true,
+        arrows: false
+      } :
+      {
+        infinite: true,
+        speed: 500,
+        slidesToShow: numSlides + 0.1,
+        slidesToScroll: numSlides,
+        draggable: false,
+        arrows: true
+      };
 
     return (
       <div className='slider-container'>

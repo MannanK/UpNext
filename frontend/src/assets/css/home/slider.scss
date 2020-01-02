@@ -9,6 +9,18 @@
   }
 }
 
+// .slick-track {
+//   display: flex;
+//   flex-direction: row-reverse;
+// }
+
+// Media query to add a small margin to the left for desktop view
+@media (min-width: 900px) {
+  .slick-track {
+    margin-left: 14px;
+  }
+}
+
 // Arrows - keeps them from going off screen
 .slick-arrow {
   position: absolute;

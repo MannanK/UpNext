@@ -48,7 +48,7 @@ input.search-input:focus {
 .search-results {
   max-height: 50%;
   overflow: overlay;
-  background: rgba(0, 119, 0, 0.5);
+  background: $list-color-transparent;
   animation-name: dropdown;
   animation-duration: 500ms;
   position: relative;
@@ -58,7 +58,7 @@ input.search-input:focus {
 .search-results li {
   min-height: 30px;
   padding: 5px 10px;
-  border-bottom: 1px solid rgb(21, 34, 29);
+  border-bottom: 1px solid rgb(95, 0, 0);
   display: flex;
   align-items: center;
   overflow: hidden;

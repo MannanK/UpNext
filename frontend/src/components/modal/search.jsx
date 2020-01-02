@@ -6,6 +6,9 @@ import { createSimilarRecommendation } from '../../actions/recommendation_action
 import keys from "../../config/keys";
 // const keys = require('../../config/keys');
 
+// had to append REACT_APP at the front of the config var in Heroku in order for
+// React to know to embed the var inside process.env
+const tmdbApiKey = keys.tmdbApiKey;
 const debounce = require("lodash.debounce");
 const isEmpty = require("lodash.isempty");
 
@@ -17,13 +20,6 @@ class Search extends React.Component {
       keyword: '',
       searchResults: []
     };
-
-    this.tmdbApiKey = keys.tmdbApiKey;
-    console.log("------------------------------------API KEY------------------------------------");
-    console.log(process.env);
-    console.log(process.env.REACT_APP_TMDB_API_KEY);
-    console.log(keys);
-    console.log(keys.tmdbApiKey);
 
     this.handleInput = this.handleInput.bind(this);
     this.makeDebouncedSearch = debounce(this.makeDebouncedSearch, 350);
@@ -58,7 +54,7 @@ class Search extends React.Component {
     // https://developers.themoviedb.org/3/search/search-movies
 
     instance
-      .get(`https://api.themoviedb.org/3/search/movie?api_key=${this.tmdbApiKey}&query=${keyword}&include_adult=false`)
+      .get(`https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${keyword}&include_adult=false`)
       .then(response => {
         let searchResults = response.data.results;
 
@@ -86,7 +82,7 @@ class Search extends React.Component {
       // https://developers.themoviedb.org/3/movies/get-movie-details
 
       instance
-        .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${this.tmdbApiKey}`)
+        .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${tmdbApiKey}`)
         .then(response => {
           this.props.createInterest(response.data);
           this.props.closeModal();
@@ -94,13 +90,13 @@ class Search extends React.Component {
 
       // May refactor in the future so that recommendations are made only after and if createInterest and closeModal are successful
       instance
-        .get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${this.tmdbApiKey}`)
+        .get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${tmdbApiKey}`)
         .then(response => {
           let count = 0;
 
           response.data.results.forEach((recommendation) => {
             let recId = recommendation.id;
-            instance.get(`https://api.themoviedb.org/3/movie/${recId}?api_key=${this.tmdbApiKey}`)
+            instance.get(`https://api.themoviedb.org/3/movie/${recId}?api_key=${tmdbApiKey}`)
               .then(movie => {
                 count += 1;
 

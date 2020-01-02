@@ -9,7 +9,7 @@ class SimpleSliderItem extends React.Component {
     let modal = {
       type: "details",
       detailsType: "interests",
-      detailsId: "5e0d1ebafbf0cd1ceb8f11e0"
+      detailsId: "5e0e23dbc3a1c51dce1c4ad9"
     };
     
     return(

@@ -4,7 +4,17 @@ const Schema = mongoose.Schema;
 const RecommendationSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User"
+  },
+  interest: {
+    type: Schema.Types.ObjectId,
+    ref: "Interest",
+    default: null
+  },
+  similarMovieId: {
+    type: Number,
+    required: true,
+    default: null
   },
   title: {
     type: String,
@@ -39,6 +49,14 @@ const RecommendationSchema = new Schema({
     required: true
   },
   voteCount: {
+    type: Number,
+    required: true
+  },
+  genres: {
+    type: Array,
+    required: true
+  },
+  runtime: {
     type: Number,
     required: true
   }

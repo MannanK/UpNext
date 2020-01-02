@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { createInterest } from '../../actions/interest_actions';
 import { createSimilarRecommendation } from '../../actions/recommendation_actions';
+import keys from "../../config/keys";
+// const keys = require('../../config/keys');
 
-const keys = require('../../config/keys');
 const debounce = require("lodash.debounce");
 const isEmpty = require("lodash.isempty");
 

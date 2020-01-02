@@ -10,6 +10,7 @@ class Details extends React.Component {
     this.addInterest = this.addInterest.bind(this);
     this.removeFromInterests = this.removeFromInterests.bind(this);
     this.handleDate = this.handleDate.bind(this);
+    this.handleRuntime = this.handleRuntime.bind(this);
     this.months = [
       "Jan", "Feb", "Mar",
       "Apr", "May", "Jun", "Jul",
@@ -36,6 +37,16 @@ class Details extends React.Component {
     return `${dateArr[2]} ${this.months[dateArr[1] - 1]} ${dateArr[0]}`;
   }
 
+  handleRuntime(time) {
+    let hour = Math.floor(time / 60);
+    let minute = time % 60;
+
+    return (hour === 0) ? `${minute} min` :
+           (minute === 0) ? `${hour} hr` :
+           (hour > 0 && minute > 0) ? `${hour} hr ${minute} min` :
+           "";
+  }
+
   render() {
     const detailsItem = this.props.detailsItem || {};
 
@@ -51,6 +62,7 @@ class Details extends React.Component {
     )
 
     let genres = detailsItem.genres.slice(0,3).map((genre) => genre.name);
+
 
     
 
@@ -70,7 +82,6 @@ class Details extends React.Component {
             </div>
 
             <div className="runtime-scores">
-
               <div className="ratings-container">
                 <div className="star">
                   <i className="fas fa-star"></i>
@@ -85,15 +96,18 @@ class Details extends React.Component {
                 </div>
               </div>
 
-              <div className="year-time">
-                <span>{this.handleDate(detailsItem.year)}</span>
-                <span>{`${detailsItem.runtime} min`}</span>
-              </div>
+              {/* <div className="year-time"> */}
+              <span className="year">
+                {this.handleDate(detailsItem.year)}
+              </span>
+              <span className="runtime">
+                {this.handleRuntime(detailsItem.runtime)}
+              </span>
+              {/* </div> */}
 
               <div className="genres">
                 <span>{genres.join(", ")}</span>
               </div>
-
             </div>
           </section>
 

@@ -11,31 +11,43 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 
 router.post('/similar', passport.authenticate('jwt', { session: false }), (req, res) => {
   // if this recommendation has already been made for this similar movie, just return it back
-  Recommendation.findOne({ similarMovieId: req.body.data.similarMovieId, movieId: req.body.data.movieId })
-    .then(similarRecommendation => {
-      if (similarRecommendation) {
+  Recommendation.find({ similarMovieId: req.body.data[0].similarMovieId })
+    .then(similarRecommendations => {
+      if (similarRecommendations.length !== 0) {
         // return res.status(400).json({ title: "You have already added this movie" });
-        return res.json(similarRecommendation);
+        return res.json(similarRecommendations);
       // otherwise, make the recommendation for this similar movie, and then return it back
       } else {
-        const newSimilarRecommendation = new Recommendation({
-          similarMovieId: req.body.data.similarMovieId,
-          user: req.user.id,
-          movieId: req.body.data.id,
-          title: req.body.data.title,
-          year: req.body.data.release_date,
-          genres: req.body.data.genres,
-          type: "movie",
-          poster: req.body.data.poster_path,
-          overview: req.body.data.overview,
-          runtime: req.body.data.runtime,
-          voteAverage: req.body.data.vote_average,
-          voteCount: req.body.data.vote_count
+        console.log("------ inside the else------------");
+        console.log(req.body.data);
+
+        const newSimilarRecommendations = req.body.data.map(recommendation => {
+          return new Recommendation({
+            similarMovieId: recommendation.similarMovieId,
+            user: req.user.id,
+            movieId: recommendation.id,
+            title: recommendation.title,
+            year: recommendation.release_date,
+            genres: recommendation.genres,
+            type: "movie",
+            poster: recommendation.poster_path,
+            overview: recommendation.overview,
+            runtime: recommendation.runtime,
+            voteAverage: recommendation.vote_average,
+            voteCount: recommendation.vote_count
+          });
         });
 
-        newSimilarRecommendation.save()
-          .then(similarRecommendation => res.json(similarRecommendation))
-          .catch(err => console.log(err));
+        let count = 0;
+        newSimilarRecommendations.forEach(recommendation => {
+          recommendation.save()
+            .then(()=> {
+              count += 1;
+              if (count === req.body.data.length) res.json(newSimilarRecommendations)
+            })
+            .catch(err => console.log(err));
+        });
+          
       }
     });
 });

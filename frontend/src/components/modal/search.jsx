@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { tmdbApiKey } from '../../config/keys';
 import { createInterest } from '../../actions/interest_actions';
+import { createSimilarRecommendation } from '../../actions/recommendation_actions';
 
 const debounce = require("lodash.debounce");
 const isEmpty = require("lodash.isempty");
@@ -81,6 +82,28 @@ class Search extends React.Component {
         .then(response => {
           this.props.createInterest(response.data);
           this.props.closeModal();
+        })
+
+      // May refactor in the future so that recommendations are made only after and if createInterest and closeModal are successful
+      instance
+        .get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${tmdbApiKey}`)
+        .then(response => {
+          let count = 0;
+
+          response.data.results.forEach((recommendation) => {
+            let recId = recommendation.id;
+            instance.get(`https://api.themoviedb.org/3/movie/${recId}?api_key=${tmdbApiKey}`)
+              .then(movie => {
+                count += 1;
+
+                recommendation.genres = movie.data.genres;
+                recommendation.runtime = movie.data.runtime;
+
+                // this.props.createSimilarRecommendation(recommendation, recId);
+
+                if (count === 15) this.props.closeModal();
+              });
+          })
         });
     };
   }
@@ -121,7 +144,8 @@ class Search extends React.Component {
 }
 
 const mdp = dispatch => ({
-  createInterest: data => dispatch(createInterest(data))
+  createInterest: data => dispatch(createInterest(data)),
+  createSimilarRecommendation: data => dispatch(createSimilarRecommendation(data))
 });
 
 export default connect(null, mdp)(Search);

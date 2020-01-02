@@ -94,8 +94,13 @@ class Search extends React.Component {
       <ul className="search-results">
         {sorted.map((result, idx) => {
           let year = result.release_date.slice(0,4);
-          return <li onClick={this.handleClick(result.id)} key={idx}>{result.title} ({year})</li>
-        })}
+          return (
+            <li onClick={this.handleClick(result.id)} key={idx}>
+              <span>
+                {result.title} ({year})
+              </span>
+            </li>
+          );})}
       </ul> ) : "";
 
 

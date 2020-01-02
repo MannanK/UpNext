@@ -24,7 +24,7 @@ const Modal = ({ modal, closeModal }) => {
         detailsId={modal.detailsId} 
         detailsType={modal.detailsType}/>
       modalBackClass = 'grey-background';
-      modalChildClass = 'search-child';
+      modalChildClass = 'detail-child';
       break;
     default:
       return null;

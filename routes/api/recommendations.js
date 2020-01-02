@@ -13,7 +13,6 @@ router.post('/similar', passport.authenticate('jwt', { session: false }), (req, 
   // if this recommendation has already been made for this similar movie, just return it back
   Recommendation.findOne({ similarMovieId: req.body.recId, movieId: req.body.data.movieId })
     .then(similarRecommendation => {
-      debugger;
 
       if (similarRecommendation) {
         // return res.status(400).json({ title: "You have already added this movie" });

@@ -38,12 +38,25 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
   }
 );
 
-router.delete(`/`, passport.authenticate('jwt', {session: false}), (req, res) => {
-  Interest.findOne({ _id: req.body._id })
-    .then(res => {
-      return res.status(200);
-    });
+router.delete(`/:interestId`, passport.authenticate('jwt', {session: false}), (req, res) => {
+  Interest.findOneAndDelete({ _id: req.params.interestId })
+    .then(() => {
+      return res.json({ id: req.params.interestId });
+    })
+    .catch(err => console.log(err));
   }
 );
+
+// router.delete(
+//   "/",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     Interest.findOneAndDelete({ _id: req.body._id })
+//       .then(() => {
+//         return res.status(200);
+//       })
+//       .catch(err => console.log(err));
+//   }
+// );
 
 module.exports = router;

@@ -26,7 +26,8 @@ class Details extends React.Component {
 
   removeFromInterests(e) {
     e.preventDefault();
-    this.props.deleteInterest({ _id: this.props.detailsItem._id });
+    
+    this.props.deleteInterest( this.props.detailsId );
     this.props.closeModal();
   }
 
@@ -55,7 +56,6 @@ class Details extends React.Component {
 
     return (
       <>
-        {/* <h3 className="detail-title">The Lord of the Rings: The Return of the King</h3> */}
         <div className="detail-heading">
           <h3 className="detail-title">{detailsItem.title}</h3>
         </div>
@@ -97,8 +97,6 @@ class Details extends React.Component {
             </div>
           </section>
 
-
-
           <div className="overview">{detailsItem.overview}</div>
 
           {button}
@@ -120,7 +118,7 @@ const msp = (state, ownProps) => {
 
 const mdp = dispatch => ({
   createInterest: data => dispatch(createInterest(data)),
-  deleteInterest: dataId => dispatch(deleteInterest(dataId))
+  deleteInterest: data => dispatch(deleteInterest(data))
 });
 
 export default connect(msp, mdp)(Details);

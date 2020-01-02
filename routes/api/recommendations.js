@@ -11,17 +11,15 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 
 router.post('/similar', passport.authenticate('jwt', { session: false }), (req, res) => {
   // if this recommendation has already been made for this similar movie, just return it back
-  Recommendation.findOne({ similarMovieId: req.body.recId, movieId: req.body.data.movieId })
+  Recommendation.findOne({ similarMovieId: req.body.data.similarMovieId, movieId: req.body.data.movieId })
     .then(similarRecommendation => {
-      debugger;
-
       if (similarRecommendation) {
         // return res.status(400).json({ title: "You have already added this movie" });
         return res.json(similarRecommendation);
       // otherwise, make the recommendation for this similar movie, and then return it back
       } else {
         const newSimilarRecommendation = new Recommendation({
-          similarMovieId: req.body.recId,
+          similarMovieId: req.body.data.similarMovieId,
           user: req.user.id,
           movieId: req.body.data.id,
           title: req.body.data.title,

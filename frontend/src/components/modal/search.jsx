@@ -5,8 +5,6 @@ import { createInterest } from '../../actions/interest_actions';
 import { createSimilarRecommendation } from '../../actions/recommendation_actions';
 
 const keys = require('../../config/keys');
-const tmdbApiKey = keys.tmdbApiKey;
-
 const debounce = require("lodash.debounce");
 const isEmpty = require("lodash.isempty");
 
@@ -18,6 +16,8 @@ class Search extends React.Component {
       keyword: '',
       searchResults: []
     };
+
+    this.tmdbApiKey = keys.tmdbApiKey;
 
     this.handleInput = this.handleInput.bind(this);
     this.makeDebouncedSearch = debounce(this.makeDebouncedSearch, 350);

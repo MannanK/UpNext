@@ -18,6 +18,8 @@ class Search extends React.Component {
     };
 
     this.tmdbApiKey = keys.tmdbApiKey;
+    console.log("------------------------------------API KEY------------------------------------");
+    console.log(keys.tmdbApiKey);
 
     this.handleInput = this.handleInput.bind(this);
     this.makeDebouncedSearch = debounce(this.makeDebouncedSearch, 350);

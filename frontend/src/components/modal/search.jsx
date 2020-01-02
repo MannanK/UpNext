@@ -1,10 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { tmdbApiKey } from '../../config/keys';
 import { createInterest } from '../../actions/interest_actions';
 import { createSimilarRecommendation } from '../../actions/recommendation_actions';
+import keys from "../../config/keys";
+// const keys = require('../../config/keys');
 
+// had to append REACT_APP at the front of the config var in Heroku in order for
+// React to know to embed the var inside process.env
+const tmdbApiKey = keys.tmdbApiKey;
 const debounce = require("lodash.debounce");
 const isEmpty = require("lodash.isempty");
 

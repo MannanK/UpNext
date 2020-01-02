@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 class SimpleSliderItem extends React.Component {
-
   render() {
+    const { interest } = this.props;
+
+
     return(
       <div className="slider-item">
         <header className='slider-item-header'>this is a valiue rn</header>

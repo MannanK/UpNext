@@ -13,15 +13,21 @@ export default class SimpleSlider extends Component {
       slidesToShow: 4,
       slidesToScroll: 4
     };
+    
+    const interests = Object.values(this.props.items);
+
+    const sliderItems = interests.map((item, index) => {
+      return(
+        <SimpleSliderItem interest={interest} key={index}/>
+      );
+    });
+
+    debugger
+
     return (
       <div className='slider-container'>
         <Slider {...settings}>
-          <SimpleSliderItem />
-          <SimpleSliderItem />
-          <SimpleSliderItem />
-          <SimpleSliderItem />
-          <SimpleSliderItem />
-          <SimpleSliderItem />
+          {sliderItems}
         </Slider>
       </div>
     );

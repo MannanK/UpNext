@@ -13,8 +13,8 @@ export const getRecommendations = () => dispatch => (
   })
 );
 
-export const createSimilarRecommendation = data => dispatch => (
-  RecommendationAPIUtil.createSimilarRecommendation(data).then(res => {
+export const createSimilarRecommendations = data => dispatch => (
+  RecommendationAPIUtil.createSimilarRecommendations(data).then(res => {
     dispatch(receiveRecommendations(res.data));
   })
 );

@@ -94,7 +94,7 @@ class Search extends React.Component {
         .then(response => {
           let count = 0;
 
-          response.data.results.forEach((recommendation) => {
+          const promises = response.data.results.map((recommendation) => {
             let recId = recommendation.id;
             instance.get(`https://api.themoviedb.org/3/movie/${recId}?api_key=${tmdbApiKey}`)
               .then(movie => {
@@ -104,11 +104,15 @@ class Search extends React.Component {
                 recommendation.runtime = movie.data.runtime;
                 recommendation.similarMovieId = id;
 
-                this.props.createSimilarRecommendation(recommendation);
+                
 
                 if (count === 15) this.props.closeModal();
               });
           })
+
+          Promise.all(promises)
+            .then(this.props.createSimilarRecommendation(promises))
+            
         });
     };
   }

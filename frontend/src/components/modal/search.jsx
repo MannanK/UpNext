@@ -79,8 +79,6 @@ class Search extends React.Component {
       instance
         .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${tmdbApiKey}`)
         .then(response => {
-          console.log(response.data);
-
           this.props.createInterest(response.data);
           this.props.closeModal();
         });

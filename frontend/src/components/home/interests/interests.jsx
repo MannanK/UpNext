@@ -4,7 +4,7 @@ import SimpleSlider from '../slider/simple_slider';
 import { fetchInterests } from '../../../actions/interest_actions';
 
 class Interests extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchInterests();
   }
 

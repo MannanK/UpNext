@@ -2,11 +2,17 @@
 .slick-slider {
   height: 100%;
   text-align: center;
-  
 
   // Ensures that slider items don't grow beyond their size
   div {
     height: 100%;
+  }
+}
+
+// Media query to add a small margin to the left for desktop view
+@media (min-width: 900px) {
+  .slick-track {
+    margin-left: 14px;
   }
 }
 
@@ -18,7 +24,6 @@
 
 .slick-next {
   right: 0;
-  background: green;
 }
 
 .slick-prev {
@@ -30,7 +35,7 @@
 .slider-item {
   display: flex;
   justify-content: center;
-  padding: 10px;
+  padding: 5px;
 
   min-width: 80px;
 }
@@ -38,5 +43,6 @@
 .slider-image {
   width: auto;
   height: 100%;
+  max-width:118px;
   border-radius: 3px;
 }

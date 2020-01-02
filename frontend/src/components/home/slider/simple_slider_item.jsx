@@ -17,7 +17,7 @@ class SimpleSliderItem extends React.Component {
       <div className="slider-item">
         <img
           className='slider-image'
-          src={`https://image.tmdb.org/t/p/w500/${interest.poster}`} alt="movie"
+          src={`https://image.tmdb.org/t/p/w500/${interest.poster}`} alt={`${interest.title}`}
           onClick={() => this.props.openModal(modal)} />
       </div>
     );

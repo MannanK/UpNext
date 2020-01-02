@@ -9,7 +9,8 @@ export default class SimpleSlider extends Component {
     super(props);
 
     this.state = {
-      width: document.body.clientWidth
+      width: document.body.clientWidth,
+      height: document.body.clientHeight
     };
 
     this.updateDimensions = this.updateDimensions.bind(this);
@@ -17,7 +18,8 @@ export default class SimpleSlider extends Component {
 
   updateDimensions() {
     this.setState({
-      width: document.body.clientWidth
+      width: document.body.clientWidth,
+      height: document.body.clientHeight
     });
   }
 
@@ -31,7 +33,7 @@ export default class SimpleSlider extends Component {
 
 
   render() {
-    const interests = Object.values(this.props.items);
+    const interests = Object.values(this.props.items).reverse();
 
     const sliderItems = interests.map((interest, index) => {
       return(
@@ -39,18 +41,18 @@ export default class SimpleSlider extends Component {
       );
     });
 
-    let numSlides = Math.floor(this.state.width / 150);
-
-    if (window.matchMedia("(max-width: 900px)").matches) {
-      numSlides = 4;
-    }
+    let aspectRatio = this.state.width / this.state.height;
+    // *6.5 enables aspect ratio to relate to number of slides
+    let numSlides = Math.floor(aspectRatio * 7);
 
     const settings = {
       // dots: true,
       infinite: true,
       speed: 500,
-      slidesToShow: numSlides + 0.05,
+      slidesToShow: numSlides + 0.1,
       slidesToScroll: numSlides,
+      // rtl: true
+      // arrows: false,
     };
 
     return (

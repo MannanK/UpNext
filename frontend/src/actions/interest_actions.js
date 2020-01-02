@@ -31,9 +31,8 @@ export const createInterest = data => dispatch => (
     .catch(err => console.log(err))  
 );
 
-export const deleteInterest = dataId => dispatch => (
-    InterestApiUtil.deleteInterest(dataId)
-      .then(dataId => dispatch(removeInterest(dataId)))
-      .catch(err => console.log(err))  
-);
+export const deleteInterest = interestId => dispatch =>
+  InterestApiUtil.deleteInterest(interestId)
+    .then(response => dispatch(removeInterest(response.data.id)))
+    .catch(err => console.log(err));
 

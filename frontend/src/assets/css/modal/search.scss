@@ -1,15 +1,16 @@
 // Search main container
 .search-container {
-  width: 100vw;
+  width: 95vw;
+
   ///new additions
   // background: rgba(145, 0, 55, 0.75);
   // background: rgba(0, 119, 0, 0.5);
-@media (min-width: 900px) {
-    max-width: 900px;
-    position: absolute;
-    left: 50vw;
-    transform: translateX(-50%);
-  }
+// @media (min-width: 900px) {
+//     max-width: 900px;
+//     position: absolute;
+//     left: 50vw;
+//     transform: translateX(-50%);
+//   }
 }
 
 input.search-input {

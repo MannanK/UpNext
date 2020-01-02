@@ -26,7 +26,8 @@ class Details extends React.Component {
 
   removeFromInterests(e) {
     e.preventDefault();
-    this.props.deleteInterest(this.props.detailsItem._id);
+    
+    this.props.deleteInterest( this.props.detailsId );
     this.props.closeModal();
   }
 
@@ -37,10 +38,6 @@ class Details extends React.Component {
 
   render() {
     const detailsItem = this.props.detailsItem || {};
-
-    // let score = {
-    //   width: `${(detailsItem.voteAverage / 10) * 100}%`
-    // };
 
     ///RENDER BUTTONS
     let button = (this.props.detailsType === "recommendations") ? (
@@ -59,8 +56,10 @@ class Details extends React.Component {
 
     return (
       <>
-        {/* <h3 className="detail-title">The Lord of the Rings: The Return of the King</h3> */}
-        <h3 className="detail-title">{detailsItem.title}</h3>
+        <div className="detail-heading">
+          <h3 className="detail-title">{detailsItem.title}</h3>
+        </div>
+
         <section className="detail-container">
           <section className="top-half">
             <div className="poster">
@@ -73,20 +72,6 @@ class Details extends React.Component {
             <div className="runtime-scores">
 
               <div className="ratings-container">
-                {/* <div className="score">
-                  <span className="stars" style={score}>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                  </span>
-                </div> */}
                 <div className="star">
                   <i className="fas fa-star"></i>
                 </div>
@@ -112,8 +97,6 @@ class Details extends React.Component {
             </div>
           </section>
 
-
-
           <div className="overview">{detailsItem.overview}</div>
 
           {button}
@@ -135,7 +118,7 @@ const msp = (state, ownProps) => {
 
 const mdp = dispatch => ({
   createInterest: data => dispatch(createInterest(data)),
-  deleteInterest: dataId => dispatch(deleteInterest(dataId))
+  deleteInterest: data => dispatch(deleteInterest(data))
 });
 
 export default connect(msp, mdp)(Details);

@@ -15,7 +15,8 @@ const InterestsReducer = (state = {}, action) => {
       newState[action.interest.data._id] = action.interest.data;
       return newState;
     case REMOVE_INTEREST:
-      newState = action.interest.data;
+      // newState = action.interest.data;
+      delete newState[action.interestId];
       return newState;
     case RECEIVE_USER_LOGOUT:
       return {};

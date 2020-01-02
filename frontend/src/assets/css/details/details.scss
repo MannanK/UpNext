@@ -10,7 +10,7 @@
 
 section.detail-container {
   border-radius: 10px;
-  height: 550px;
+  height: 540px;
   width: 300px;  
   display: flex;
   flex-wrap: wrap;
@@ -37,6 +37,7 @@ section.detail-container {
   @media (min-width: 900px) {
     font-size: 1.7em;
     margin-bottom: 20px;
+    max-width: 500px;
   }
 }
 
@@ -53,6 +54,7 @@ section.detail-container {
 
 .poster {
   width: 170px;
+
   @media (min-width: 900px) {
     width: 210px;
   }
@@ -88,10 +90,8 @@ section.detail-container {
   font-size: 1.2em;
   flex-wrap: wrap;
   justify-content: flex-end;
-  // width: 250px;
-  // display: flex;
-  // justify-content: space-around;
-  // margin-bottom: 10px;
+
+  
   @media (min-width: 900px) {
     font-size: 1.5em;
     width: 150px;
@@ -105,10 +105,8 @@ section.detail-container {
   min-width: 100px;
   display: flex;
   height: fit-content;
-  // display: flex;
-  // align-items: center;
-  // justify-content: space-between;
-  // min-width: 250px;
+
+  
   @media (min-width: 900px) {
     width: 100%;
     justify-content: flex-end;
@@ -147,9 +145,8 @@ section.detail-container {
   width: 100px;
   height: fit-content;
   justify-content: flex-end;  
-  // display: flex;
-  // flex-wrap: wrap;
-  // justify-content: center;
+
+  
   @media (min-width: 900px) {
     width: 120px;
   }
@@ -188,7 +185,7 @@ section.detail-container {
 .overview {
   font-size: 16px;
   margin: 5px;
-  max-height: 220px;
+  max-height: 150px;
   overflow-y: overlay;
 
   @media (min-width: 900px) {
@@ -221,5 +218,12 @@ section.detail-container {
   @media (min-width: 900px) {
     padding: 9px;
     font-size: 1.1em;
+  }
+}
+
+.interest-button:hover {
+  @media (min-width: 900px) {
+    cursor: pointer;
+    background-color: $button-color-hover;
   }
 }

@@ -41,7 +41,7 @@ class Details extends React.Component {
     // let score = {
     //   width: `${(detailsItem.voteAverage / 10) * 100}%`
     // };
-    
+
     ///RENDER BUTTONS
     let button = (this.props.detailsType === "recommendations") ? (
       <button className="interest-button" onClick={this.addInterest}>
@@ -53,7 +53,7 @@ class Details extends React.Component {
       </button>
     )
 
-    let genres = detailsItem.genres.map((genre) => genre.name);
+    let genres = detailsItem.genres.slice(0,3).map((genre) => genre.name);
 
     
 

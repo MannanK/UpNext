@@ -2,11 +2,33 @@ const express = require("express");
 const router = express.Router();
 const passport = require('passport');
 const Recommendation = require('../../models/Recommendation');
+const Interest = require('../../models/Interest');
 
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   Recommendation.find({ user: req.user.id })
     .then(recommendations => res.json(recommendations))
     .catch(err => console.log(err));
+});
+
+router.get('/similar', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Interest.find().sort({ "date": -1 }).limit(1).then(interest => {
+    Recommendation.find({ similarMovieId: interest[0].movieId })
+      .then(recommendations => {
+        let newSimilarRecommendations = {};
+        let count = 0;
+
+        recommendations.forEach((recommendation, i) => {
+          newSimilarRecommendations[i] = recommendation;
+          count += 1;
+
+          if (count === recommendations.length) {
+            
+            res.json(newSimilarRecommendations);
+          }
+        });
+      })
+      .catch(err => console.log(err));
+  });
 });
 
 router.post('/similar', passport.authenticate('jwt', { session: false }), (req, res) => {

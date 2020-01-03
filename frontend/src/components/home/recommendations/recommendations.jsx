@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// temp
-import { fetchInterests } from '../../../actions/interest_actions';
-// import { getRecommendations } from '../../../actions/recommendation_actions';
 import SimpleSlider from '../slider/simple_slider';
+import { fetchGenres } from '../../../actions/genre_actions';
+import { fetchSimilarRecommendations } from '../../../actions/recommendation_actions';
 
 class Recommendations extends React.Component {
   componentDidMount() {
-    this.props.fetchInterests();
+    this.props.fetchSimilarRecommendations();
+    this.props.fetchGenres();
   }
 
   render() {
@@ -15,7 +15,7 @@ class Recommendations extends React.Component {
       <div className='recommendations-container'>
         <section className='recommendations-direct'>
           <header className='slider-header'>Uniquely yours</header>
-          <SimpleSlider items={this.props.interests} />
+          <SimpleSlider items={this.props.recommendations} />
         </section>
       </div>
     );
@@ -23,11 +23,12 @@ class Recommendations extends React.Component {
 }
 
 const msp = state => ({
-  interests: state.entities.interests
-});
+  recommendations: state.entities.recommendations
+})
 
 const mdp = dispatch => ({
-  fetchInterests: () => dispatch(fetchInterests())
+  fetchGenres: () => dispatch(fetchGenres()),
+  fetchSimilarRecommendations: () => dispatch(fetchSimilarRecommendations())
 });
 
 export default connect(msp, mdp)(Recommendations);

@@ -6,4 +6,8 @@ body {
   color: black;
 
   font-family: 'Merriweather Sans', sans-serif;
+
+  @media (min-width: 900px) {
+    background: linear-gradient(175deg, rgb(44, 0, 38) 1%, rgb(95, 0, 55) 15%, rgb(44, 0, 38) 65%);
+  }
 }

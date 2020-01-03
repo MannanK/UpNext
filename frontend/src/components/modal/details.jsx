@@ -96,16 +96,17 @@ class Details extends React.Component {
                 </div>
               </div>
 
-              {/* <div className="year-time"> */}
               <span className="year">
-                {this.handleDate(detailsItem.year)}
+                <span>Release Date:</span>
+                <span>{this.handleDate(detailsItem.year)}</span>
               </span>
               <span className="runtime">
-                {this.handleRuntime(detailsItem.runtime)}
+                <span>Runtime:</span>
+                <span>{this.handleRuntime(detailsItem.runtime)}</span>
               </span>
-              {/* </div> */}
 
               <div className="genres">
+                <span>Genres:</span>
                 <span>{genres.join(", ")}</span>
               </div>
             </div>

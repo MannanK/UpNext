@@ -53,7 +53,10 @@ h3.detail-title {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 15px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid darkred;
+  // border-radius: 5px;
 }
 
 
@@ -80,17 +83,15 @@ h3.detail-title {
   }
 }
 
-// .runtime-scores > *, .year-time span:first-child {
-//   margin-bottom: 10px;
 
-//   @media (min-width: 900px) {
-//     margin-bottom: 20px;
-//   }
-// }
 
 ///DATE AND RUNTIME
 
 .runtime-scores > span {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+
   @media (min-width: 900px) {
     font-size: 1.35em;
     width: 170px;
@@ -119,10 +120,13 @@ h3.detail-title {
 
 .star {
   font-size: 30px;
-  color: yellow;
+  color: rgb(248, 152, 9);
   height: fit-content;
   padding-top: 2%;
   margin-right: 5px;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: rgba(255, 219, 60, 1);
+  
   @media (min-width: 900px) {
     font-size: 50px;
   }
@@ -136,14 +140,13 @@ h3.detail-title {
   height: fit-content;
   justify-content: flex-end;  
 
-  
-  // @media (min-width: 900px) {
-  //   // width: 120px;
-  // }
 }
 
 .score-num {
   font-size: 30px;
+  // -webkit-text-stroke-width: 1px;
+  // -webkit-text-stroke-color: rgb(255, 219, 60);
+
   @media (min-width: 900px) {
     font-size: 50px;
   }
@@ -151,6 +154,7 @@ h3.detail-title {
 
 .score-num span {
   font-size: 16px;
+  // -webkit-text-stroke-width: 0;
   @media (min-width: 900px) {
     font-size: 25px;
   }
@@ -158,14 +162,26 @@ h3.detail-title {
 
 .vote-count {
   font-size: 12px;
+  text-align: right;
+  color: rgb(73, 0, 0);
+  
   @media (min-width: 900px) {
     font-size: 18px;
   }
 }
 
+.year > span:first-child, 
+.runtime > span:first-child, 
+.genres > span:first-child {
+  font-size: 12px;
+  color: rgb(73, 0, 0);
+}
+
 .genres {
-  // font-size: 14px;
+  display: flex;
+  flex-direction: column;
   text-align: right;
+
   @media (min-width: 900px) {
     font-size: 1.35em;
   }
@@ -191,7 +207,6 @@ h3.detail-title {
 .overview::-webkit-scrollbar-thumb {
   background-color: $button-color;
   border-radius: 10px;
-  // display: none;
 }
 
 .interest-button {

@@ -103,16 +103,18 @@ input.error {
 
 
 //For Sign-in and Log-in button
-input.form-submit {
+.form-submit {
   width: 140px;
   font-weight: bold;
-  background-color: $button-color;
+  background-color: #7a0025;
   border-radius: 5px;
-
+  text-align: center;
+  height: 40px;
+  margin-bottom: 20px;
 }
 
 ////HOVER IN DESKTOP ONLY
-input.form-submit:hover, #demo-button:hover {
+.form-submit:hover, #demo-button:hover {
   @media (min-width: 900px) {
     cursor: pointer;
     background-color: $button-color-hover;

@@ -10,6 +10,9 @@ router.get("/", passport.authenticate('jwt', { session: false }), (req, res) => 
 });
 
 router.post("/", passport.authenticate('jwt', { session: false }), (req, res) => {
+    console.log("-------------------------------");
+    console.log(req.body);
+
     // user id: req.user.id
     Interest.findOne({ user: req.user.id, movieId: req.body.id })
       .then(interest => {

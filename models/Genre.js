@@ -6,6 +6,10 @@ const GenreSchema = new Schema({
     type: String,
     required: true
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
   count: {
     type: Number,
     required: true
@@ -15,3 +19,5 @@ const GenreSchema = new Schema({
     default: Date.now
   }
 });
+
+module.exports = Genre = mongoose.model('Genre', GenreSchema);

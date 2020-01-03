@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { createInterest } from '../../actions/interest_actions';
-import { createSimilarRecommendations } from '../../actions/recommendation_actions';
+import { createSimilarRecommendations, fetchSimilarRecommendations } from '../../actions/recommendation_actions';
 import keys from "../../config/keys";
+
 // const keys = require('../../config/keys');
 
 // had to append REACT_APP at the front of the config var in Heroku in order for
@@ -93,8 +94,11 @@ class Search extends React.Component {
         .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${tmdbApiKey}`)
         .then(response => {
           this.props.createInterest(response.data);
-          this.props.closeModal();
-        })
+          setTimeout(() => {
+            this.props.fetchSimilarRecommendations();
+            this.props.closeModal();
+          }, 30);
+        });
 
       // May refactor in the future so that recommendations are made only after and if createInterest and closeModal are successful
       instance
@@ -124,6 +128,20 @@ class Search extends React.Component {
             })
             
         });
+
+      // call receiveGenres
+      // receiveGenres
+
+      // instance
+      //   .get(`https://api.themoviedb.org/3/discover/movie?api_key=${tmdbApiKey}&sort_by=popularity.desc&include_adult=false&with_genres=${genre1}%7C${genre2}`)
+      //   .then(response => {
+      //     let count = 0;
+      //     let discovers = [];
+
+      //     const promises = response.data.results.map((discover) => {
+      //       let discId = discover.id;
+      //     })
+      //   })
     };
   }
 
@@ -164,7 +182,8 @@ class Search extends React.Component {
 
 const mdp = dispatch => ({
   createInterest: data => dispatch(createInterest(data)),
-  createSimilarRecommendations: data => dispatch(createSimilarRecommendations(data))
+  createSimilarRecommendations: data => dispatch(createSimilarRecommendations(data)),
+  fetchSimilarRecommendations: () => dispatch(fetchSimilarRecommendations())
 });
 
 export default connect(null, mdp)(Search);

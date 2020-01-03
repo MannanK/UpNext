@@ -11,8 +11,12 @@ class Interests extends React.Component {
   render() {
     return (
       <div className="interests-container">
-        <header className='slider-header'>Your interests</header>
-        <SimpleSlider items={this.props.interests}/>
+        <header className='slider-header'>
+          <div className='slider-title'>
+            Your Interests
+          </div>
+        </header>
+        <SimpleSlider items={this.props.interests} type={'interests'}/>
       </div>
     );
   }

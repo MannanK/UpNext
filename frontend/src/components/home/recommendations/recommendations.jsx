@@ -12,12 +12,12 @@ class Recommendations extends React.Component {
 
   render() {
     return (
-      <div className='recommendations-container'>
-        <section className='recommendations-direct'>
-          <header className='slider-header'>Uniquely yours</header>
-          <SimpleSlider items={this.props.recommendations} />
-        </section>
-      </div>
+        <div className="recommendations-container">
+          <section className="recommendations-direct">
+            <header className="slider-header">Uniquely yours</header>
+            <SimpleSlider items={this.props.recommendations} />
+          </section>
+        </div>
     );
   }
 }

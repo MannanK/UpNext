@@ -9,9 +9,14 @@
 }
 
 section.detail-container {
+
   border-radius: 0 0 10px 10px;
-  height: 520px;
-  width: 300px;  
+  min-height: 520px;
+  min-width: 300px;  
+  height
+  // border-radius: 0 0 10px 10px;
+  // height: 520px;
+  // width: 300px;  
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

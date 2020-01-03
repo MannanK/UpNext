@@ -120,7 +120,6 @@ class Search extends React.Component {
 
           Promise.all(promises)
             .then(() => {
-              debugger;
               this.props.createSimilarRecommendations(recommendations)
             })
             

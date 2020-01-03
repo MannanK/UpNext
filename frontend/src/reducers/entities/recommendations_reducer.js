@@ -3,7 +3,12 @@ import {
   RECEIVE_SIMILAR_RECOMMENDATIONS
 } from '../../actions/recommendation_actions';
 
-export default function (state = {}, action) {
+const _initialState = {
+  similar: {},
+  other: {}
+};
+
+export default function (state = _initialState, action) {
   Object.freeze(state);
   let newState = Object.assign({}, state);
 
@@ -13,7 +18,9 @@ export default function (state = {}, action) {
       newState.other = action.recommendations;
       return newState;
     case RECEIVE_SIMILAR_RECOMMENDATIONS:
-      newState.similar = action.recommendations;
+      Object.values(action.recommendations).forEach(recommendation => {
+        newState.similar[recommendation._id] = recommendation;
+      });
       return newState;
     default:
       return state;

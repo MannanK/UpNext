@@ -18,11 +18,10 @@ router.post('/similar', passport.authenticate('jwt', { session: false }), (req, 
         return res.json(similarRecommendations);
       // otherwise, make the recommendation for this similar movie, and then return it back
       } else {
-        console.log("------ inside the else------------");
-        console.log(req.body.data);
-
-        const newSimilarRecommendations = req.body.data.map(recommendation => {
-          return new Recommendation({
+        const newSimilarRecommendations = {};
+        
+        req.body.data.forEach((recommendation, i) => {
+          newSimilarRecommendations[i] = new Recommendation({
             similarMovieId: recommendation.similarMovieId,
             user: req.user.id,
             movieId: recommendation.id,
@@ -39,11 +38,13 @@ router.post('/similar', passport.authenticate('jwt', { session: false }), (req, 
         });
 
         let count = 0;
-        newSimilarRecommendations.forEach(recommendation => {
-          recommendation.save()
-            .then(()=> {
+        Object.values(newSimilarRecommendations).forEach(recommendation => {
+          recommendation
+            .save()
+            .then(() => {
               count += 1;
-              if (count === req.body.data.length) res.json(newSimilarRecommendations)
+              if (count === req.body.data.length)
+                res.json(newSimilarRecommendations);
             })
             .catch(err => console.log(err));
         });

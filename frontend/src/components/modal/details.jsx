@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
+import axios from "axios";
+import keys from "../../config/keys";
 import { createInterest, deleteInterest } from "../../actions/interest_actions";
-import { fetchSimilarRecommendations } from '../../actions/recommendation_actions';
+import { fetchSimilarRecommendations, createSimilarRecommendations } from '../../actions/recommendation_actions';
+
+const tmdbApiKey = keys.tmdbApiKey;
 
 class Details extends React.Component {
   constructor(props) {
@@ -21,13 +25,57 @@ class Details extends React.Component {
 
   addInterest(e) {
     e.preventDefault();
-    this.props.createInterest(this.props.detailsItem)
-    // .then(() => {
-    //   debugger
-    //   this.props.fetchSimilarRecommendations();
-    this.props.closeModal();
-    // });
+    let id = this.props.detailsItem.movieId;
+    this.props.detailsItem.id = this.props.detailsItem.movieId;
+    this.props.detailsItem.release_date = this.props.detailsItem.year;
+    this.props.detailsItem.poster_path = this.props.detailsItem.poster;
+    this.props.detailsItem.vote_average = this.props.detailsItem.voteAverage;
+    this.props.detailsItem.vote_count = this.props.detailsItem.voteCount;
 
+    const instance = axios.create();
+    instance.defaults.headers.common = {};
+    instance.defaults.headers.common.accept = "application/json";
+
+    // https://developers.themoviedb.org/3/movies/get-movie-details
+
+    this.props.createInterest(this.props.detailsItem);
+    // setTimeout(() => {
+    //   this.props.fetchSimilarRecommendations();
+    //   this.props.closeModal();
+    // }, 30);
+
+    // May refactor in the future so that recommendations are made only after and if createInterest and closeModal are successful
+    instance
+      .get(
+        `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${tmdbApiKey}`
+      )
+      .then(response => {
+        let count = 0;
+        let recommendations = [];
+
+        const promises = response.data.results.map(recommendation => {
+          let recId = recommendation.id;
+          return instance
+            .get(
+              `https://api.themoviedb.org/3/movie/${recId}?api_key=${tmdbApiKey}`
+            )
+            .then(movie => {
+              count += 1;
+
+              recommendation.genres = movie.data.genres;
+              recommendation.runtime = movie.data.runtime;
+              recommendation.similarMovieId = id;
+
+              recommendations.push(recommendation);
+              if (count === 15) this.props.closeModal();
+            });
+        });
+
+        Promise.all(promises).then(() => {
+          this.props.createSimilarRecommendations(recommendations);
+          this.props.closeModal();
+        });
+      });
   }
 
   removeFromInterests(e) {
@@ -134,7 +182,14 @@ class Details extends React.Component {
 
 
 const msp = (state, ownProps) => {
-  let detailsItem = state.entities[ownProps.detailsType][ownProps.detailsId];
+  let detailsItem;
+  if (ownProps.detailsType === "recommendations") {
+    ///HARDCODED TO GET INTO SIMILAR SLICE OF STATE
+    detailsItem = state.entities[ownProps.detailsType].similar[ownProps.detailsId];
+  } else {
+    detailsItem = state.entities[ownProps.detailsType][ownProps.detailsId];
+
+  }
 
   return {
     detailsItem
@@ -144,7 +199,8 @@ const msp = (state, ownProps) => {
 const mdp = dispatch => ({
   createInterest: data => dispatch(createInterest(data)),
   deleteInterest: data => dispatch(deleteInterest(data)),
-  fetchSimilarRecommendations: data => dispatch(fetchSimilarRecommendations(data))
+  fetchSimilarRecommendations: data => dispatch(fetchSimilarRecommendations(data)),
+  createSimilarRecommendations: data => dispatch(createSimilarRecommendations(data))
 });
 
 export default connect(msp, mdp)(Details);

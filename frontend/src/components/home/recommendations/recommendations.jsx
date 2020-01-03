@@ -2,10 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import SimpleSlider from '../slider/simple_slider';
 import { fetchGenres } from '../../../actions/genre_actions';
+import { fetchInterests } from '../../../actions/interest_actions';
 import { fetchSimilarRecommendations } from '../../../actions/recommendation_actions';
 
 class Recommendations extends React.Component {
   componentDidMount() {
+    this.props.fetchInterests();
     this.props.fetchSimilarRecommendations();
     this.props.fetchGenres();
   }
@@ -42,7 +44,8 @@ const msp = state => ({
 
 const mdp = dispatch => ({
   fetchGenres: () => dispatch(fetchGenres()),
-  fetchSimilarRecommendations: () => dispatch(fetchSimilarRecommendations())
+  fetchSimilarRecommendations: () => dispatch(fetchSimilarRecommendations()),
+  fetchInterests: () => dispatch(fetchInterests())
 });
 
 export default connect(msp, mdp)(Recommendations);

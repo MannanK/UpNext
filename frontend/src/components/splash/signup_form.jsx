@@ -96,7 +96,7 @@ class SignupForm extends React.Component {
             />
             <div className="error-caption">{this.props.errors.password2}</div>
 
-            <input className="form-submit" type="submit" value="Sign Up" />
+            <button className="form-submit" type="submit">Sign Up</button>
           </div>
         </form>
       </>

@@ -83,7 +83,7 @@ class LoginForm extends React.Component {
               />
               <div className="error-caption">{this.props.errors.password}</div>
 
-              <input className="form-submit" type="submit" value="Login" />
+              <button className="form-submit" type="submit">Login</button>
             </div>
           </form>
         </>

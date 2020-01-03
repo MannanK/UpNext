@@ -118,11 +118,7 @@ class Details extends React.Component {
       </button>
     )
 
-    debugger
     let genres = detailsItem.genres.slice(0,3).map((genre) => genre.name);
-
-
-    
 
     return (
       <>
@@ -177,7 +173,6 @@ class Details extends React.Component {
       </>
     );
   }
-  
 }
 
 
@@ -188,7 +183,6 @@ const msp = (state, ownProps) => {
     detailsItem = state.entities[ownProps.detailsType].similar[ownProps.detailsId];
   } else {
     detailsItem = state.entities[ownProps.detailsType][ownProps.detailsId];
-
   }
 
   return {

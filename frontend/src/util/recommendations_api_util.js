@@ -4,6 +4,6 @@ export const getRecommendations = () => {
   return axios.get(`/api/recommendations`);
 };
 
-export const createSimilarRecommendation = (data, recId) => {
-  return axios.post('/api/recommendations/similar', { data, recId });
+export const createSimilarRecommendations = (data) => {
+  return axios.post('/api/recommendations/similar', { data });
 };

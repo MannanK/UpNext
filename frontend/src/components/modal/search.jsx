@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { createInterest } from '../../actions/interest_actions';
-import { createSimilarRecommendation } from '../../actions/recommendation_actions';
+import { createSimilarRecommendations } from '../../actions/recommendation_actions';
 import keys from "../../config/keys";
 // const keys = require('../../config/keys');
 
@@ -101,21 +101,28 @@ class Search extends React.Component {
         .get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${tmdbApiKey}`)
         .then(response => {
           let count = 0;
+          let recommendations = [];
 
-          response.data.results.forEach((recommendation) => {
+          const promises = response.data.results.map((recommendation) => {
             let recId = recommendation.id;
-            instance.get(`https://api.themoviedb.org/3/movie/${recId}?api_key=${tmdbApiKey}`)
+            return instance.get(`https://api.themoviedb.org/3/movie/${recId}?api_key=${tmdbApiKey}`)
               .then(movie => {
                 count += 1;
 
                 recommendation.genres = movie.data.genres;
                 recommendation.runtime = movie.data.runtime;
+                recommendation.similarMovieId = id;
 
-                // this.props.createSimilarRecommendation(recommendation, recId);
-
+                recommendations.push(recommendation);
                 if (count === 15) this.props.closeModal();
               });
           })
+
+          Promise.all(promises)
+            .then(() => {
+              this.props.createSimilarRecommendations(recommendations)
+            })
+            
         });
     };
   }
@@ -157,7 +164,7 @@ class Search extends React.Component {
 
 const mdp = dispatch => ({
   createInterest: data => dispatch(createInterest(data)),
-  createSimilarRecommendation: data => dispatch(createSimilarRecommendation(data))
+  createSimilarRecommendations: data => dispatch(createSimilarRecommendations(data))
 });
 
 export default connect(null, mdp)(Search);

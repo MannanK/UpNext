@@ -21,14 +21,6 @@ class Recommendations extends React.Component {
     }
 
     return (
-<<<<<<< HEAD
-        <div className="recommendations-container">
-          <section className="recommendations-direct">
-            <header className="slider-header">Uniquely yours</header>
-            <SimpleSlider items={this.props.recommendations} />
-          </section>
-        </div>
-=======
       <div className='recommendations-container'>
         <section className='recommendations-similar'>
           <header className='slider-header'>
@@ -39,7 +31,6 @@ class Recommendations extends React.Component {
           <SimpleSlider items={similar} type={'recommendations'} />
         </section>
       </div>
->>>>>>> master
     );
   }
 }

@@ -45,7 +45,7 @@ export default class SimpleSlider extends Component {
         );
       });
     } else if (type === 'recommendations') {
-      const recommendations = Object.values(this.props.items).reverse();
+      const recommendations = Object.values(this.props.items);
 
       sliderItems = recommendations.map((recommendation, index) => {
         return (
@@ -61,7 +61,7 @@ export default class SimpleSlider extends Component {
       {
         infinite: true,
         speed: 500,
-        slidesToShow: numSlides + 0.1,
+        slidesToShow: numSlides,
         swipeToSlide: true,
         arrows: false
       } :

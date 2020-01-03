@@ -4,20 +4,28 @@ import { openModal } from "../../../actions/modal_actions";
 
 class SimpleSliderItem extends React.Component {
   render() {
-    const { interest } = this.props;
+    const { entry, type } = this.props;
+    let modal;
 
-    let modal = {
-      type: "details",
-      detailsType: "interests",
-      detailsId: interest._id
-    };
-
+    if (type === 'interests') {
+      modal = {
+        type: "details",
+        detailsType: type,
+        detailsId: entry._id
+      };
+    } else if (type === 'recommendations') {
+      modal = {
+        type: "details",
+        detailsType: type,
+        detailsId: entry._id
+      };
+    }
 
     return(
       <div className="slider-item">
         <img
           className='slider-image'
-          src={`https://image.tmdb.org/t/p/w500/${interest.poster}`} alt={`${interest.title}`}
+          src={`https://image.tmdb.org/t/p/w500/${entry.poster}`} alt={`${entry.title}`}
           onClick={() => this.props.openModal(modal)} />
       </div>
     );

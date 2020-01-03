@@ -33,13 +33,12 @@ class Details extends React.Component {
   removeFromInterests(e) {
     e.preventDefault();
     
-    const promise = this.props.deleteInterest( this.props.detailsId );
+    this.props.deleteInterest( this.props.detailsId );
 
-    Promise.all(promise)
-    .then(() => {
+    setTimeout(() => {
       this.props.fetchSimilarRecommendations();
       this.props.closeModal();
-    });
+    }, 30);
   }
 
   handleDate(date) {

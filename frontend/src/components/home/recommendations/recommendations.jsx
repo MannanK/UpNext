@@ -17,11 +17,6 @@ class Recommendations extends React.Component {
           <header className='slider-header'>Uniquely yours</header>
           <SimpleSlider items={this.props.interests} />
         </section>
-        <section className='recommendations-direct'>
-          <header className='slider-header'>Try something new, but not too new</header>
-          <SimpleSlider items={this.props.interests} />
-        </section>
-
       </div>
     );
   }

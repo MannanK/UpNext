@@ -1,5 +1,11 @@
+// Recommendations main container
 .recommendations-container {
-  height: 56vh;
+  height: 100%;
   width: 100%;
-  background: red;
+  background: linear-gradient(175deg, $button-color 15%, rgba(96, 4, 14, 0.6) 45%, $button-color 85%);
+  // opacity: 0.4;
+}
+
+.recommendations-direct {
+  height: 28vh;
 }

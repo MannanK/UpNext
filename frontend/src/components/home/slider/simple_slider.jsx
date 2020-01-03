@@ -33,13 +33,27 @@ export default class SimpleSlider extends Component {
 
 
   render() {
-    const interests = Object.values(this.props.items).reverse();
+    const { type } = this.props;
+    let sliderItems;
 
-    const sliderItems = interests.map((interest, index) => {
-      return(
-        <SimpleSliderItem interest={interest} key={index}/>
-      );
-    });
+    if (type === 'interests') {
+      const interests = Object.values(this.props.items).reverse();
+      
+      sliderItems = interests.map((interest, index) => {
+        return(
+          <SimpleSliderItem entry={interest} key={index} type={type}/>
+        );
+      });
+    } else if (type === 'recommendations') {
+      const recommendations = Object.values(this.props.items).reverse();
+
+      sliderItems = recommendations.map((recommendation, index) => {
+        return (
+          <SimpleSliderItem entry={recommendation} key={index} type={type} />
+        );
+      });
+    }
+
 
     let aspectRatio = this.state.width / this.state.height;
     // *6.5 enables aspect ratio to relate to number of slides

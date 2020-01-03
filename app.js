@@ -2,6 +2,7 @@ const express = require("express");
 const users = require("./routes/api/users");
 const interests = require("./routes/api/interests");
 const recommendations = require("./routes/api/recommendations");
+const genres = require("./routes/api/genres");
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const app = express();
@@ -24,6 +25,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use("/api/users", users);
 app.use("/api/interests", interests);
 app.use("/api/recommendations", recommendations);
+app.use("/api/genres", genres);
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));

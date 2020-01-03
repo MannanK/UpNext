@@ -47,16 +47,6 @@ router.delete(`/:interestId`, passport.authenticate('jwt', {session: false}), (r
   }
 );
 
-// router.delete(
-//   "/",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     Interest.findOneAndDelete({ _id: req.body._id })
-//       .then(() => {
-//         return res.status(200);
-//       })
-//       .catch(err => console.log(err));
-//   }
-// );
+
 
 module.exports = router;

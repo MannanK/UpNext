@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createInterest, deleteInterest } from "../../actions/interest_actions";
-
+import { fetchSimilarRecommendations } from '../../actions/recommendation_actions';
 
 class Details extends React.Component {
   constructor(props) {
@@ -21,15 +21,24 @@ class Details extends React.Component {
 
   addInterest(e) {
     e.preventDefault();
-    this.props.createInterest(this.props.detailsItem);
+    this.props.createInterest(this.props.detailsItem)
+    // .then(() => {
+    //   debugger
+    //   this.props.fetchSimilarRecommendations();
     this.props.closeModal();
+    // });
+
   }
 
   removeFromInterests(e) {
     e.preventDefault();
     
     this.props.deleteInterest( this.props.detailsId );
-    this.props.closeModal();
+
+    setTimeout(() => {
+      this.props.fetchSimilarRecommendations();
+      this.props.closeModal();
+    }, 30);
   }
 
   handleDate(date) {
@@ -133,7 +142,8 @@ const msp = (state, ownProps) => {
 
 const mdp = dispatch => ({
   createInterest: data => dispatch(createInterest(data)),
-  deleteInterest: data => dispatch(deleteInterest(data))
+  deleteInterest: data => dispatch(deleteInterest(data)),
+  fetchSimilarRecommendations: data => dispatch(fetchSimilarRecommendations(data))
 });
 
 export default connect(msp, mdp)(Details);

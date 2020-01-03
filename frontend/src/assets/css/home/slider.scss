@@ -30,6 +30,24 @@
   left: 0;
 }
 
+// Slider header
+.slider-header {
+  height: 20%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 10px;
+  // margin-top: 10px;
+
+  color: white;
+  font-size: 1.5em;
+}
+
+// Interests slider container
+.slider-container {
+  height: 80%;
+  // margin-left: 0.5%;
+}
 
 // Slider item
 .slider-item {

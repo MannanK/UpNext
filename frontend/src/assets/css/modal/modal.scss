@@ -1,6 +1,7 @@
 // Modal background for traditonal greyed out
 .grey-background {
-  position: fixed;
+  // Changed from fixed to absolute to account for search bar staying attached to scroll
+  position: absolute;
   top: 0;
   bottom: 0;
   right: 0;

@@ -102,7 +102,7 @@ class Search extends React.Component {
 
       // May refactor in the future so that recommendations are made only after and if createInterest and closeModal are successful
       instance
-        .get(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${tmdbApiKey}`)
+        .get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${tmdbApiKey}`)
         .then(response => {
           let count = 0;
           let recommendations = [];
@@ -124,7 +124,8 @@ class Search extends React.Component {
 
           Promise.all(promises)
             .then(() => {
-              this.props.createSimilarRecommendations(recommendations)
+              this.props.createSimilarRecommendations(recommendations);
+              this.props.closeModal();
             })
             
         });

@@ -26,8 +26,9 @@
   right: 0;
 }
 
-.slick-prev {
+.slick-prev::before {
   left: 0;
+  display: none;
 }
 
 // Slider header

@@ -70,6 +70,7 @@ class Details extends React.Component {
       </button>
     )
 
+    debugger
     let genres = detailsItem.genres.slice(0,3).map((genre) => genre.name);
 
 

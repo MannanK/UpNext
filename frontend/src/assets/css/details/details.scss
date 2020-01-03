@@ -9,7 +9,7 @@
 }
 
 section.detail-container {
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px;
   height: 520px;
   width: 300px;  
   display: flex;
@@ -18,11 +18,12 @@ section.detail-container {
   align-content: flex-start;
   position: relative;
   padding: 10px;
-  background-color: $main-color-transparent;
+  background-color: $detail-color-transparent;
 
   @media (min-width: 900px) {
     width: 425px;  
     padding: 30px;
+    padding-top: 15px;
     height: 560px;
   }
 }
@@ -30,16 +31,25 @@ section.detail-container {
 .detail-heading {
   display: flex;
   justify-content: center;
-  max-width: 500px;
+  max-width: 425px;
+  padding: 10px 30px 0;
+  border-radius: 10px 10px 0 0;
+  background-color: rgba(32, 6, 8, 0.7);
+
 }
 
 h3.detail-title {
-  margin-bottom: 10px;
-  margin-top: 0;
-  color: white;
+  // margin-bottom: 10px;
+  margin: 0;
+  width: 100%;
+  padding: 10px;
+  padding-bottom: 5px;
+  color: $detail-font-color;
   text-align: center;
   font-size: 1.3em;
   display: flex;
+  justify-content: center;
+  border-bottom: 2px solid rgba(116, 2, 2, 0.5);
 
   @media (min-width: 900px) {
     font-size: 1.7em;
@@ -55,7 +65,7 @@ h3.detail-title {
   align-items: flex-start;
   padding-bottom: 10px;
   margin-bottom: 10px;
-  border-bottom: 2px solid darkred;
+  border-bottom: 2px solid rgba(116, 2, 2, 0.5);
   // border-radius: 5px;
 }
 
@@ -115,7 +125,8 @@ h3.detail-title {
 }
 
 .score {
-  margin-bottom: 5px
+  margin-bottom: 5px;
+
 }
 
 .star {
@@ -144,8 +155,7 @@ h3.detail-title {
 
 .score-num {
   font-size: 30px;
-  // -webkit-text-stroke-width: 1px;
-  // -webkit-text-stroke-color: rgb(255, 219, 60);
+  color: $detail-font-color;
 
   @media (min-width: 900px) {
     font-size: 50px;
@@ -154,7 +164,8 @@ h3.detail-title {
 
 .score-num span {
   font-size: 16px;
-  // -webkit-text-stroke-width: 0;
+  color: $detail-font-color;
+
   @media (min-width: 900px) {
     font-size: 25px;
   }
@@ -163,7 +174,7 @@ h3.detail-title {
 .vote-count {
   font-size: 12px;
   text-align: right;
-  color: rgb(73, 0, 0);
+  color: rgb(238, 51, 51);
   
   @media (min-width: 900px) {
     font-size: 18px;
@@ -174,7 +185,7 @@ h3.detail-title {
 .runtime > span:first-child, 
 .genres > span:first-child {
   font-size: 12px;
-  color: rgb(73, 0, 0);
+  color: rgb(238, 51, 51);
 }
 
 .genres {
@@ -186,12 +197,19 @@ h3.detail-title {
     font-size: 1.35em;
   }
 }
+
+.year > span:last-child, 
+.runtime > span:last-child, 
+.genres > span:last-child{
+  color: $detail-font-color;
+}
 ///////
 
 .overview {
   font-size: 16px;
   max-height: 180px;
   overflow-y: auto;
+  color: $detail-font-color;
 
   @media (min-width: 900px) {
     font-size: 18px;
@@ -220,7 +238,8 @@ h3.detail-title {
   font-size: 1em;
   position: absolute;
   bottom: 25px;
-  
+  color: $detail-font-color;
+
   @media (min-width: 900px) {
     padding: 9px 14px;
     font-size: 1.1em;

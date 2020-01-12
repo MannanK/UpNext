@@ -36,11 +36,71 @@ The app was made using the **MERN stack** and is **meant to be used as a mobile 
 * Also allows for swipe options on mobile users
 * Responsively changes size depending on the window size of the client
 
+```
+let aspectRatio = this.state.width / this.state.height;
+// *6.5 enables aspect ratio to relate to number of slides
+let numSlides = Math.floor(aspectRatio * 7);
+let settings = (window.matchMedia("(max-width: 570px)").matches) ?
+  {
+    infinite: true,
+    speed: 500,
+    slidesToShow: numSlides,
+    swipeToSlide: true,
+    arrows: false
+  } :
+  {
+    infinite: true,
+    speed: 500,
+    slidesToShow: numSlides,
+    slidesToScroll: numSlides,
+    draggable: false,
+    arrows: true
+  };
+
+return (
+  <div className='slider-container'>
+    <Slider {...settings}>
+      {sliderItems}
+    </Slider>
+  </div>
+);
+```
+
 ### Adding and Deleting Interests
 * To add an interest, a user can start searching in the search bar for any movie they could possibly think of
 * Using a debounced search every 350ms, an API request is made to TMDb's server to get movie titles the user could be trying to search for
 * The user can then click on one of the suggestions to add that movie as an interest; doing so will add the interest in the MongoDB database
 * Additionally, an API request is then made to TMDB's server to get recommendations for the interest the user just added, and the recommendations row is updated
+
+```
+makeDebouncedSearch(keyword) {
+  const instance = axios.create();
+  instance.defaults.headers.common = {};
+  instance.defaults.headers.common.accept = 'application/json';
+
+  instance
+    .get(`https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${keyword}&include_adult=false`)
+    .then(response => {
+      let searchResults = response.data.results;
+
+      // Removes any search results that are missing metadata like date or poster
+      let sanitizedResults = searchResults.reduce((store, entry) => {
+        if (!Object.values(entry).some(field => field === null)) {
+          store.push(entry);
+        }
+        return store;
+      }, []);
+
+      if (!isEmpty(sanitizedResults)) {
+        sanitizedResults = sanitizedResults.slice(0, 10);
+      }
+
+      this.setState({
+        searchResults: sanitizedResults
+      });
+    });
+}
+```
 
 ### Future Features
 

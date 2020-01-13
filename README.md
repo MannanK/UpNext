@@ -71,12 +71,13 @@ return (
 ```
 
 ### Adding and Deleting Interests
+
+<img src="https://github.com/MannanK/UpNext/blob/master/frontend/src/assets/images/details.png?raw=true" width="40%">
+
 * To add an interest, a user can start searching in the search bar for any movie they could possibly think of
 * Using a debounced search every 350ms, an API request is made to TMDb's server to get movie titles the user could be trying to search for
 * The user can then click on one of the suggestions to add that movie as an interest; doing so will add the interest in the MongoDB database
 * Additionally, an API request is then made to TMDB's server to get recommendations for the interest the user just added, and the recommendations row is updated
-
-<img src="https://github.com/MannanK/UpNext/blob/master/frontend/src/assets/images/details.png?raw=true" width="40%">
 
 ```
 makeDebouncedSearch(keyword) {

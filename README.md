@@ -18,7 +18,7 @@ The app was made using the **MERN stack** and is **meant to be used as a mobile 
 
 ![alt text][login]
 
-[login]: https://raw.githubusercontent.com/MannanK/UpNext/master/frontend/src/assets/images/logo_3.png "Login Page"
+[login]: https://github.com/MannanK/UpNext/blob/master/frontend/src/assets/images/login.png?raw=true "Login Page"
 
 ### Other Libraries Used
 * React Slick
@@ -37,7 +37,7 @@ The app was made using the **MERN stack** and is **meant to be used as a mobile 
 
 ![alt text][main]
 
-[main]: https://raw.githubusercontent.com/MannanK/UpNext/master/frontend/src/assets/images/logo_3.png "Main Page"
+[main]: https://github.com/MannanK/UpNext/blob/master/frontend/src/assets/images/main.png?raw=true "Main Page"
 
 * Carousel displays all entry results
 * Carousel displays most recent interest
@@ -82,7 +82,7 @@ return (
 
 ![alt text][details]
 
-[details]: https://raw.githubusercontent.com/MannanK/UpNext/master/frontend/src/assets/images/logo_3.png "Details Pane"
+[details]: https://github.com/MannanK/UpNext/blob/master/frontend/src/assets/images/details.png?raw=true "Details Pane"
 
 ```
 makeDebouncedSearch(keyword) {

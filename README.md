@@ -16,6 +16,10 @@ UpNext is a one-stop-shop app that allows you to both log movies that you are in
 
 The app was made using the **MERN stack** and is **meant to be used as a mobile web app first**. The API we are currently querying for movie information is **[TMDb](https://www.themoviedb.org/documentation/api?language=en-US)**. In the current version of the app, recommendations are provided based on your most recently watched interest, and media is limited to movies. In the future, UpNext will take into account all of your interests and provide aggregate recommendations, with media types being expanded to movies, shows, games, and music.
 
+![alt text][login]
+
+[login]: https://raw.githubusercontent.com/MannanK/UpNext/master/frontend/src/assets/images/logo_3.png "Login Page"
+
 ### Other Libraries Used
 * React Slick
 * Slick Carousel
@@ -30,6 +34,10 @@ The app was made using the **MERN stack** and is **meant to be used as a mobile 
 * You can click on a recommendation to view more details about the movie, and then add it as an interest from the details pane
 
 ### React-Slick slider
+
+![alt text][main]
+
+[main]: https://raw.githubusercontent.com/MannanK/UpNext/master/frontend/src/assets/images/logo_3.png "Main Page"
 
 * Carousel displays all entry results
 * Carousel displays most recent interest
@@ -71,6 +79,10 @@ return (
 * Using a debounced search every 350ms, an API request is made to TMDb's server to get movie titles the user could be trying to search for
 * The user can then click on one of the suggestions to add that movie as an interest; doing so will add the interest in the MongoDB database
 * Additionally, an API request is then made to TMDB's server to get recommendations for the interest the user just added, and the recommendations row is updated
+
+![alt text][details]
+
+[details]: https://raw.githubusercontent.com/MannanK/UpNext/master/frontend/src/assets/images/logo_3.png "Details Pane"
 
 ```
 makeDebouncedSearch(keyword) {

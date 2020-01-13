@@ -16,9 +16,7 @@ UpNext is a one-stop-shop app that allows you to both log movies that you are in
 
 The app was made using the **MERN stack** and is **meant to be used as a mobile web app first**. The API we are currently querying for movie information is **[TMDb](https://www.themoviedb.org/documentation/api?language=en-US)**. In the current version of the app, recommendations are provided based on your most recently watched interest, and media is limited to movies. In the future, UpNext will take into account all of your interests and provide aggregate recommendations, with media types being expanded to movies, shows, games, and music.
 
-![alt text][login]
-
-[login]: https://github.com/MannanK/UpNext/blob/master/frontend/src/assets/images/login.png?raw=true "Login Page"
+<img src="https://github.com/MannanK/UpNext/blob/master/frontend/src/assets/images/login.png?raw=true" width="40%">
 
 ### Other Libraries Used
 * React Slick
@@ -35,9 +33,7 @@ The app was made using the **MERN stack** and is **meant to be used as a mobile 
 
 ### React-Slick slider
 
-![alt text][main]
-
-[main]: https://github.com/MannanK/UpNext/blob/master/frontend/src/assets/images/main.png?raw=true "Main Page"
+<img src="https://github.com/MannanK/UpNext/blob/master/frontend/src/assets/images/main.png?raw=true" width="40%">
 
 * Carousel displays all entry results
 * Carousel displays most recent interest
@@ -80,9 +76,7 @@ return (
 * The user can then click on one of the suggestions to add that movie as an interest; doing so will add the interest in the MongoDB database
 * Additionally, an API request is then made to TMDB's server to get recommendations for the interest the user just added, and the recommendations row is updated
 
-![alt text][details]
-
-[details]: https://github.com/MannanK/UpNext/blob/master/frontend/src/assets/images/details.png?raw=true "Details Pane"
+<img src="https://github.com/MannanK/UpNext/blob/master/frontend/src/assets/images/details.png?raw=true" width="40%">
 
 ```
 makeDebouncedSearch(keyword) {

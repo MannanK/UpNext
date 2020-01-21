@@ -23,6 +23,7 @@ class SimpleSliderItem extends React.Component {
 
     return(
       <div className="slider-item">
+        {/* <h1>{entry.title}</h1> */}
         <img
           className='slider-image'
           src={`https://image.tmdb.org/t/p/w500/${entry.poster}`} alt={`${entry.title}`}

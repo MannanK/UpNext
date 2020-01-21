@@ -22,7 +22,7 @@
 
 .nav-logo-container {
   position: relative;
-  height: 6vh;
+  height: 50px;
   // width: 100%;
   display: flex;
   justify-content: center;
@@ -50,7 +50,7 @@
 }
 
 .nav-logo-gray.one {
-  width: 20px;
+  width: 21px;
   height: auto;
   position: absolute;
   left: 73%;
@@ -63,9 +63,9 @@
   
   filter: brightness(1.5);  
 
-  @media (min-width: 900px) {
-   width: 23px;
-  }
+  // @media (min-width: 900px) {
+  //  width: 23px;
+  // }
 
 }
 
@@ -84,9 +84,9 @@
 
   filter: brightness(1.5);  
 
-  @media (min-width: 900px) {
-   width: 18px;
-  }
+  // @media (min-width: 900px) {
+  //  width: 18px;
+  // }
 
 }
 // .nav-logo {
@@ -115,7 +115,7 @@
     padding: 9px;
     font-size: 1.1em;
     width: 120px;
-    transition: background-color 800ms ease-out ;
+    transition: background-color 200ms ease-out ;
   }
 }
 
@@ -123,7 +123,7 @@
   @media (min-width: 900px) {
     cursor: pointer;
     background-color: $button-color-hover;
-    transition: background-color 800ms ease-out ;
+    transition: background-color 200ms ease-out ;
 
   }
 }

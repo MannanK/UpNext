@@ -27,8 +27,8 @@ export const createGenre = data => dispatch => (
     .catch(err => console.log(err))
 );
 
-export const updateGenre = (data, genreId) => dispatch => (
-  GenreApiUtil.updateGenre(data, genreId)
+export const updateGenre = (genreId, value) => dispatch => (
+  GenreApiUtil.updateGenre(genreId, value)
     .then(genre => dispatch(receiveGenre(genre)))
     .catch(err => console.log(err))
 );

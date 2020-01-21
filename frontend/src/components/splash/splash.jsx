@@ -61,9 +61,37 @@ class Splash extends React.Component {
 
     return (
       <div className="splash-container">
-
         <div className="splash-header">
-          <img src={require("../../assets/images/logo_3.png")} alt="logo" />
+          <img
+            className="logo-back"
+            src={require("../../assets/images/logo_back.png")}
+            alt="logo"
+          />
+          <div className="logo-container">
+            <img
+              className="logo-main"
+              src={require("../../assets/images/logo_an.png")}
+              alt="logo"
+            />
+
+            <img
+              className="logo-gray two"
+              src={require("../../assets/images/grarrow.png")}
+              alt="logo"
+            />
+            <img
+              className="logo-gray one"
+              src={require("../../assets/images/grarrow.png")}
+              alt="logo"
+            />
+
+          </div>
+          {/* <img
+            className="logo-red"
+            src={require("../../assets/images/rarrow.png")}
+            alt="logo"
+          /> */}
+          {/* <img src={require("../../assets/images/logo_3.png")} alt="logo" /> */}
         </div>
 
         <div className={`${formType.toLowerCase()}-form-container`}>

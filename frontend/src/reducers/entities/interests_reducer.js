@@ -4,8 +4,6 @@ import { RECEIVE_USER_LOGOUT } from '../../actions/session_actions';
 const InterestsReducer = (state = {}, action) => {
   Object.freeze(state);
   let newState = Object.assign({}, state);
-  debugger
-
   switch(action.type) {
     case RECEIVE_INTERESTS:
       action.interests.data.forEach((interest, idx) => {

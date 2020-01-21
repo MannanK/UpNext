@@ -93,23 +93,28 @@ class Search extends React.Component {
 
       instance
         .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${tmdbApiKey}`)
-        .then(response => {
-          this.props.createInterest(response.data);
-          setTimeout(() => {
+        .then(response => { 
+          Promise.all([this.props.createInterest(response.data)]).then( () => {
             // genres calculation
             const {genres} = this.props;
             response.data.genres.forEach(genre => {
-              if (genres[genre.id]) {
-                this.props.updateGenre(genres[genre.id]._id, 1);
+              if (genres[genre.name]) {
+                this.props.updateGenre(genres[genre.name]._id, {value:1});
 
               } else {
                 this.props.createGenre(genre);
               }
             });
-            
             this.props.fetchSimilarRecommendations();
             this.props.closeModal();
-          }, 30);
+          });
+          // this.props.createInterest(response.data);
+          // setTimeout(() => {
+          
+            
+            // this.props.fetchSimilarRecommendations();
+            // this.props.closeModal();
+          // }, 30);
         });
 
       // May refactor in the future so that recommendations are made only after and if createInterest and closeModal are successful
@@ -202,7 +207,7 @@ const mdp = dispatch => ({
   createSimilarRecommendations: data => dispatch(createSimilarRecommendations(data)),
   fetchSimilarRecommendations: () => dispatch(fetchSimilarRecommendations()),
   createGenre: data => dispatch(createGenre(data)),
-  updateGenre: genreId => dispatch(updateGenre(genreId))
+  updateGenre: (genreId, value) => dispatch(updateGenre(genreId, value))
 });
 
 export default connect(msp, mdp)(Search);

@@ -11,9 +11,28 @@ class Nav extends React.Component {
     return (
       <nav className="nav-container">
         <header className="nav-header">
-          <div className="nav-logo">
-            <img src={require("../../../assets/images/logo_4.png")} alt="logo" />
+          <div className="nav-logo-container">
+            <img
+              className="nav-logo-main"
+              src={require("../../../assets/images/logo_an.png")}
+              alt="logo"
+            />
+
+            <img
+              className="nav-logo-gray two"
+              src={require("../../../assets/images/grarrow.png")}
+              alt="logo"
+            />
+            <img
+              className="nav-logo-gray one"
+              src={require("../../../assets/images/grarrow.png")}
+              alt="logo"
+            />
           </div>
+
+          {/* <div className="nav-logo">
+            <img src={require("../../../assets/images/logo_4.png")} alt="logo" />
+          </div> */}
           <button className="logout-button" onClick={logout}>
             Logout
           </button>
@@ -24,7 +43,7 @@ class Nav extends React.Component {
             type="text"
             placeholder="Search..."
             className="nav-search-input"
-            onClick={() => openModal({"type": "tester"})}
+            onClick={() => openModal({ type: "tester" })}
           />
         </div>
       </nav>

@@ -1,3 +1,13 @@
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+
+}
+
 .detail-child {
   position: absolute;
   top: 50%;
@@ -6,7 +16,12 @@
   transform: translate(-50%, -50%);
   flex-direction: column;
   justify-content: center;
+
+  animation-name: fade-in;
+  animation-duration: 500ms;
+
 }
+
 
 section.detail-container {
   border-radius: 0 0 10px 10px;
@@ -19,6 +34,9 @@ section.detail-container {
   position: relative;
   padding: 10px;
   background-color: $detail-color-transparent;
+
+  animation-name: fade-in;
+  animation-duration: 500ms;
   
   @media only screen and (min-device-width: 320px) 
   and (max-device-width: 812px) and (orientation: landscape) {
@@ -42,15 +60,20 @@ section.detail-container {
   top: 2%;
   right: 2.5%;
   font-size: 1.2em;
-
+  
   @media (min-width: 900px) {
+    transition: color 400ms ease-out ;
     font-size: 1.7em;
   }
 }
 
 .close-modal:hover {
-  cursor: pointer;
-  color: $button-color-hover;
+  @media (min-width: 900px) {
+    cursor: pointer;
+    color: $button-color-hover;
+    transition: color 400ms ease-out ;
+  }
+
 }
 
 
@@ -322,6 +345,8 @@ h3.detail-title {
   @media (min-width: 900px) {
     padding: 9px 14px;
     font-size: 1.1em;
+    transition: background-color 800ms ease-out ;
+
   }
 }
 
@@ -329,5 +354,7 @@ h3.detail-title {
   @media (min-width: 900px) {
     cursor: pointer;
     background-color: $button-color-hover;
+    transition: background-color 800ms ease-out ;
+
   }
 }

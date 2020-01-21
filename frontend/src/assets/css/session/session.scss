@@ -60,6 +60,7 @@
     transform: translateX(100vw);
   }
 }
+
 @keyframes rotate {
   0%{
     transform: rotate(-60deg);
@@ -80,8 +81,9 @@
 .logo-gray.one {
   width: 39px;
   height: auto;
-  position: relative;
-  left: 122%;
+  position: absolute;
+  left: 73%;
+  // left: 122%;
   transform: translateX(-100vw);
   animation: zip;
   animation-duration: 4s;
@@ -89,7 +91,7 @@
   animation-delay: 1s;
   
   @media (max-width: 500px) {
-    left: 125%;
+    left: 72.5%;
     width: 35px;
 
   }
@@ -98,8 +100,9 @@
 .logo-gray.two {
   width: 30px;
   height: auto;
-  position: relative;
-  left: 135%;
+  position: absolute;
+  left: 67%;
+  // left: 135%;
   transform: translateX(-100vw);
 
   animation: zip;
@@ -109,7 +112,7 @@
 
   @media (max-width: 500px) {
     width: 25px;
-    left: 138%;
+    left: 67%;
   }
 }
 
@@ -122,9 +125,7 @@
   // animation-iteration-count: infinite;
 }
 
-.logo-main, .logo-gray {
-    position: absolute;
-}
+
 
 
 .signup-form-container, .login-form-container {
@@ -200,7 +201,9 @@
   border-radius: 3px;
   border: 1px solid transparent;
   outline: none;
-  background: $session-input;
+  background: rgba(110, 22, 30, 0.7);
+  color: white;
+  font-weight: 200;
 
   padding: 9px;
 
@@ -210,23 +213,24 @@
 }
 
 .signup-form input::placeholder, .login-form input::placeholder {
-  color: darkslategray;
+  color: rgb(156, 83, 83);
+  // color: darkslategray;
 }
 
 .signup-form input::-webkit-input-placeholder, .login-form input::-webkit-input-placeholder {
-  color: darkslategray;
+  color: rgb(156, 83, 83);
 }
 
 .signup-form input::-moz-placeholder, .login-form input::-moz-placeholder {
-  color: darkslategray;
+  color: rgb(156, 83, 83);
 }
 
 .signup-form input:-moz-placeholder, .login-form input:-moz-placeholder {
-  color: darkslategray;
+  color: rgb(156, 83, 83);
 }
 
 .signup-form input:-ms-input-placeholder, .login-form input:-ms-input-placeholder {
-  color: darkslategray;
+  color: rgb(156, 83, 83);
 }
 
 //INPUT FIELD HIGHLIGHT
@@ -250,6 +254,7 @@ input.error {
   text-align: center;
   height: 40px;
   color: $detail-font-color;
+  transition: background-color 800ms ease-out ;
 
 }
 
@@ -258,6 +263,7 @@ input.error {
   @media (min-width: 900px) {
     cursor: pointer;
     background-color: $button-color-hover;
+    transition: background-color 800ms ease-out ;
   }
 }
 
@@ -273,6 +279,7 @@ button#demo-button {
   border-radius: 5px;
   margin-top: 10px;
   color: $detail-font-color;
+  transition: background-color 800ms ease-out ;
 
   @media (min-width: 900px) {
     padding: 9px;
@@ -285,6 +292,7 @@ button#demo-button {
   bottom: 2%;
   left: 5%;
   width: 100%;
+  transition: background-color 800ms ease-out ;
 
   // @media (min-width: 900px) {
   //   width: 500px;

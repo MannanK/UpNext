@@ -29,10 +29,6 @@ class Nav extends React.Component {
               alt="logo"
             />
           </div>
-
-          {/* <div className="nav-logo">
-            <img src={require("../../../assets/images/logo_4.png")} alt="logo" />
-          </div> */}
           <button className="logout-button" onClick={logout}>
             Logout
           </button>

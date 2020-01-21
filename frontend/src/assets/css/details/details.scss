@@ -9,13 +9,9 @@
 }
 
 section.detail-container {
-
   border-radius: 0 0 10px 10px;
   min-height: 520px;
   min-width: 300px;  
-  // border-radius: 0 0 10px 10px;
-  // height: 520px;
-  // width: 300px;  
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -78,7 +74,6 @@ h3.detail-title {
   margin: 0;
   width: 100%;
   padding: 10px;
-  // padding-bottom: 5px;
   color: $detail-font-color;
   text-align: center;
   font-size: 1.3em;
@@ -89,7 +84,7 @@ h3.detail-title {
 
   @media only screen and (min-device-width: 320px) 
   and (max-device-width: 812px) and (orientation: landscape) {
-    font-size: 1em;
+    font-size: 1.2em;
   }
   @media (min-width: 900px) {
     font-size: 1.7em;
@@ -122,6 +117,7 @@ h3.detail-title {
   width: 170px;
   @media only screen and (min-device-width: 320px) 
   and (max-device-width: 812px) and (orientation: landscape) {
+    max-height: 240px;
     width: 160px;
   }
   @media (min-width: 900px) {
@@ -140,10 +136,7 @@ h3.detail-title {
 
   @media only screen and (min-device-width: 320px) 
   and (max-device-width: 812px) and (orientation: landscape) {
-    // min-height: 320px;
-    // justify-content: space-evenly;
     align-items: flex-start;
-    // min-width: 220p; 
   }
 
   @media (min-width: 900px) {
@@ -289,10 +282,8 @@ h3.detail-title {
 
   @media only screen and (min-device-width: 320px) 
   and (max-device-width: 812px) and (orientation: landscape) {
-    // min-height: 320px;
     width: 40%;
     max-height: 240px;
-    // min-width: 220p; 
   }
 
   @media (min-width: 900px) {

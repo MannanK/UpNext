@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import keys from "../../config/keys";
-// import { closeModal } from "../../actions/modal_actions";
 import { createInterest, deleteInterest } from "../../actions/interest_actions";
 import { fetchSimilarRecommendations, createSimilarRecommendations } from '../../actions/recommendation_actions';
 

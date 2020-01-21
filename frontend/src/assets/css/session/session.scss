@@ -15,6 +15,7 @@
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-top: 3%;
 
   @media (min-width: 900px) {
@@ -36,6 +37,95 @@
   // top: 24%;
 }
 
+.logo-container {
+  position: relative;
+  height: 10vh;
+  // width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes zip {
+  0% {
+    transform: translateX(-100vw);
+  }
+  20% {
+    transform: translateX(0);
+  }
+  80% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+@keyframes rotate {
+  0%{
+    transform: rotate(-60deg);
+  }
+  20%{
+    transform: rotate(-60deg);
+  }
+  80%{
+    transform: rotate(-1860deg);
+  }
+  100%{
+    transform: rotate(-1860deg);
+  }
+
+}
+
+
+.logo-gray.one {
+  width: 39px;
+  height: auto;
+  position: relative;
+  left: 122%;
+  transform: translateX(-100vw);
+  animation: zip;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-delay: 1s;
+  
+  @media (max-width: 500px) {
+    left: 125%;
+    width: 35px;
+
+  }
+}
+
+.logo-gray.two {
+  width: 30px;
+  height: auto;
+  position: relative;
+  left: 135%;
+  transform: translateX(-100vw);
+
+  animation: zip;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-delay: 1.2s;
+
+  @media (max-width: 500px) {
+    width: 25px;
+    left: 138%;
+  }
+}
+
+.logo-back {
+  transform: rotate(-60deg);
+  position: absolute;
+  // animation: rotate;
+  // animation-delay: .75s;
+  // animation-duration: 4s;
+  // animation-iteration-count: infinite;
+}
+
+.logo-main, .logo-gray {
+    position: absolute;
+}
+
 
 .signup-form-container, .login-form-container {
   border-radius: 10px;
@@ -45,9 +135,10 @@
   min-height: 41vh;
   position: relative;
   padding: 4%;
-  background-color: $session-color-transparent;
+  background-color: $detail-color-transparent;
   display: flex;
   flex-wrap: wrap;
+  color: $detail-font-color;
   justify-content: center;
   align-content: flex-start;
 
@@ -82,6 +173,8 @@
   text-align: center;
   margin-bottom: 3vh;
   font-size: 2.5em;
+  color: $detail-font-color;
+
 
   @media (max-width: 500px) {
     font-size: 1.9em;
@@ -95,10 +188,7 @@
   width: 100%;
   margin-top: 25px;
 
-  // @media (min-width: 900px) {
-  //   width: 380px;
-  //   margin-top: 25px;
-  // }
+
 }
 
 .signup-form input, .login-form input {
@@ -159,6 +249,8 @@ input.error {
   border-radius: 5px;
   text-align: center;
   height: 40px;
+  color: $detail-font-color;
+
 }
 
 ////HOVER IN DESKTOP ONLY
@@ -180,7 +272,8 @@ button#demo-button {
   font-size: 1.1em;
   border-radius: 5px;
   margin-top: 10px;
- 
+  color: $detail-font-color;
+
   @media (min-width: 900px) {
     padding: 9px;
   }
@@ -207,14 +300,15 @@ button#demo-button {
 ///FORM REDIRECT SPAN
 .form-button .redirect {
   font-size: 14px;
+  color: $detail-font-color;
   
-  // @media (max-width: 900px) {
-  //   font-size: 14px;
-  // }
+
 }
 
 .redirect span {
   font-weight: 700;
+  color: $detail-font-color;
+
 }
 
 .redirect span:hover{

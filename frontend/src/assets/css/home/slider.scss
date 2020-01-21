@@ -12,7 +12,7 @@
 // Media query to add a small margin to the left for desktop view
 @media (min-width: 900px) {
   .slick-track {
-    margin-left: 14px;
+    // margin-left: 14px;
   }
 }
 
@@ -26,10 +26,18 @@
   right: 0;
 }
 
-.slick-prev::before {
+.slick-prev {
   left: 0;
-  display: none;
 }
+
+// Uncomment and delete above to remove left arrow
+// .slick-prev::before {
+//   left: 0;
+//   display: none;
+// }
+
+
+
 
 // Slider header
 .slider-header {

@@ -54,22 +54,26 @@ export default class SimpleSlider extends Component {
       });
     }
 
+
+
     let aspectRatio = this.state.width / this.state.height;
     // *6.5 enables aspect ratio to relate to number of slides
-    let numSlides = Math.floor(aspectRatio * 7);
+    let desktopSlides = Math.floor(aspectRatio * 6);
+    let mobileSlides = Math.floor(aspectRatio * 7);
     let settings = (window.matchMedia("(max-width: 570px)").matches) ?
       {
         infinite: true,
         speed: 500,
-        slidesToShow: numSlides,
+        slidesToShow: mobileSlides,
         swipeToSlide: true,
         arrows: false
       } :
       {
-        infinite: true,
+        infinite: false,
         speed: 500,
-        slidesToShow: numSlides,
-        slidesToScroll: numSlides,
+        variableWidth: true,
+        slidesToShow: desktopSlides,
+        slidesToScroll: desktopSlides,
         draggable: false,
         arrows: true
       };

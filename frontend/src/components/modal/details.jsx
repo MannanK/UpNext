@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import keys from "../../config/keys";
+// import { closeModal } from "../../actions/modal_actions";
 import { createInterest, deleteInterest } from "../../actions/interest_actions";
 import { fetchSimilarRecommendations, createSimilarRecommendations } from '../../actions/recommendation_actions';
 
@@ -15,12 +16,18 @@ class Details extends React.Component {
     this.removeFromInterests = this.removeFromInterests.bind(this);
     this.handleDate = this.handleDate.bind(this);
     this.handleRuntime = this.handleRuntime.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.months = [
       "Jan", "Feb", "Mar",
       "Apr", "May", "Jun", "Jul",
       "Aug", "Sep", "Oct",
       "Nov", "Dec"
     ];
+  }
+
+  handleClose(e) {
+    e.preventDefault();
+    this.props.closeModal();
   }
 
   addInterest(e) {
@@ -122,6 +129,10 @@ class Details extends React.Component {
 
     return (
       <>
+        <div className="close-modal"
+          onClick={this.handleClose}>
+          <i className="fas fa-times"></i>
+        </div>
         <div className="detail-heading">
           <h3 className="detail-title">{detailsItem.title}</h3>
         </div>

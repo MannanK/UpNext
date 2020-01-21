@@ -86,12 +86,6 @@ class Splash extends React.Component {
             />
 
           </div>
-          {/* <img
-            className="logo-red"
-            src={require("../../assets/images/rarrow.png")}
-            alt="logo"
-          /> */}
-          {/* <img src={require("../../assets/images/logo_3.png")} alt="logo" /> */}
         </div>
 
         <div className={`${formType.toLowerCase()}-form-container`}>

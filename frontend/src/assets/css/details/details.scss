@@ -62,7 +62,7 @@ section.detail-container {
   font-size: 1.2em;
   
   @media (min-width: 900px) {
-    transition: color 400ms ease-out ;
+    transition: color 200ms ease-out ;
     font-size: 1.7em;
   }
 }
@@ -71,7 +71,7 @@ section.detail-container {
   @media (min-width: 900px) {
     cursor: pointer;
     color: $button-color-hover;
-    transition: color 400ms ease-out ;
+    transition: color 200ms ease-out ;
   }
 
 }

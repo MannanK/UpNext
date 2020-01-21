@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { createInterest } from '../../actions/interest_actions';
 import { createSimilarRecommendations, fetchSimilarRecommendations } from '../../actions/recommendation_actions';
+import { createGenre, updateGenre } from '../../actions/genre_actions';
 import keys from "../../config/keys";
 
 // const keys = require('../../config/keys');
@@ -95,6 +96,17 @@ class Search extends React.Component {
         .then(response => {
           this.props.createInterest(response.data);
           setTimeout(() => {
+            // genres calculation
+            const {genres} = this.props;
+            response.data.genres.forEach(genre => {
+              if (genres[genre.id]) {
+                this.props.updateGenre(genres[genre.id]._id, 1);
+
+              } else {
+                this.props.createGenre(genre);
+              }
+            });
+            
             this.props.fetchSimilarRecommendations();
             this.props.closeModal();
           }, 30);
@@ -181,10 +193,16 @@ class Search extends React.Component {
   }
 }
 
+const msp = state => ({
+  genres: state.entities.genres
+})
+
 const mdp = dispatch => ({
   createInterest: data => dispatch(createInterest(data)),
   createSimilarRecommendations: data => dispatch(createSimilarRecommendations(data)),
-  fetchSimilarRecommendations: () => dispatch(fetchSimilarRecommendations())
+  fetchSimilarRecommendations: () => dispatch(fetchSimilarRecommendations()),
+  createGenre: data => dispatch(createGenre(data)),
+  updateGenre: genreId => dispatch(updateGenre(genreId))
 });
 
-export default connect(null, mdp)(Search);
+export default connect(msp, mdp)(Search);

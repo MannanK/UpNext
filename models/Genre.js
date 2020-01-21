@@ -6,6 +6,10 @@ const GenreSchema = new Schema({
     type: String,
     required: true
   },
+  id: {
+    type: Number,
+    required: true
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'

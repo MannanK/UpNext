@@ -25,11 +25,12 @@ export const fetchInterests = () => dispatch => (
     .catch(err => console.log(err))  
 );
 
-export const createInterest = data => dispatch => (
-  InterestApiUtil.addInterest(data)
-    .then(interest => dispatch(receiveNewInterest(interest)))
-    .catch(err => console.log(err))  
-);
+export const createInterest = data => dispatch => {
+  return InterestApiUtil.addInterest(data)
+  .then(interest => dispatch(receiveNewInterest(interest)))
+  .catch(err => console.log(err))  
+}
+ 
 
 export const deleteInterest = interestId => dispatch =>
   InterestApiUtil.deleteInterest(interestId)

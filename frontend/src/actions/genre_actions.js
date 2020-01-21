@@ -21,11 +21,11 @@ export const fetchGenres = () => dispatch => (
     .catch(err => console.log(err))
 );
 
-export const createGenre = data => dispatch => (
-  GenreApiUtil.createGenre(data)
+export const createGenre = data => dispatch => {
+  return GenreApiUtil.createGenre(data)
     .then(genre => dispatch(receiveGenre(genre)))
-    .catch(err => console.log(err))
-);
+    .catch(err => console.log(err));
+};
 
 export const updateGenre = (genreId, value) => dispatch => (
   GenreApiUtil.updateGenre(genreId, value)

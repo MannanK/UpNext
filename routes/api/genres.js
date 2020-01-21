@@ -18,6 +18,7 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
         const newGenre = new Genre({
           user: req.user.id,
           name: req.body.name,
+          id: req.body.id,
           count: 1,
         });
 
@@ -36,8 +37,9 @@ router.patch("/:genreId", passport.authenticate('jwt', { session: false }), (req
       if (!genre) {
         return res.status(400).json({ title: "No genre found" });
       } else {
-        // genre.update({ count: req.body.count });
-        genre.count = req.body.count;
+        // genre.count += req.body.value;
+        console.log(req.body);
+        // console.log(req.data);
         
         genre.save()
           .then(genre => res.json(genre))

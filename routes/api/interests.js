@@ -21,7 +21,7 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
             movieId: req.body.id,
             title: req.body.title,
             year: req.body.release_date,
-            genres: req.body.genres,
+            genres: req.body.genres.map(genre => genre.id),
             type: "movie",
             poster: req.body.poster_path,
             overview: req.body.overview,

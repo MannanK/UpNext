@@ -12,6 +12,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 
 router.get('/similar', passport.authenticate('jwt', { session: false }), (req, res) => {
   Interest.find().sort({ "date": -1 }).limit(1).then(interest => {
+    if (interest.length === 0) return res.json({});
     Recommendation.find({ similarMovieId: interest[0].movieId })
       .then(recommendations => {
         let newSimilarRecommendations = {};

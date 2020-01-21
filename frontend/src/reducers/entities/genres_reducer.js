@@ -8,11 +8,11 @@ const GenresReducer = (state = {}, action) => {
   switch(action.type) {
     case RECEIVE_GENRES:
       action.genres.data.forEach((genre, idx) => {
-        newState[action.genres.data[idx].name] = genre;
+        newState[action.genres.data[idx].id] = genre;
       });
       return newState;
     case RECEIVE_GENRE:
-      newState[action.genre.data.name] = action.genre.data;
+      newState[action.genre.data.id] = action.genre.data;
       return newState;
     case RECEIVE_USER_LOGOUT:
       return {};

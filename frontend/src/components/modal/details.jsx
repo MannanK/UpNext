@@ -4,6 +4,7 @@ import axios from "axios";
 import keys from "../../config/keys";
 import { createInterest, deleteInterest } from "../../actions/interest_actions";
 import { fetchSimilarRecommendations, createSimilarRecommendations } from '../../actions/recommendation_actions';
+import {updateGenre} from '../../actions/genre_actions';
 
 const tmdbApiKey = keys.tmdbApiKey;
 
@@ -80,10 +81,13 @@ class Details extends React.Component {
 
   removeFromInterests(e) {
     e.preventDefault();
-    
+    let genres = this.props.detailsItem.genres;
     this.props.deleteInterest( this.props.detailsId );
 
     setTimeout(() => {
+      genres.forEach(id => {
+        this.props.updateGenre(this.props.genres[id]._id, -1);
+      });
       this.props.fetchSimilarRecommendations();
       this.props.closeModal();
     }, 30);
@@ -106,7 +110,7 @@ class Details extends React.Component {
 
   render() {
     const detailsItem = this.props.detailsItem || {};
-
+    debugger
     ///RENDER BUTTONS
     let button = (this.props.detailsType === "recommendations") ? (
       <button className="interest-button" onClick={this.addInterest}>
@@ -117,8 +121,19 @@ class Details extends React.Component {
         Remove from Interests
       </button>
     )
-
-    let genres = detailsItem.genres.slice(0,3).map((genre) => genre.name);
+    let genres = [];
+  
+    if (Object.keys(detailsItem).length !== 0) {
+      genres = this.props.detailsType === "recommendations"  ? (
+        detailsItem.genres.slice(0,3).map(genre => {
+          return genre.name
+        })
+      ) : (
+        detailsItem.genres.slice(0,3).map(id => {
+          return this.props.genres[id].name
+        })
+      );
+    }
 
     return (
       <>
@@ -186,7 +201,8 @@ const msp = (state, ownProps) => {
   }
 
   return {
-    detailsItem
+    detailsItem, 
+    genres: state.entities.genres
   }
 }
 
@@ -194,7 +210,8 @@ const mdp = dispatch => ({
   createInterest: data => dispatch(createInterest(data)),
   deleteInterest: data => dispatch(deleteInterest(data)),
   fetchSimilarRecommendations: data => dispatch(fetchSimilarRecommendations(data)),
-  createSimilarRecommendations: data => dispatch(createSimilarRecommendations(data))
+  createSimilarRecommendations: data => dispatch(createSimilarRecommendations(data)),
+  updateGenre: (genreId,value) => dispatch(updateGenre(genreId,value))
 });
 
 export default connect(msp, mdp)(Details);

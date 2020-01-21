@@ -37,7 +37,6 @@ router.patch("/:genreId", passport.authenticate('jwt', { session: false }), (req
       if (!genre) {
         return res.status(400).json({ title: "No genre found" });
       } else {
-        console.log(req.body);
         genre.count += req.body.value;
 
         

@@ -12,6 +12,7 @@ class Home extends React.Component {
         <Nav />
         <Interests />
         <Recommendations />
+        <Recommendations />
       </main>
     )
   }

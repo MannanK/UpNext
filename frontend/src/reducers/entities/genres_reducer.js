@@ -2,6 +2,7 @@ import { RECEIVE_GENRES, RECEIVE_GENRE } from '../../actions/genre_actions';
 import { RECEIVE_USER_LOGOUT } from '../../actions/session_actions';
 
 const GenresReducer = (state = {}, action) => {
+  debugger
   Object.freeze(state);
   let newState = Object.assign({}, state);
 

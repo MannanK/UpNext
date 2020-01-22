@@ -2,10 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import SimpleSlider from '../slider/simple_slider';
 import { fetchInterests } from '../../../actions/interest_actions';
+import { updatePreferences } from '../../../actions/session_actions';
 
 class Interests extends React.Component {
   componentDidMount() {
     this.props.fetchInterests();
+    this.props.updatePreferences();
   }
 
   render() {
@@ -27,7 +29,8 @@ const msp = state => ({
 });
 
 const mdp = dispatch => ({
-  fetchInterests: () => dispatch(fetchInterests())
+  fetchInterests: () => dispatch(fetchInterests()),
+  updatePreferences: () => dispatch(updatePreferences())
 });
 
 export default connect(msp, mdp)(Interests);

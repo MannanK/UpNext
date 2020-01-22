@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createInterest } from '../../actions/interest_actions';
 import { createSimilarRecommendations, fetchSimilarRecommendations } from '../../actions/recommendation_actions';
 import { createGenre, updateGenre } from '../../actions/genre_actions';
+import { updatePreferences } from '../../actions/session_actions';
 import * as TMDBAPIUtil from '../../util/tmdb_api_util';
 // const keys = require('../../config/keys');
 
@@ -90,6 +91,7 @@ class Search extends React.Component {
               }
             });
             this.props.fetchSimilarRecommendations();
+            this.props.updatePreferences();
             this.props.closeModal();
           });
       });
@@ -184,7 +186,8 @@ const mdp = dispatch => ({
   createSimilarRecommendations: data => dispatch(createSimilarRecommendations(data)),
   fetchSimilarRecommendations: () => dispatch(fetchSimilarRecommendations()),
   createGenre: data => dispatch(createGenre(data)),
-  updateGenre: (genreId, value) => dispatch(updateGenre(genreId, value))
+  updateGenre: (genreId, value) => dispatch(updateGenre(genreId, value)),
+  updatePreferences: () => dispatch(updatePreferences())
 });
 
 export default connect(msp, mdp)(Search);

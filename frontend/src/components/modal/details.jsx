@@ -7,6 +7,7 @@ import { fetchSimilarRecommendations, createSimilarRecommendations } from '../..
 import {createGenre, updateGenre} from '../../actions/genre_actions';
 
 const tmdbApiKey = keys.tmdbApiKey;
+const isEmpty = require("lodash.isempty");
 
 class Details extends React.Component {
   constructor(props) {
@@ -79,14 +80,16 @@ class Details extends React.Component {
               `https://api.themoviedb.org/3/movie/${recId}?api_key=${tmdbApiKey}`
             )
             .then(movie => {
-              count += 1;
+              if (!this.props.movieIds[movie.data.id]) {
+                count += 1;
 
-              recommendation.genres = movie.data.genres;
-              recommendation.runtime = movie.data.runtime;
-              recommendation.similarMovieId = id;
+                recommendation.genres = movie.data.genres;
+                recommendation.runtime = movie.data.runtime;
+                recommendation.similarMovieId = id;
 
-              recommendations.push(recommendation);
-              if (count === 15) this.props.closeModal();
+                recommendations.push(recommendation);
+                if (count === 15) this.props.closeModal();
+              }
             });
         });
 
@@ -222,9 +225,17 @@ const msp = (state, ownProps) => {
     detailsItem = state.entities[ownProps.detailsType][ownProps.detailsId];
   }
 
+  let movieIdObj = {};
+  if (!isEmpty(state.entities.interests)) {
+    for (let key in state.entities.interests) {
+      let movieId = state.entities.interests[key].movieId;
+      movieIdObj[movieId] = true;
+    }
+  }
   return {
     detailsItem, 
-    genres: state.entities.genres
+    genres: state.entities.genres,
+    movieIds: movieIdObj
   }
 }
 

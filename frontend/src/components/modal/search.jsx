@@ -51,13 +51,7 @@ class Search extends React.Component {
         let searchResults = response.data.results;
         
         // Removes any search results that are missing metadata like date or poster
-        let sanitizedResults = searchResults.reduce((store, entry) => {
-
-          if (!Object.values(entry).some(field => field === null) && !this.props.movieIds[entry.id]) {
-            store.push(entry);
-          }
-          return store;
-        }, []);
+        let sanitizedResults = this.movieFieldSanitizer(searchResults);
 
         if (!isEmpty(sanitizedResults)) {
           sanitizedResults = sanitizedResults.slice(0, 10);
@@ -67,6 +61,15 @@ class Search extends React.Component {
           searchResults: sanitizedResults
         });
       });
+  }
+
+  movieFieldSanitizer(movies) {
+    return movies.reduce((store, entry) => {
+      if (!Object.values(entry).some(field => field === null) && !this.props.movieIds[entry.id]) {
+        store.push(entry);
+      }
+      return store;
+    }, []);
   }
 
   // first make a call to omdb to get the full interest info
@@ -104,16 +107,21 @@ class Search extends React.Component {
             let recId = recommendation.id;
             return TMDBAPIUtil.getMovieInfo(recId)
               .then(movie => {
-                if (!this.props.movieIds[movie.data.id]) {
-                  count += 1;
+                const sanitizedRec = this.movieFieldSanitizer([movie]);
 
-                  recommendation.genres = movie.data.genres;
-                  recommendation.runtime = movie.data.runtime;
-                  recommendation.similarMovieId = id;
+                if (!isEmpty(sanitizedRec)) {
+                  if (!this.props.movieIds[movie.data.id]) {
+                    count += 1;
 
-                  recommendations.push(recommendation);
-                  if (count === 15) this.props.closeModal();
+                    recommendation.genres = movie.data.genres;
+                    recommendation.runtime = movie.data.runtime;
+                    recommendation.similarMovieId = id;
+
+                    recommendations.push(recommendation);
+                    if (count === 15) this.props.closeModal();
+                  }
                 }
+
               });
           })
 

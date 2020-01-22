@@ -32,6 +32,7 @@
 .nav-logo-main {
   height: 100%;
   width: auto;
+  filter: brightness(1.5);
 }
 
 @keyframes zip {
@@ -55,11 +56,11 @@
   position: absolute;
   left: 73%;
   // left: 122%;
-  transform: translateX(-100vw);
-  animation: zip;
-  animation-duration: 4s;
-  animation-iteration-count: infinite;
-  animation-delay: 1s;
+  // transform: translateX(-100vw);
+  // animation: zip;
+  // animation-duration: 4s;
+  // animation-iteration-count: infinite;
+  // animation-delay: 1s;
   
   filter: brightness(1.5);  
 
@@ -75,12 +76,12 @@
   position: absolute;
   left: 67%;
   // left: 135%;
-  transform: translateX(-100vw);
+  // transform: translateX(-100vw);
 
-  animation: zip;
-  animation-duration: 4s;
-  animation-iteration-count: infinite;
-  animation-delay: 1.2s;
+  // animation: zip;
+  // animation-duration: 4s;
+  // animation-iteration-count: infinite;
+  // animation-delay: 1.2s;
 
   filter: brightness(1.5);  
 
@@ -89,13 +90,30 @@
   // }
 
 }
-// .nav-logo {
-//   width: 185px;
-// }
 
-.nav-logo img {
-  filter: brightness(1.5);  
+.nav-logo-gray.one.slide {
+  animation: zip;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-delay: 1s;
+    filter: brightness(2);
+
 }
+
+.nav-logo-gray.two.slide {
+  animation: zip;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-delay: 1.2s;
+    filter: brightness(2);
+
+}
+
+.nav-logo-gray.one.dark, .nav-logo-gray.two.dark{
+  transform: rotateY(180deg);
+  filter: brightness(0.7);
+}
+
 ////
 
 .logout-button {

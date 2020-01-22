@@ -29,21 +29,20 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
             voteAverage: req.body.vote_average,
             voteCount: req.body.vote_count
           });
-
-          setTimeout( () => {
-            const newGen = newInterest.genres.map(genre => {
+          
+          Promise.all([newInterest]).then((values) => {
+            const returnedInterest = values[0];
+            const newGen = returnedInterest.genres.map(genre => {
               return genre.name;
             });
-            newInterest.genres = newGen;
-  
-            newInterest.save()
+            returnedInterest.genres = newGen;
+    
+            returnedInterest.save()
               .then(interest => res.json(interest))
               .catch(err => console.log(err));
-          }, 30);
-
-          
-        }
-      });
+          });
+        }     
+    });
   }
 );
 
@@ -55,7 +54,5 @@ router.delete(`/:interestId`, passport.authenticate('jwt', {session: false}), (r
     .catch(err => console.log(err));
   }
 );
-
-
 
 module.exports = router;

@@ -19,12 +19,22 @@ class Nav extends React.Component {
             />
 
             <img
-              className="nav-logo-gray two"
+              className="nav-logo-gray two dark"
+              src={require("../../../assets/images/rarrow.png")}
+              alt="logo"
+            />
+            <img
+              className="nav-logo-gray one dark"
+              src={require("../../../assets/images/rarrow.png")}
+              alt="logo"
+            />
+            <img
+              className="nav-logo-gray two slide"
               src={require("../../../assets/images/grarrow.png")}
               alt="logo"
             />
             <img
-              className="nav-logo-gray one"
+              className="nav-logo-gray one slide"
               src={require("../../../assets/images/grarrow.png")}
               alt="logo"
             />

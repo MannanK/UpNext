@@ -73,14 +73,24 @@ class Splash extends React.Component {
               src={require("../../assets/images/logo_an.png")}
               alt="logo"
             />
+            <img
+              className="logo-gray two dark"
+              src={require("../../assets/images/rarrow.png")}
+              alt="logo"
+            />
+            <img
+              className="logo-gray one dark"
+              src={require("../../assets/images/rarrow.png")}
+              alt="logo"
+            />
 
             <img
-              className="logo-gray two"
+              className="logo-gray two slide"
               src={require("../../assets/images/grarrow.png")}
               alt="logo"
             />
             <img
-              className="logo-gray one"
+              className="logo-gray one slide"
               src={require("../../assets/images/grarrow.png")}
               alt="logo"
             />

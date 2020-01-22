@@ -7,9 +7,9 @@ import { fetchSimilarRecommendations } from '../../../actions/recommendation_act
 
 class Recommendations extends React.Component {
   componentDidMount() {
-    this.props.fetchInterests();
+    // TODO: this shouldn't be here, fetchGenres() shouldn't be here either
+    // this.props.fetchInterests();
     this.props.fetchSimilarRecommendations();
-    this.props.fetchGenres();
   }
 
   render() {

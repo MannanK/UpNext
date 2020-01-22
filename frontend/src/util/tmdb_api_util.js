@@ -37,4 +37,19 @@ export const getMovieSuggestions = function(keyword) {
 
   return instance
     .get(`https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${keyword}&include_adult=false`);
-}
+};
+
+// ------------------------------------------------------------- //
+
+// 1. first check if user.preferences.high.length > 3
+//    - shuffle the array, then pick the first 3 high's
+
+const shuffleArray = (array) => {
+  for(let idx1 = array.length-1; idx1 > 0; idx1--) {
+    const idx2 = Math.floor(Math.random() * (idx1 + 1));
+    [array[idx1], array[idx2]] = [array[idx2], array[idx1]];
+  }
+
+  return array;
+};
+

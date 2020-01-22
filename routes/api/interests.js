@@ -29,57 +29,20 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
             voteAverage: req.body.vote_average,
             voteCount: req.body.vote_count
           });
-          // const newInterest = new Promise ((resolve, reject) => {
-          //   console.log("new Interest");
-          //   new Interest({
-          //       user: req.user.id,
-          //       movieId: req.body.id,
-          //       title: req.body.title,
-          //       year: req.body.release_date,
-          //       genres: req.body.genres,
-          //       type: "movie",
-          //       poster: req.body.poster_path,
-          //       overview: req.body.overview,
-          //       runtime: req.body.runtime,
-          //       voteAverage: req.body.vote_average,
-          //       voteCount: req.body.vote_count
-          //     });
-          //   });
+          
           Promise.all([newInterest]).then((values) => {
-            
-            // console.log(returnedInterest[0]);
-            // console.log("-------------------------------------------------------------");
-            // console.log(returnedInterest[0].genres);
-            // console.log("-------------------------------------------------------------");
             const returnedInterest = values[0];
             const newGen = returnedInterest.genres.map(genre => {
-                  return genre.name;
-                });
-                returnedInterest.genres = newGen;
-      
-                returnedInterest.save()
-                  .then(interest => res.json(interest))
-                  .catch(err => console.log(err));
-              });
-        }
-        // } else {
-        //   
-        //   });
-
-          // setTimeout( () => {
-          //   const newGen = newInterest.genres.map(genre => {
-          //     return genre.name;
-          //   });
-          //   newInterest.genres = newGen;
-  
-          //   newInterest.save()
-          //     .then(interest => res.json(interest))
-          //     .catch(err => console.log(err));
-          // }, 30);
-
-          
-        });
-      // });
+              return genre.name;
+            });
+            returnedInterest.genres = newGen;
+    
+            returnedInterest.save()
+              .then(interest => res.json(interest))
+              .catch(err => console.log(err));
+          });
+        }     
+    });
   }
 );
 
@@ -91,7 +54,5 @@ router.delete(`/:interestId`, passport.authenticate('jwt', {session: false}), (r
     .catch(err => console.log(err));
   }
 );
-
-
 
 module.exports = router;

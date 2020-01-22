@@ -1,16 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { createInterest } from '../../actions/interest_actions';
 import { createSimilarRecommendations, fetchSimilarRecommendations } from '../../actions/recommendation_actions';
 import { createGenre, updateGenre } from '../../actions/genre_actions';
-import keys from "../../config/keys";
-
+import * as TMDBAPIUtil from '../../util/tmdb_api_util';
 // const keys = require('../../config/keys');
 
 // had to append REACT_APP at the front of the config var in Heroku in order for
 // React to know to embed the var inside process.env
-const tmdbApiKey = keys.tmdbApiKey;
 const debounce = require("lodash.debounce");
 const isEmpty = require("lodash.isempty");
 
@@ -49,15 +46,7 @@ class Search extends React.Component {
   }
 
   makeDebouncedSearch(keyword) {
-
-    const instance = axios.create();
-    instance.defaults.headers.common = {};
-    instance.defaults.headers.common.accept = 'application/json';
-
-    // https://developers.themoviedb.org/3/search/search-movies
-
-    instance
-      .get(`https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${keyword}&include_adult=false`)
+    TMDBAPIUtil.getMovieSuggestions(keyword)
       .then(response => {
         let searchResults = response.data.results;
         
@@ -87,21 +76,14 @@ class Search extends React.Component {
     return e => {
       e.preventDefault();
 
-      const instance = axios.create();
-      instance.defaults.headers.common = {};
-      instance.defaults.headers.common.accept = 'application/json';
-
-      // https://developers.themoviedb.org/3/movies/get-movie-details
-
-      instance
-        .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${tmdbApiKey}`)
-        .then(response => { 
-          Promise.all([this.props.createInterest(response.data)]).then( () => {
+      TMDBAPIUtil.getMovieInfo(id)
+        .then(response => {
+          Promise.all([this.props.createInterest(response.data)]).then(() => {
             // genres calculation
-            const {genres} = this.props;
+            const { genres } = this.props;
             response.data.genres.forEach(genre => {
               if (genres[genre.name]) {
-                this.props.updateGenre(genres[genre.name]._id, {value:1});
+                this.props.updateGenre(genres[genre.name]._id, { value: 1 });
 
               } else {
                 this.props.createGenre(genre);
@@ -110,33 +92,25 @@ class Search extends React.Component {
             this.props.fetchSimilarRecommendations();
             this.props.closeModal();
           });
-          // this.props.createInterest(response.data);
-          // setTimeout(() => {
-          
-            
-            // this.props.fetchSimilarRecommendations();
-            // this.props.closeModal();
-          // }, 30);
-        });
+      });
 
       // May refactor in the future so that recommendations are made only after and if createInterest and closeModal are successful
-      instance
-        .get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${tmdbApiKey}`)
+      TMDBAPIUtil.getSimilarRecommendations(id)
         .then(response => {
           let count = 0;
           let recommendations = [];
 
           const promises = response.data.results.map((recommendation) => {
             let recId = recommendation.id;
-            return instance.get(`https://api.themoviedb.org/3/movie/${recId}?api_key=${tmdbApiKey}`)
+            return TMDBAPIUtil.getMovieInfo(recId)
               .then(movie => {
                 if (!this.props.movieIds[movie.data.id]) {
                   count += 1;
-  
+
                   recommendation.genres = movie.data.genres;
                   recommendation.runtime = movie.data.runtime;
                   recommendation.similarMovieId = id;
-  
+
                   recommendations.push(recommendation);
                   if (count === 15) this.props.closeModal();
                 }
@@ -148,23 +122,9 @@ class Search extends React.Component {
               this.props.createSimilarRecommendations(recommendations);
               this.props.closeModal();
             })
-            
+
         });
-
-      // call receiveGenres
-      // receiveGenres
-
-      // instance
-      //   .get(`https://api.themoviedb.org/3/discover/movie?api_key=${tmdbApiKey}&sort_by=popularity.desc&include_adult=false&with_genres=${genre1}%7C${genre2}`)
-      //   .then(response => {
-      //     let count = 0;
-      //     let discovers = [];
-
-      //     const promises = response.data.results.map((discover) => {
-      //       let discId = discover.id;
-      //     })
-      //   })
-    };
+    }
   }
 
   render() {

@@ -21,7 +21,7 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
             movieId: req.body.id,
             title: req.body.title,
             year: req.body.release_date,
-            genres: req.body.genres.map(genre => genre.name),
+            genres: req.body.genres,
             type: "movie",
             poster: req.body.poster_path,
             overview: req.body.overview,
@@ -30,9 +30,18 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
             voteCount: req.body.vote_count
           });
 
-          newInterest.save()
-            .then(interest => res.json(interest))
-            .catch(err => console.log(err));
+          setTimeout( () => {
+            const newGen = newInterest.genres.map(genre => {
+              return genre.name;
+            });
+            newInterest.genres = newGen;
+  
+            newInterest.save()
+              .then(interest => res.json(interest))
+              .catch(err => console.log(err));
+          }, 30);
+
+          
         }
       });
   }

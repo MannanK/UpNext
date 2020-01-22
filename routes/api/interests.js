@@ -47,9 +47,18 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
 );
 
 router.delete(`/:interestId`, passport.authenticate('jwt', {session: false}), (req, res) => {
+  let currInterestId;
+  let currInterest;
+
+  Interest.findOne({ _id: req.params.interestId }).then(interest => {
+    currInterestId = interest.movieId;
+  });
+
   Interest.findOneAndDelete({ _id: req.params.interestId })
     .then(() => {
-      return res.json({ id: req.params.interestId });
+      console.log(currInterest);
+      console.log(currInterestId);
+      return res.json({ id: currInterestId });
     })
     .catch(err => console.log(err));
   }

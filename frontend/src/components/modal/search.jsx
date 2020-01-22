@@ -204,6 +204,9 @@ class Search extends React.Component {
 
 const msp = state => {
   let movieIdObj = {};
+
+  ///refactor after algorithm
+
   if (!isEmpty(state.entities.interests)) {
     for (let key in state.entities.interests) {
       let movieId = state.entities.interests[key].movieId;

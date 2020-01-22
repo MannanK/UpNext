@@ -103,7 +103,7 @@ class Details extends React.Component {
   removeFromInterests(e) {
     e.preventDefault();
     let genres = this.props.detailsItem.genres;
-    this.props.deleteInterest( this.props.detailsId );
+    this.props.deleteInterest( this.props.detailsItem._id );
 
     setTimeout(() => {
       genres.forEach(name=> {
@@ -226,7 +226,9 @@ const msp = (state, ownProps) => {
   }
 
   let movieIdObj = {};
-  if (!isEmpty(state.entities.interests)) {
+    ///refactor after algorithm
+
+   if (!isEmpty(state.entities.interests)) {
     for (let key in state.entities.interests) {
       let movieId = state.entities.interests[key].movieId;
       movieIdObj[movieId] = true;

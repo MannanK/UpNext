@@ -49,6 +49,7 @@ class Search extends React.Component {
   }
 
   makeDebouncedSearch(keyword) {
+
     const instance = axios.create();
     instance.defaults.headers.common = {};
     instance.defaults.headers.common.accept = 'application/json';
@@ -62,7 +63,8 @@ class Search extends React.Component {
         
         // Removes any search results that are missing metadata like date or poster
         let sanitizedResults = searchResults.reduce((store, entry) => {
-          if (!Object.values(entry).some(field => field === null)) {
+
+          if (!Object.values(entry).some(field => field === null) && !this.props.movieIds[entry.id]) {
             store.push(entry);
           }
           return store;
@@ -128,14 +130,16 @@ class Search extends React.Component {
             let recId = recommendation.id;
             return instance.get(`https://api.themoviedb.org/3/movie/${recId}?api_key=${tmdbApiKey}`)
               .then(movie => {
-                count += 1;
-
-                recommendation.genres = movie.data.genres;
-                recommendation.runtime = movie.data.runtime;
-                recommendation.similarMovieId = id;
-
-                recommendations.push(recommendation);
-                if (count === 15) this.props.closeModal();
+                if (!this.props.movieIds[movie.data.id]) {
+                  count += 1;
+  
+                  recommendation.genres = movie.data.genres;
+                  recommendation.runtime = movie.data.runtime;
+                  recommendation.similarMovieId = id;
+  
+                  recommendations.push(recommendation);
+                  if (count === 15) this.props.closeModal();
+                }
               });
           })
 
@@ -198,9 +202,19 @@ class Search extends React.Component {
   }
 }
 
-const msp = state => ({
-  genres: state.entities.genres
-})
+const msp = state => {
+  let movieIdObj = {};
+  if (!isEmpty(state.entities.interests)) {
+    for (let key in state.entities.interests) {
+      let movieId = state.entities.interests[key].movieId;
+      movieIdObj[movieId] = true;
+    }
+  }
+    return {
+      genres: state.entities.genres,
+      movieIds: movieIdObj
+    };
+}
 
 const mdp = dispatch => ({
   createInterest: data => dispatch(createInterest(data)),

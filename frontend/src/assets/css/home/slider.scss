@@ -46,7 +46,7 @@
   justify-content: flex-start;
   align-items: center;
   padding: 0px 10px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 1.4%, #5f0037 15%, #2c0026 65%, rgba(0, 0, 0, 0) 99.5%);
+  background: linear-gradient(to bottom, crimson, #5f0037 20%, #2c0026 65%, rgba(0, 0, 0, 0) 99.5%);
 
   color: rgba(255, 255, 255, 0.9);
   font-size: 1.5em;
@@ -82,4 +82,5 @@
   height: 100%;
   max-width:118px;
   border-radius: 3px;
+  box-shadow: 3px 3px 4px black;
 }

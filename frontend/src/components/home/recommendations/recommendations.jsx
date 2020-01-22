@@ -40,7 +40,14 @@ class Recommendations extends React.Component {
 
 const msp = state => ({
   recommendations: state.entities.recommendations,
-  lastViewedInterest: Object.values(state.entities.interests).pop()
+  lastViewedInterest: Object.values(state.entities.interests).sort((a,b) => {
+    if(a.date > b.date) {
+      return -1;
+    } else if (a.date < b.date){
+      return 1;
+    }
+    return 0;
+  }).shift()
 });
 
 const mdp = dispatch => ({

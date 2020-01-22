@@ -21,7 +21,7 @@ export default function (state = _initialState, action) {
     case RECEIVE_SIMILAR_RECOMMENDATIONS:
       newState.similar = {};
       Object.values(action.recommendations).forEach(recommendation => {
-        newState.similar[recommendation._id] = recommendation;
+        newState.similar[recommendation.movieId] = recommendation;
       });
       return newState;
     case RECEIVE_USER_LOGOUT:

@@ -7,11 +7,11 @@ const InterestsReducer = (state = {}, action) => {
   switch(action.type) {
     case RECEIVE_INTERESTS:
       action.interests.data.forEach((interest, idx) => {
-        newState[action.interests.data[idx]._id] = interest;
+        newState[action.interests.data[idx].movieId] = interest;
       });
       return newState;
     case RECEIVE_NEW_INTEREST:
-      newState[action.interest.data._id] = action.interest.data;
+      newState[action.interest.data.movieId] = action.interest.data;
       return newState;
     case REMOVE_INTEREST:
       // newState = action.interest.data;

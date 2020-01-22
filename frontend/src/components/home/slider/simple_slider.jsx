@@ -37,7 +37,14 @@ export default class SimpleSlider extends Component {
     let sliderItems;
 
     if (type === 'interests') {
-      const interests = Object.values(this.props.items).reverse();
+      const interests = Object.values(this.props.items).sort((a,b) => {
+        if(a.date > b.date) {
+          return -1;
+        } else if (a.date < b.date){
+          return 1;
+        }
+        return 0;
+      });
       
       sliderItems = interests.map((interest, index) => {
         return(

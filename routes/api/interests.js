@@ -47,12 +47,20 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
 );
 
 router.delete(`/:interestId`, passport.authenticate('jwt', {session: false}), (req, res) => {
-  Interest.findOneAndDelete({ _id: req.params.interestId })
-    .then(() => {
-      return res.json({ id: req.params.interestId });
+  let currInterestId;
+
+  Interest.findOne({ _id: req.params.interestId })
+    .then(interest => {
+      currInterestId = interest.movieId;
     })
-    .catch(err => console.log(err));
-  }
-);
+    .then(interest => {
+      Interest.findOneAndDelete({ _id: req.params.interestId })
+        .then(() => {
+          return res.json({ id: currInterestId });
+        })
+        .catch(err => console.log(err));
+    });
+});
+
 
 module.exports = router;

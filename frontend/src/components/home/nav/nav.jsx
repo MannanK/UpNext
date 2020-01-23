@@ -39,9 +39,18 @@ class Nav extends React.Component {
               alt="logo"
             />
           </div>
-          <button className="logout-button" onClick={logout}>
-            Logout
-          </button>
+          <div className="nav-buttons">
+            <button
+              className="about-button"
+              onClick={() => openModal({ type: "about" })}
+            >
+              About
+            </button>
+            <button className="logout-button" onClick={logout}>
+              Logout
+            </button>
+
+          </div>
         </header>
 
         <div className="nav-search">
@@ -49,7 +58,8 @@ class Nav extends React.Component {
             type="text"
             placeholder="Search..."
             className="nav-search-input"
-            onClick={() => openModal({ type: "tester" })}
+            onClick={() => openModal({ type: "search" })}
+            onFocus={() => openModal({ type: "search" })}
           />
         </div>
       </nav>

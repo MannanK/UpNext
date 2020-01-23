@@ -2,6 +2,7 @@ import * as RecommendationAPIUtil from '../util/recommendations_api_util';
 
 export const RECEIVE_RECOMMENDATIONS = "RECEIVE_RECOMMENDATIONS";
 export const RECEIVE_SIMILAR_RECOMMENDATIONS = "RECEIVE_SIMILAR_RECOMMENDATIONS";
+export const RECEIVE_ALL_RECOMMENDATIONS = "RECEIVE_ALL_RECOMMENDATIONS";
 
 export const receiveRecommendations = recommendations => ({
   type: RECEIVE_RECOMMENDATIONS,
@@ -13,11 +14,10 @@ export const receiveSimilarRecommendations = recommendations => ({
   recommendations
 });
 
-export const fetchDiscoveryRecommendations = () => dispatch => (
-  RecommendationAPIUtil.fetchRecommendations().then(res => {
-    dispatch(receiveRecommendations(res.data));
-  })
-);
+export const receiveAllRecommendations = recommendations => ({
+  type: RECEIVE_ALL_RECOMMENDATIONS,
+  recommendations
+});
 
 export const createSimilarRecommendations = data => dispatch => (
   RecommendationAPIUtil.createSimilarRecommendations(data).then(res => {
@@ -25,8 +25,20 @@ export const createSimilarRecommendations = data => dispatch => (
   })
 );
 
+export const createAllRecommendations = data => dispatch => (
+  RecommendationAPIUtil.createAllRecommendations(data).then(res => {
+    dispatch(receiveAllRecommendations(res.data));
+  })
+);
+
 export const fetchSimilarRecommendations = () => dispatch => (
   RecommendationAPIUtil.fetchSimilarRecommendations().then(res => {
     dispatch(receiveSimilarRecommendations(res.data));
+  })
+);
+
+export const fetchAllRecommendations = () => dispatch => (
+  RecommendationAPIUtil.fetchAllRecommendations().then(res => {
+    dispatch(receiveAllRecommendations(res.data));
   })
 );

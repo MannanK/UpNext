@@ -16,7 +16,7 @@ class Home extends React.Component {
         <Nav />
         <Interests />
         <Recommendations type="similar"/>
-        <Recommendations type="all"/>
+        <Recommendations type="similar"/>
       </main>
     )
   }

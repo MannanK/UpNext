@@ -21,6 +21,11 @@ const GenreSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  tier: {
+    type: String,
+    required: true,
+    default: 'low'
   }
 });
 

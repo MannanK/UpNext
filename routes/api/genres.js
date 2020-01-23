@@ -9,6 +9,32 @@ router.get("/", passport.authenticate('jwt', { session: false }), (req, res) => 
     .catch(err => console.log(err));
 });
 
+
+
+
+
+
+const TIER_THRESHOLD = {
+  SUPERLIKE: 0.5,
+  LIKE: 0.25
+};
+
+// Evaluates the preference tier of a genre depending on weighted threshold values
+const tierEvaluator = (currUserId, newGenre) => {
+  // Interest.countDocuments({ user: currUserId }).then(count => {
+    const tierRatio = newGenre.count / 3;
+    
+    if (tierRatio >= TIER_THRESHOLD.SUPERLIKE) {
+      newGenre.tier = 'superLike';
+    } else if (tierRatio >= TIER_THRESHOLD.LIKE) {
+      newGenre.tier = 'like';
+    } else {
+      newGenre.tier = 'low';
+    }
+  // });
+};
+
+
 router.post("/", passport.authenticate('jwt', { session: false }), (req, res) => {
   Genre.findOne({ user: req.user.id, name: req.body.name })
     .then(genre => {
@@ -19,12 +45,16 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
           user: req.user.id,
           name: req.body.name,
           id: req.body.id,
-          count: 1,
+          count: 1
         });
 
-        newGenre.save()
-          .then(genre => res.json(genre))
-          .catch(err => console.log(err));
+        tierEvaluator(req.user.id, newGenre);
+
+        Promise.all([tierEvaluator(req.user.id, newGenre)]).then(() => {
+          newGenre.save()
+            .then(genre => res.json(genre))
+            .catch(err => console.log(err));
+        });
       }
     });
   }
@@ -39,7 +69,6 @@ router.patch("/:genreId", passport.authenticate('jwt', { session: false }), (req
       } else {
         genre.count += req.body.value;
 
-        
         genre.save()
           .then(genre => res.json(genre))
           .catch(err => console.log(err));

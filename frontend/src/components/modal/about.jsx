@@ -58,11 +58,11 @@ class About extends React.Component {
                   LinkedIn
                 </a>{" "}
                 /{" "}
-                <a href="#" target="_blank">
+                <a href="https://github.com/imshentastic" target="_blank">
                   Github
                 </a>{" "}
                 /{" "}
-                <a href="#" target="_blank">
+                <a href="https://michaelshen.dev/" target="_blank">
                   Portfolio
                 </a>
               </div>
@@ -78,11 +78,11 @@ class About extends React.Component {
                   LinkedIn
                 </a>{" "}
                 /{" "}
-                <a href="https://github.com/imshentastic" target="_blank">
+                <a href="#" target="_blank">
                   Github
                 </a>{" "}
                 /{" "}
-                <a href="https://michaelshen.dev/" target="_blank">
+                <a href="#" target="_blank">
                   Portfolio
                 </a>
               </div>

@@ -17,5 +17,6 @@ export const fetchAllRecommendations = () => {
 };
 
 export const createAllRecommendations = (data) => {
+  debugger;
   return axios.post('/api/recommendations/all', { data });
 };

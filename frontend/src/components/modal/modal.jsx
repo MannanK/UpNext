@@ -22,7 +22,8 @@ const Modal = ({ modal, closeModal }) => {
     case 'details':
       component = <Details closeModal={closeModal} 
         detailsId={modal.detailsId} 
-        detailsType={modal.detailsType}/>
+        detailsType={modal.detailsType}
+        detailsRecType={modal.detailsRecType}/>
       modalBackClass = 'grey-background';
       modalChildClass = 'detail-child';
       break;

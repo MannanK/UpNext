@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createInterest } from '../../actions/interest_actions';
-import { createSimilarRecommendations, fetchSimilarRecommendations } from '../../actions/recommendation_actions';
+import { createSimilarRecommendations, createAllRecommendations } from '../../actions/recommendation_actions';
 import { createGenre, updateGenre } from '../../actions/genre_actions';
 import * as TMDBAPIUtil from '../../util/tmdb_api_util';
 // const keys = require('../../config/keys');
@@ -89,7 +89,7 @@ class Search extends React.Component {
                 this.props.createGenre(genre);
               }
             });
-            this.props.fetchSimilarRecommendations();
+            // this.props.fetchSimilarRecommendations();
             this.props.closeModal();
           });
       });
@@ -123,6 +123,35 @@ class Search extends React.Component {
               this.props.closeModal();
             })
 
+        });
+
+      TMDBAPIUtil.getAllRecommendations()
+        .then(response => {
+          debugger;
+          let count = 0;
+          let recommendations = [];
+
+          const promises = response.data.results.map((recommendation) => {
+            let recId = recommendation.id;
+            return TMDBAPIUtil.getMovieInfo(recId)
+              .then(movie => {
+                if (!this.props.movieIds[movie.data.id]) {
+                  count += 1;
+
+                  recommendation.genres = movie.data.genres;
+                  recommendation.runtime = movie.data.runtime;
+
+                  recommendations.push(recommendation);
+                  if (count === 15) this.props.closeModal();
+                }
+              });
+          });
+
+          Promise.all(promises)
+            .then(() => {
+              this.props.createAllRecommendations(recommendations);
+              this.props.closeModal();
+            });
         });
     }
   }
@@ -182,7 +211,7 @@ const msp = state => {
 const mdp = dispatch => ({
   createInterest: data => dispatch(createInterest(data)),
   createSimilarRecommendations: data => dispatch(createSimilarRecommendations(data)),
-  fetchSimilarRecommendations: () => dispatch(fetchSimilarRecommendations()),
+  createAllRecommendations: data => dispatch(createAllRecommendations(data)),
   createGenre: data => dispatch(createGenre(data)),
   updateGenre: (genreId, value) => dispatch(updateGenre(genreId, value))
 });

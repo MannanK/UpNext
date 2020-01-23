@@ -14,13 +14,14 @@ class Recommendations extends React.Component {
       this.props.fetchSimilarRecommendations();
     } else {
       this.props.fetchAllRecommendations();
+      // this.props.fetchAllRecommendations();
     }
   }
 
   render() {
     const { lastViewedInterest, type } = this.props;
 
-    let lastViewedInterestTitle;
+    let lastViewedInterestTitle = "";
     let sliderTitle;
     let recommendations;
 
@@ -44,7 +45,7 @@ class Recommendations extends React.Component {
               {sliderTitle}
             </div>
           </header>
-          <SimpleSlider items={recommendations} type={'recommendations'} />
+          <SimpleSlider items={recommendations} type={'recommendations'} recType={type}/>
         </section>
       </div>
     );

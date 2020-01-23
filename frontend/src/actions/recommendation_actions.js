@@ -25,11 +25,12 @@ export const createSimilarRecommendations = data => dispatch => (
   })
 );
 
-export const createAllRecommendations = data => dispatch => (
-  RecommendationAPIUtil.createAllRecommendations(data).then(res => {
+export const createAllRecommendations = data => dispatch => {
+  debugger;
+  return RecommendationAPIUtil.createAllRecommendations(data).then(res => {
     dispatch(receiveAllRecommendations(res.data));
-  })
-);
+  });
+};
 
 export const fetchSimilarRecommendations = () => dispatch => (
   RecommendationAPIUtil.fetchSimilarRecommendations().then(res => {
@@ -37,6 +38,8 @@ export const fetchSimilarRecommendations = () => dispatch => (
   })
 );
 
+
+///MAY NOT NEED THIS////
 export const fetchAllRecommendations = () => dispatch => (
   RecommendationAPIUtil.fetchAllRecommendations().then(res => {
     dispatch(receiveAllRecommendations(res.data));

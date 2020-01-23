@@ -33,7 +33,7 @@ export default class SimpleSlider extends Component {
 
 
   render() {
-    const { type } = this.props;
+    const { type, recType } = this.props;
     let sliderItems;
 
     if (type === 'interests') {
@@ -51,12 +51,12 @@ export default class SimpleSlider extends Component {
           <SimpleSliderItem entry={interest} key={index} type={type}/>
         );
       });
-    } else if (type === 'recommendations') {
+    } else if (type === 'recommendations' && this.props.items) {
       const recommendations = Object.values(this.props.items);
 
       sliderItems = recommendations.map((recommendation, index) => {
         return (
-          <SimpleSliderItem entry={recommendation} key={index} type={type} />
+          <SimpleSliderItem entry={recommendation} key={index} type={type} recType={recType} />
         );
       });
     }

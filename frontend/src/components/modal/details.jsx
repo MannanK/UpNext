@@ -42,12 +42,6 @@ class Details extends React.Component {
     this.props.detailsItem.vote_average = this.props.detailsItem.voteAverage;
     this.props.detailsItem.vote_count = this.props.detailsItem.voteCount;
 
-    const instance = axios.create();
-    instance.defaults.headers.common = {};
-    instance.defaults.headers.common.accept = "application/json";
-
-    // https://developers.themoviedb.org/3/movies/get-movie-details
-
     this.props.createInterest(this.props.detailsItem);
 
     setTimeout(() => {
@@ -64,39 +58,31 @@ class Details extends React.Component {
     }, 30);
 
     // May refactor in the future so that recommendations are made only after and if createInterest and closeModal are successful
-    instance
-      .get(
-        `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${tmdbApiKey}`
-      )
-      .then(response => {
-        let count = 0;
-        let recommendations = [];
+    TMDBAPIUtil.getSimilarRecommendations(id).then(response => {
+      let count = 0;
+      let recommendations = [];
 
-        const promises = response.data.results.map(recommendation => {
-          let recId = recommendation.id;
-          return instance
-            .get(
-              `https://api.themoviedb.org/3/movie/${recId}?api_key=${tmdbApiKey}`
-            )
-            .then(movie => {
-              if (!this.props.movieIds[movie.data.id]) {
-                count += 1;
+      const promises = response.data.results.map(recommendation => {
+        let recId = recommendation.id;
+        return TMDBAPIUtil.getMovieInfo(recId).then(movie => {
+          if (!this.props.movieIds[movie.data.id]) {
+            count += 1;
 
-                recommendation.genres = movie.data.genres;
-                recommendation.runtime = movie.data.runtime;
-                recommendation.similarMovieId = id;
+            recommendation.genres = movie.data.genres;
+            recommendation.runtime = movie.data.runtime;
+            recommendation.similarMovieId = id;
 
-                recommendations.push(recommendation);
-                if (count === 15) this.props.closeModal();
-              }
-            });
-        });
-
-        Promise.all(promises).then(() => {
-          this.props.createSimilarRecommendations(recommendations);
-          this.props.closeModal();
+            recommendations.push(recommendation);
+            if (count === 15) this.props.closeModal();
+          }
         });
       });
+
+      Promise.all(promises).then(() => {
+        this.props.createSimilarRecommendations(recommendations);
+        this.props.closeModal();
+      });
+    });
 
     TMDBAPIUtil.getAllRecommendations()
       .then(response => {
@@ -274,7 +260,6 @@ class Details extends React.Component {
 const msp = (state, ownProps) => {
   let detailsItem;
   if (ownProps.detailsType === "recommendations") {
-    ///HARDCODED TO GET INTO SIMILAR SLICE OF STATE
     detailsItem = state.entities[ownProps.detailsType][ownProps.detailsRecType][ownProps.detailsId];
   } else {
     detailsItem = state.entities[ownProps.detailsType][ownProps.detailsId];

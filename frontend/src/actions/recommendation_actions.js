@@ -37,7 +37,6 @@ export const fetchSimilarRecommendations = () => dispatch => (
   })
 );
 
-
 ///MAY NOT NEED THIS////
 export const fetchAllRecommendations = () => dispatch => (
   RecommendationAPIUtil.fetchAllRecommendations().then(res => {

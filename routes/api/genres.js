@@ -9,22 +9,53 @@ router.get("/", passport.authenticate('jwt', { session: false }), (req, res) => 
     .catch(err => console.log(err));
 });
 
+
+
+
+
+
+const TIER_THRESHOLD = {
+  SUPERLIKE: 0.5,
+  LIKE: 0.25
+};
+
+// Evaluates the preference tier of a genre depending on weighted threshold values
+const tierEvaluator = (currUserId, newGenre, interestCount) => {
+  // Interest.countDocuments({ user: currUserId }).then(count => {
+    console.log("-----interestCount-------");
+    console.log(interestCount);
+    const tierRatio = newGenre.count / (interestCount+1);
+    
+    if (tierRatio >= TIER_THRESHOLD.SUPERLIKE) {
+      newGenre.tier = 'superLike';
+    } else if (tierRatio > TIER_THRESHOLD.LIKE) {
+      newGenre.tier = 'like';
+    } else {
+      newGenre.tier = 'low';
+    }
+  // });
+};
+
+
 router.post("/", passport.authenticate('jwt', { session: false }), (req, res) => {
-  Genre.findOne({ user: req.user.id, name: req.body.name })
+  Genre.findOne({ user: req.user.id, name: req.body.genre.name })
     .then(genre => {
       if (genre) {
         return res.status(400).json({ title: "You have already added this genre" });
       } else {
         const newGenre = new Genre({
           user: req.user.id,
-          name: req.body.name,
-          id: req.body.id,
-          count: 1,
+          name: req.body.genre.name,
+          id: req.body.genre.id,
+          count: 1
         });
+        // tierEvaluator(req.user.id, newGenre, req.body.interestCount);
 
-        newGenre.save()
-          .then(genre => res.json(genre))
-          .catch(err => console.log(err));
+        Promise.all([tierEvaluator(req.user.id, newGenre, req.body.interestCount)]).then(() => {
+          newGenre.save()
+            .then(genre => res.json(genre))
+            .catch(err => console.log(err));
+        });
       }
     });
   }
@@ -39,10 +70,11 @@ router.patch("/:genreId", passport.authenticate('jwt', { session: false }), (req
       } else {
         genre.count += req.body.value;
 
-        
+      Promise.all([tierEvaluator(req.user.id, genre, req.body.interestCount)]).then(() => {
         genre.save()
           .then(genre => res.json(genre))
           .catch(err => console.log(err));
+      });
       }
     });
   }

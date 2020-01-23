@@ -80,19 +80,25 @@ class Search extends React.Component {
         .then(response => {
           Promise.all([this.props.createInterest(response.data)]).then(() => {
             // genres calculation
-            const { genres } = this.props;
+            const { genres, movieIds } = this.props;
             response.data.genres.forEach(genre => {
               if (genres[genre.name]) {
-                this.props.updateGenre(genres[genre.name]._id, { value: 1 });
-
+                this.props.updateGenre(genres[genre.name]._id, { value: 1, interestCount: Object.keys(movieIds).length});
               } else {
-                this.props.createGenre(genre);
+                this.props.createGenre({genre, interestCount: Object.keys(movieIds).length} );
               }
             });
             // this.props.fetchSimilarRecommendations();
             this.props.closeModal();
           });
-      });
+      })
+
+      .then(() => {
+        const { genres, movieIds } = this.props;
+        Object.values(genres).forEach(genre => {
+          this.props.updateGenre(genres[genre.name]._id, { value: 0, interestCount: Object.keys(movieIds).length});
+        });
+    });
 
       // May refactor in the future so that recommendations are made only after and if createInterest and closeModal are successful
       TMDBAPIUtil.getSimilarRecommendations(id)
@@ -125,7 +131,7 @@ class Search extends React.Component {
 
         });
 
-      TMDBAPIUtil.getAllRecommendations()
+        TMDBAPIUtil.getAllRecommendations()
         .then(response => {
           debugger;
           let count = 0;
@@ -154,8 +160,8 @@ class Search extends React.Component {
             });
         });
     }
-  }
-
+    }
+  
   render() {
     const {searchResults} = this.state;
     

@@ -10,6 +10,9 @@ import { setAuthToken } from './util/session_api_util';
 // We have not created this action yet, but will do so in the next step
 import { logout } from './actions/session_actions';
 
+// TODO: FOR TESTING ONLY
+import { getAllRecommendations } from './util/tmdb_api_util';
+
 document.addEventListener('DOMContentLoaded', () => {
   let store;
 
@@ -42,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //remove these, for testing only
   window.getState = store.getState;
   window.dispatch = store.dispatch;
+  window.getAllRecommendations = getAllRecommendations;
 
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);

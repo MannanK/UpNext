@@ -13,7 +13,6 @@ const RecommendationSchema = new Schema({
   },
   similarMovieId: {
     type: Number,
-    required: true,
     default: null
   },
   title: {

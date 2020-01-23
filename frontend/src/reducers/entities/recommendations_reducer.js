@@ -1,6 +1,7 @@
 import {
   RECEIVE_RECOMMENDATIONS,
-  RECEIVE_SIMILAR_RECOMMENDATIONS
+  RECEIVE_SIMILAR_RECOMMENDATIONS,
+  RECEIVE_ALL_RECOMMENDATIONS
 } from '../../actions/recommendation_actions';
 import { RECEIVE_USER_LOGOUT } from '../../actions/session_actions';
 
@@ -22,6 +23,13 @@ export default function (state = _initialState, action) {
       newState.similar = {};
       Object.values(action.recommendations).forEach(recommendation => {
         newState.similar[recommendation.movieId] = recommendation;
+      });
+      return newState;
+    case RECEIVE_ALL_RECOMMENDATIONS:
+      //for GENRE recommendations
+      newState.all = {};
+      Object.values(action.recommendations).forEach(recommendation => {
+        newState.all[recommendation.movieId] = recommendation;
       });
       return newState;
     case RECEIVE_USER_LOGOUT:

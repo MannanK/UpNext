@@ -18,6 +18,9 @@ router.get('/similar', passport.authenticate('jwt', { session: false }), (req, r
         let newSimilarRecommendations = {};
         let count = 0;
 
+        // convert recommendations array to an object of objects
+        // need count so that we only send back the response once everything
+          // has been put into the newSimilarRecommendations object
         recommendations.forEach((recommendation, i) => {
           newSimilarRecommendations[i] = recommendation;
           count += 1;
@@ -74,6 +77,63 @@ router.post('/similar', passport.authenticate('jwt', { session: false }), (req, 
           
       }
     });
+});
+
+router.post('/all', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Recommendation.deleteMany({ user: req.user.id, similarMovieId: null }).then(() => {
+    const allRecommendations = {};
+
+    req.body.data.forEach((recommendation, i) => {
+      allRecommendations[i] = new Recommendation({
+        similarMovieId: null,
+        user: req.user.id,
+        movieId: recommendation.id,
+        title: recommendation.title,
+        year: recommendation.release_date,
+        genres: recommendation.genres,
+        type: "movie",
+        poster: recommendation.poster_path,
+        overview: recommendation.overview,
+        runtime: recommendation.runtime,
+        voteAverage: recommendation.vote_average,
+        voteCount: recommendation.vote_count
+      });
+    });
+
+    let count = 0;
+    Object.values(allRecommendations).forEach(recommendation => {
+      recommendation
+        .save()
+        .then(() => {
+          count += 1;
+          if (count === req.body.data.length)
+            res.json(allRecommendations);
+        })
+        .catch(err => console.log(err));
+    });
+  });
+});
+
+router.get('/all', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Recommendation.find({ user: req.user.id, similarMovieId: null })
+    .then(recommendations => {
+      if (recommendations.length === 0) {
+        return res.json({});
+      }
+
+      let newAllRecommendations = {};
+      let count = 0;
+
+      recommendations.forEach((recommendation, i) => {
+        newAllRecommendations[i] = recommendation;
+        count += 1;
+
+        if (count === recommendations.length) {
+          res.json(newAllRecommendations);
+        }
+      });
+    })
+    .catch(err => console.log(err));
 });
 
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {

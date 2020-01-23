@@ -40,16 +40,16 @@ class Nav extends React.Component {
             />
           </div>
           <div className="nav-buttons">
-            <button className="logout-button" onClick={logout}>
-              Logout
-            </button>
-
             <button
               className="about-button"
               onClick={() => openModal({ type: "about" })}
             >
               About
             </button>
+            <button className="logout-button" onClick={logout}>
+              Logout
+            </button>
+
           </div>
         </header>
 

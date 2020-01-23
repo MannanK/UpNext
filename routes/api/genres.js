@@ -9,6 +9,14 @@ router.get("/", passport.authenticate('jwt', { session: false }), (req, res) => 
     .catch(err => console.log(err));
 });
 
+
+// This function is to update favorite genre preferences, ie superLikes and likes
+const countInterests = () => {
+  console.log(Interest.count({user: req.user.id}));
+}
+
+
+
 router.post("/", passport.authenticate('jwt', { session: false }), (req, res) => {
   Genre.findOne({ user: req.user.id, name: req.body.name })
     .then(genre => {
@@ -21,9 +29,12 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
           id: req.body.id,
           count: 1,
         });
-
+      
         newGenre.save()
-          .then(genre => res.json(genre))
+          .then(genre => {
+            countInterests();
+            return res.json(genre);
+          })
           .catch(err => console.log(err));
       }
     });

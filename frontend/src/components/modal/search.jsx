@@ -127,7 +127,6 @@ class Search extends React.Component {
 
       TMDBAPIUtil.getAllRecommendations()
         .then(response => {
-          debugger;
           let count = 0;
           let recommendations = [];
 

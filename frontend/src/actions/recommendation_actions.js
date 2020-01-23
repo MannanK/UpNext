@@ -26,7 +26,6 @@ export const createSimilarRecommendations = data => dispatch => (
 );
 
 export const createAllRecommendations = data => dispatch => {
-  debugger;
   return RecommendationAPIUtil.createAllRecommendations(data).then(res => {
     dispatch(receiveAllRecommendations(res.data));
   });

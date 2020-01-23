@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import axios from "axios";
 import keys from "../../config/keys";
 import { createInterest, deleteInterest } from "../../actions/interest_actions";
-import { fetchSimilarRecommendations, createSimilarRecommendations } from '../../actions/recommendation_actions';
-import {createGenre, updateGenre} from '../../actions/genre_actions';
+import { fetchSimilarRecommendations, createSimilarRecommendations, createAllRecommendations } from '../../actions/recommendation_actions';
+import { createGenre, updateGenre } from '../../actions/genre_actions';
+import * as TMDBAPIUtil from '../../util/tmdb_api_util';
+
 
 const tmdbApiKey = keys.tmdbApiKey;
 const isEmpty = require("lodash.isempty");
@@ -47,10 +49,7 @@ class Details extends React.Component {
     // https://developers.themoviedb.org/3/movies/get-movie-details
 
     this.props.createInterest(this.props.detailsItem);
-    // setTimeout(() => {
-    //   this.props.fetchSimilarRecommendations();
-    //   this.props.closeModal();
-    // }, 30);
+
     setTimeout(() => {
       // genres calculation
       const {genres, detailsItem} = this.props;
@@ -98,6 +97,34 @@ class Details extends React.Component {
           this.props.closeModal();
         });
       });
+
+    TMDBAPIUtil.getAllRecommendations()
+      .then(response => {
+        let count = 0;
+        let recommendations = [];
+
+        const promises = response.data.results.map((recommendation) => {
+          let recId = recommendation.id;
+          return TMDBAPIUtil.getMovieInfo(recId)
+            .then(movie => {
+              if (!this.props.movieIds[movie.data.id]) {
+                count += 1;
+
+                recommendation.genres = movie.data.genres;
+                recommendation.runtime = movie.data.runtime;
+
+                recommendations.push(recommendation);
+                if (count === 15) this.props.closeModal();
+              }
+            });
+        });
+
+        Promise.all(promises)
+          .then(() => {
+            this.props.createAllRecommendations(recommendations);
+            this.props.closeModal();
+          });
+      });
   }
 
   removeFromInterests(e) {
@@ -112,6 +139,34 @@ class Details extends React.Component {
       this.props.fetchSimilarRecommendations();
       this.props.closeModal();
     }, 30);
+
+    TMDBAPIUtil.getAllRecommendations()
+      .then(response => {
+        let count = 0;
+        let recommendations = [];
+
+        const promises = response.data.results.map((recommendation) => {
+          let recId = recommendation.id;
+          return TMDBAPIUtil.getMovieInfo(recId)
+            .then(movie => {
+              if (!this.props.movieIds[movie.data.id]) {
+                count += 1;
+
+                recommendation.genres = movie.data.genres;
+                recommendation.runtime = movie.data.runtime;
+
+                recommendations.push(recommendation);
+                if (count === 15) this.props.closeModal();
+              }
+            });
+        });
+
+        Promise.all(promises)
+          .then(() => {
+            this.props.createAllRecommendations(recommendations);
+            this.props.closeModal();
+          });
+      });
   }
 
   handleDate(date) {
@@ -246,6 +301,7 @@ const mdp = dispatch => ({
   deleteInterest: data => dispatch(deleteInterest(data)),
   fetchSimilarRecommendations: data => dispatch(fetchSimilarRecommendations(data)),
   createSimilarRecommendations: data => dispatch(createSimilarRecommendations(data)),
+  createAllRecommendations: data => dispatch(createAllRecommendations(data)),
   updateGenre: (genreId,value) => dispatch(updateGenre(genreId,value)),
   createGenre: genre => dispatch(createGenre(genre))
 });

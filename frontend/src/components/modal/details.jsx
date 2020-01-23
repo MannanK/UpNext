@@ -220,7 +220,7 @@ const msp = (state, ownProps) => {
   let detailsItem;
   if (ownProps.detailsType === "recommendations") {
     ///HARDCODED TO GET INTO SIMILAR SLICE OF STATE
-    detailsItem = state.entities[ownProps.detailsType].similar[ownProps.detailsId];
+    detailsItem = state.entities[ownProps.detailsType][ownProps.detailsRecType][ownProps.detailsId];
   } else {
     detailsItem = state.entities[ownProps.detailsType][ownProps.detailsId];
   }

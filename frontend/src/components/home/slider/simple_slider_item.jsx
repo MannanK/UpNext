@@ -4,7 +4,7 @@ import { openModal } from "../../../actions/modal_actions";
 
 class SimpleSliderItem extends React.Component {
   render() {
-    const { entry, type } = this.props;
+    const { entry, type, recType} = this.props;
     let modal;
 
     if (type === 'interests') {
@@ -17,6 +17,7 @@ class SimpleSliderItem extends React.Component {
       modal = {
         type: "details",
         detailsType: type,
+        detailsRecType: recType,
         detailsId: entry.movieId
       };
     }

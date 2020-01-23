@@ -11,3 +11,12 @@ export const fetchSimilarRecommendations = () => {
 export const createSimilarRecommendations = (data) => {
   return axios.post('/api/recommendations/similar', { data });
 };
+
+export const fetchAllRecommendations = () => {
+  return axios.get('/api/recommendations/all');
+};
+
+export const createAllRecommendations = (data) => {
+  debugger;
+  return axios.post('/api/recommendations/all', { data });
+};

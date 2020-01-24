@@ -91,14 +91,7 @@ class Search extends React.Component {
             // this.props.fetchSimilarRecommendations();
             this.props.closeModal();
           });
-      })
-
-      .then(() => {
-        const { genres, movieIds } = this.props;
-        Object.values(genres).forEach(genre => {
-          this.props.updateGenre(genres[genre.name]._id, { value: 0, interestCount: Object.keys(movieIds).length});
-        });
-    });
+      });
 
       // May refactor in the future so that recommendations are made only after and if createInterest and closeModal are successful
       TMDBAPIUtil.getSimilarRecommendations(id)

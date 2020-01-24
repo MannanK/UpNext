@@ -42,20 +42,32 @@ class Details extends React.Component {
     this.props.detailsItem.vote_average = this.props.detailsItem.voteAverage;
     this.props.detailsItem.vote_count = this.props.detailsItem.voteCount;
 
-    this.props.createInterest(this.props.detailsItem);
+    // this.props.createInterest(this.props.detailsItem);
 
-    setTimeout(() => {
-      // genres calculation
-      const {genres, detailsItem} = this.props;
-      detailsItem.genres.forEach(genre => {
-        if (genres[genre.name]) {
-          this.props.updateGenre(genres[genre.name]._id, {value:1});
+    // setTimeout(() => {
+    //   // genres calculation
+    //   const {genres, detailsItem} = this.props;
+    //   detailsItem.genres.forEach(genre => {
+    //     if (genres[genre.name]) {
+    //       this.props.updateGenre(genres[genre.name]._id, {value:1});
 
-        } else {
-          this.props.createGenre(genre);
-        }
+    //     } else {
+    //       this.props.createGenre(genre);
+    //     }
+    //   });
+    // }, 30);
+
+      Promise.all([this.props.createInterest(this.props.detailsItem)]).then(() => {
+        // genres calculation
+        const { genres, detailsItem } = this.props;
+        detailsItem.genres.forEach(genre => {
+          if (genres[genre.name]) {
+            this.props.updateGenre(genres[genre.name]._id, { value: 1 });
+          } else {
+            this.props.createGenre({ genre });
+          }
+        });
       });
-    }, 30);
 
     // May refactor in the future so that recommendations are made only after and if createInterest and closeModal are successful
     TMDBAPIUtil.getSimilarRecommendations(id).then(response => {
@@ -115,16 +127,28 @@ class Details extends React.Component {
 
   removeFromInterests(e) {
     e.preventDefault();
-    let genres = this.props.detailsItem.genres;
-    this.props.deleteInterest( this.props.detailsItem._id );
+    // let genres = this.props.detailsItem.genres;
+    // this.props.deleteInterest( this.props.detailsItem._id );
 
-    setTimeout(() => {
-      genres.forEach(name=> {
-        this.props.updateGenre(this.props.genres[name]._id, {value:-1});
+    // setTimeout(() => {
+    //   genres.forEach(name=> {
+    //     this.props.updateGenre(this.props.genres[name]._id, {value:-1});
+    //   });
+    //   this.props.fetchSimilarRecommendations();
+    //   this.props.closeModal();
+    // }, 30);
+    const localGenres = this.props.detailsItem.genres;
+
+    Promise.all([this.props.deleteInterest(this.props.detailsItem._id)]).then(() => {
+      // genres calculation
+      const { genres, detailsItem } = this.props;
+      localGenres.forEach(name => {
+        this.props.updateGenre(genres[name]._id, { value: -1 });
       });
+
       this.props.fetchSimilarRecommendations();
       this.props.closeModal();
-    }, 30);
+    });
 
     TMDBAPIUtil.getAllRecommendations()
       .then(response => {
@@ -172,6 +196,11 @@ class Details extends React.Component {
 
   render() {
     const detailsItem = this.props.detailsItem || {};
+    // debugger;
+
+    if (isEmpty(detailsItem)) {
+      return "";
+    };
 
     ///RENDER BUTTONS
     let button = (this.props.detailsType === "recommendations") ? (
@@ -259,6 +288,7 @@ class Details extends React.Component {
 
 const msp = (state, ownProps) => {
   let detailsItem;
+  // debugger;
   if (ownProps.detailsType === "recommendations") {
     detailsItem = state.entities[ownProps.detailsType][ownProps.detailsRecType][ownProps.detailsId];
   } else {

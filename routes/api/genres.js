@@ -21,19 +21,25 @@ const TIER_THRESHOLD = {
 
 // Evaluates the preference tier of a genre depending on weighted threshold values
 const tierEvaluator = (currUserId, newGenre, interestCount) => {
-  // Interest.countDocuments({ user: currUserId }).then(count => {
-    console.log("-----interestCount-------");
-    console.log(interestCount);
-    const tierRatio = newGenre.count / (interestCount+1);
-    
-    if (tierRatio >= TIER_THRESHOLD.SUPERLIKE) {
-      newGenre.tier = 'superLike';
-    } else if (tierRatio > TIER_THRESHOLD.LIKE) {
-      newGenre.tier = 'like';
-    } else {
-      newGenre.tier = 'low';
-    }
-  // });
+  let countPromises = [
+    Interest.countDocuments({ user: currUserId }).then(count => {
+      // console.log("-------line 25 genres.js----------");
+      // console.log(newGenre.name + " : " + newGenre.count);
+      // console.log(count);
+      // console.log("-------line 29 genres.js----------");
+      const tierRatio = newGenre.count / (count);
+
+      if (tierRatio >= TIER_THRESHOLD.SUPERLIKE) {
+        newGenre.tier = 'superLike';
+      } else if (tierRatio > TIER_THRESHOLD.LIKE) {
+        newGenre.tier = 'like';
+      } else {
+        newGenre.tier = 'low';
+      }
+    })
+  ];
+
+  return Promise.all(countPromises);
 };
 
 

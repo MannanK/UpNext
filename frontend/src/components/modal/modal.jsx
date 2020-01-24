@@ -6,7 +6,6 @@ import Details from './details';
 import About from './about';
 
 const Modal = ({ modal, closeModal }) => {
-  debugger
   if (!modal) {
     return null;
   }

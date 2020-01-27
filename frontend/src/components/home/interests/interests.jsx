@@ -6,6 +6,8 @@ import { updateGenre } from '../../../actions/genre_actions';
 import * as TMDBAPIUtil from '../../../util/tmdb_api_util';
 import { createAllRecommendations } from '../../../actions/recommendation_actions';
 
+const isEmpty = require("lodash.isempty");
+
 class Interests extends React.Component {
   componentDidMount() {
     this.props.fetchInterests();
@@ -19,42 +21,71 @@ class Interests extends React.Component {
       console.log(genres);
       Object.values(genres).forEach(genre => {
         // console.log("-----line 16 interests.jsx-----");
-        this.props.updateGenre(genres[genre.name]._id, { value: 0, interestCount: Object.keys(interests).length + 1 });
+        this.props.updateGenre(genres[genre.name]._id, { value: 0 });
       });
+    // without checking if the previous genres were not empty, we see a split second of the default API call where
+      // genreIds is an empty arr and TMDB returns a default results response, because initially the genres slice of
+      // state is empty
+    }
+    
+    console.log("genresChanged: ");
+    console.log(this.genresChanged(prevProps.genres, this.props.genres));
+    console.log("!isEmpty: ");
+    console.log(!isEmpty(prevProps.genres));
+    
+    if (this.genresChanged(prevProps.genres, this.props.genres) && !isEmpty(this.props.genres)) {
       // filter genre slice of state to get superlike genre array
       // call getAllRecommendations
       console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
       console.log(Object.values(this.props.genres).filter(ele => ele.tier === "superLike"));
-      let superLikeArr = Object.values(this.props.genres).filter(ele => ele.tier === "superLike");
-        setTimeout(()=>{
-          TMDBAPIUtil.getAllRecommendations(superLikeArr)
-          .then(response => {
-            let count = 0;
-            let recommendations = [];
+      let superLikeArr = Object.values(this.props.genres).filter(ele => ele.tier === "superLike").map(el => el.id);
+      TMDBAPIUtil.getAllRecommendations(superLikeArr)
+        .then(response => {
+          let count = 0;
+          let recommendations = [];
 
-            const promises = response.data.results.map((recommendation) => {
-              let recId = recommendation.id;
-              return TMDBAPIUtil.getMovieInfo(recId)
-                .then(movie => {
-                  if (!this.props.interests[movie.data.id]) {
-                    count += 1;
+          const promises = response.data.results.map((recommendation) => {
+            let recId = recommendation.id;
+            return TMDBAPIUtil.getMovieInfo(recId)
+              .then(movie => {
+                if (!this.props.interests[movie.data.id]) {
+                  count += 1;
 
-                    recommendation.genres = movie.data.genres;
-                    recommendation.runtime = movie.data.runtime;
+                  recommendation.genres = movie.data.genres;
+                  recommendation.runtime = movie.data.runtime;
 
-                    recommendations.push(recommendation);
-                    
-                  }
-                });
-            });
+                  recommendations.push(recommendation);
 
-            Promise.all(promises)
-              .then(() => {
-                this.props.createAllRecommendations(recommendations);
+                }
               });
           });
-        },30);
+
+          Promise.all(promises)
+            .then(() => {
+              this.props.createAllRecommendations(recommendations);
+            });
+        });
     }
+  }
+
+  genresChanged(prevGenres, currentGenres) {
+    let prevValues = Object.values(prevGenres);
+    let currentValues = Object.values(currentGenres);
+
+    console.log("prevValues: ");
+    console.log(prevValues);
+    console.log("currentValues: ");
+    console.log(currentValues);
+
+    if (prevValues.length !== currentValues.length) return true;
+
+    for(let i=0; i < currentValues.length; i++) {
+      if (currentValues[i].tier !== prevValues[i].tier) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   render() {

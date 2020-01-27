@@ -23,12 +23,11 @@ const TIER_THRESHOLD = {
 const tierEvaluator = (currUserId, newGenre, interestCount) => {
   let countPromises = [
     Interest.countDocuments({ user: currUserId }).then(count => {
-      // console.log("-------line 25 genres.js----------");
-      // console.log(newGenre.name + " : " + newGenre.count);
-      // console.log(count);
-      // console.log("-------line 29 genres.js----------");
+      console.log("-------line 25 genres.js----------");
+      console.log(newGenre.name + " : " + newGenre.count);
+      console.log(count);
+      console.log("-------line 29 genres.js----------");
       const tierRatio = newGenre.count / (count);
-
       if (tierRatio >= TIER_THRESHOLD.SUPERLIKE) {
         newGenre.tier = 'superLike';
       } else if (tierRatio > TIER_THRESHOLD.LIKE) {

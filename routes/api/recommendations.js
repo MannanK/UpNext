@@ -82,7 +82,6 @@ router.post('/similar', passport.authenticate('jwt', { session: false }), (req, 
 router.post('/all', passport.authenticate('jwt', { session: false }), (req, res) => {
   Recommendation.deleteMany({ user: req.user.id, similarMovieId: null }).then(() => {
     const allRecommendations = {};
-    console.log(req.body);
     req.body.data.forEach((recommendation, i) => {
       allRecommendations[i] = new Recommendation({
         similarMovieId: null,

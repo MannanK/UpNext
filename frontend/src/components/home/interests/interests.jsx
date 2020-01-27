@@ -33,7 +33,7 @@ class Interests extends React.Component {
     // console.log("!isEmpty: ");
     // console.log(!isEmpty(prevProps.genres));
     
-    if (this.genresChanged(prevProps.genres, this.props.genres) && !isEmpty(this.props.genres)) {
+    if (this.genresChanged(prevProps.genres, this.props.genres) && !isEmpty(this.props.genres) && !isEmpty(this.props.interests)) {
       // filter genre slice of state to get superlike genre array
       // call getAllRecommendations
       // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -41,12 +41,15 @@ class Interests extends React.Component {
       let superLikeArr = Object.values(this.props.genres).filter(ele => ele.tier === "superLike").map(el => el.id);
       // const promises = [];
       let recommendations = [];
+      let movieIdTrack = new Set();
+      // Pull out random 3 superLiked-tier genres, joined by AND
       TMDBAPIUtil.getAllRecommendations(superLikeArr)
         .then(response => {
           const promisesA = [];
           for (let i=0; i < Math.min(response.data.results.length,15); i++) {
             let recommendation = response.data.results[i];
             let recId = recommendation.id;
+            // movieIdTrack.add(recId);
             promisesA.push(TMDBAPIUtil.getMovieInfo(recId)
               .then(movie => {
                 if (!this.props.interests[movie.data.id]) {
@@ -60,21 +63,24 @@ class Interests extends React.Component {
           Promise.all(promisesA)
             .then(() => {
               let likeArr = Object.values(this.props.genres).filter(ele => ele.tier === "like").map(el => el.id);
-              TMDBAPIUtil.getAllRecommendations(likeArr)
+              // Pull out random 2 liked-tier genres, joined by OR
+              TMDBAPIUtil.getAllRecommendations(likeArr, 2, "%7C")
               .then(response => {
                 const promisesC = [];
                 for (let i=0; i < Math.min(response.data.results.length,10); i++) {
                   let recommendation = response.data.results[i];
                   let recId = recommendation.id;
-                  promisesC.push(TMDBAPIUtil.getMovieInfo(recId)
-                    .then(movie => {
-                      if (!this.props.interests[movie.data.id]) {
-                        recommendation.genres = movie.data.genres;
-                        recommendation.runtime = movie.data.runtime;
-                        recommendations.push(recommendation);
-                      }
-                    })
-                  );
+                  if (!movieIdTrack.has(recId)) {
+                    promisesC.push(TMDBAPIUtil.getMovieInfo(recId)
+                      .then(movie => {
+                        if (!this.props.interests[movie.data.id]) {
+                          recommendation.genres = movie.data.genres;
+                          recommendation.runtime = movie.data.runtime;
+                          recommendations.push(recommendation);
+                        }
+                      })
+                    );
+                  }
                 }
                 Promise.all(promisesC)
                   .then(() => {

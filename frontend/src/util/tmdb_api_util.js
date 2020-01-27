@@ -16,12 +16,12 @@ export const getSimilarRecommendations = function(id) {
   return instance.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${tmdbApiKey}`);
 };
 
-export const getAllRecommendations = function (genreIds, page = 1) {
+export const getAllRecommendations = function (genreIds, sliceNum = 3, joinType="%2C", page = 1) {
   // put API docs URL
   // test out include_video
   let release_date = new Date(Date.now()).toISOString().split("T")[0];
-  let genres = shuffleArray(genreIds).slice(0,3).join("%2C");
-
+  let genres = shuffleArray(genreIds).slice(0,sliceNum).join(joinType);
+  if (genreIds.length === 0) genres = 999999999;
   return instance
     .get(
       `https://api.themoviedb.org/3/discover/movie?api_key=${tmdbApiKey}` +

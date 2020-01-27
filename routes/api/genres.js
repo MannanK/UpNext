@@ -23,10 +23,10 @@ const TIER_THRESHOLD = {
 const tierEvaluator = (currUserId, newGenre, interestCount) => {
   let countPromises = [
     Interest.countDocuments({ user: currUserId }).then(count => {
-      console.log("-------line 25 genres.js----------");
-      console.log(newGenre.name + " : " + newGenre.count);
-      console.log(count);
-      console.log("-------line 29 genres.js----------");
+      // console.log("-------line 25 genres.js----------");
+      // console.log(newGenre.name + " : " + newGenre.count);
+      // console.log(count);
+      // console.log("-------line 29 genres.js----------");
       const tierRatio = newGenre.count / (count);
       if (tierRatio >= TIER_THRESHOLD.SUPERLIKE) {
         newGenre.tier = 'superLike';
@@ -56,11 +56,16 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
         });
         // tierEvaluator(req.user.id, newGenre, req.body.interestCount);
 
-        Promise.all([tierEvaluator(req.user.id, newGenre, req.body.interestCount)]).then(() => {
-          newGenre.save()
-            .then(genre => res.json(genre))
-            .catch(err => console.log(err));
-        });
+        // Promise.all([tierEvaluator(req.user.id, newGenre)]).then(() => {
+        //   newGenre.save()
+        //     .then(genre => res.json(genre))
+        //     .catch(err => console.log(err));
+        // });
+        tierEvaluator(req.user.id, newGenre);
+        setTimeout(() => {newGenre.save()
+          .then(genre => res.json(genre))
+          .catch(err => console.log(err));
+        },30);
       }
     });
   }

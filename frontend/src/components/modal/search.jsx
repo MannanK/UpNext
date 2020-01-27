@@ -80,6 +80,8 @@ class Search extends React.Component {
         .then(response => {
           Promise.all([this.props.createInterest(response.data)]).then(() => {
             // genres calculation
+            // console.log("-----------------Interests------------------");
+            // console.log(this.props.interests);
             const { genres, movieIds } = this.props;
             response.data.genres.forEach(genre => {
               if (genres[genre.name]) {
@@ -202,6 +204,7 @@ const msp = state => {
   }
     return {
       genres: state.entities.genres,
+      interests: state.entities.interests,
       movieIds: movieIdObj
     };
 }

@@ -17,8 +17,8 @@ class Interests extends React.Component {
     // can check if interests have changed
     if (Object.keys(prevProps.interests).length !== Object.keys(this.props.interests).length) {
       const { genres, interests } = this.props;
-      console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~ first CL");
-      console.log(genres);
+      // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~ first CL");
+      // console.log(genres);
       Object.values(genres).forEach(genre => {
         // console.log("-----line 16 interests.jsx-----");
         this.props.updateGenre(genres[genre.name]._id, { value: 0 });
@@ -28,16 +28,16 @@ class Interests extends React.Component {
       // state is empty
     }
     
-    console.log("genresChanged: ");
-    console.log(this.genresChanged(prevProps.genres, this.props.genres));
-    console.log("!isEmpty: ");
-    console.log(!isEmpty(prevProps.genres));
+    // console.log("genresChanged: ");
+    // console.log(this.genresChanged(prevProps.genres, this.props.genres));
+    // console.log("!isEmpty: ");
+    // console.log(!isEmpty(prevProps.genres));
     
     if (this.genresChanged(prevProps.genres, this.props.genres) && !isEmpty(this.props.genres)) {
       // filter genre slice of state to get superlike genre array
       // call getAllRecommendations
-      console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      console.log(Object.values(this.props.genres).filter(ele => ele.tier === "superLike"));
+      // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+      // console.log(Object.values(this.props.genres).filter(ele => ele.tier === "superLike"));
       let superLikeArr = Object.values(this.props.genres).filter(ele => ele.tier === "superLike").map(el => el.id);
       TMDBAPIUtil.getAllRecommendations(superLikeArr)
         .then(response => {
@@ -72,10 +72,10 @@ class Interests extends React.Component {
     let prevValues = Object.values(prevGenres);
     let currentValues = Object.values(currentGenres);
 
-    console.log("prevValues: ");
-    console.log(prevValues);
-    console.log("currentValues: ");
-    console.log(currentValues);
+    // console.log("prevValues: ");
+    // console.log(prevValues);
+    // console.log("currentValues: ");
+    // console.log(currentValues);
 
     if (prevValues.length !== currentValues.length) return true;
 

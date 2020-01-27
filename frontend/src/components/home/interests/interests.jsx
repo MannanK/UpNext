@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import SimpleSlider from '../slider/simple_slider';
 import { fetchInterests } from '../../../actions/interest_actions';
 import { updateGenre } from '../../../actions/genre_actions';
+import * as TMDBAPIUtil from '../../../util/tmdb_api_util';
+import { createAllRecommendations } from '../../../actions/recommendation_actions';
 
 class Interests extends React.Component {
   componentDidMount() {
@@ -13,10 +15,45 @@ class Interests extends React.Component {
     // can check if interests have changed
     if (Object.keys(prevProps.interests).length !== Object.keys(this.props.interests).length) {
       const { genres, interests } = this.props;
+      console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~ first CL");
+      console.log(genres);
       Object.values(genres).forEach(genre => {
         // console.log("-----line 16 interests.jsx-----");
         this.props.updateGenre(genres[genre.name]._id, { value: 0, interestCount: Object.keys(interests).length + 1 });
       });
+      // filter genre slice of state to get superlike genre array
+      // call getAllRecommendations
+      console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+      console.log(Object.values(this.props.genres).filter(ele => ele.tier === "superLike"));
+      let superLikeArr = Object.values(this.props.genres).filter(ele => ele.tier === "superLike");
+        setTimeout(()=>{
+          TMDBAPIUtil.getAllRecommendations(superLikeArr)
+          .then(response => {
+            let count = 0;
+            let recommendations = [];
+
+            const promises = response.data.results.map((recommendation) => {
+              let recId = recommendation.id;
+              return TMDBAPIUtil.getMovieInfo(recId)
+                .then(movie => {
+                  if (!this.props.interests[movie.data.id]) {
+                    count += 1;
+
+                    recommendation.genres = movie.data.genres;
+                    recommendation.runtime = movie.data.runtime;
+
+                    recommendations.push(recommendation);
+                    
+                  }
+                });
+            });
+
+            Promise.all(promises)
+              .then(() => {
+                this.props.createAllRecommendations(recommendations);
+              });
+          });
+        },30);
     }
   }
 
@@ -42,6 +79,7 @@ const msp = state => ({
 const mdp = dispatch => ({
   fetchInterests: () => dispatch(fetchInterests()),
   updateGenre: (genreId,value) => dispatch(updateGenre(genreId,value)),
+  createAllRecommendations: data => dispatch(createAllRecommendations(data))
 });
 
 export default connect(msp, mdp)(Interests);

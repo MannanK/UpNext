@@ -124,34 +124,34 @@ class Search extends React.Component {
 
         });
 
-        TMDBAPIUtil.getAllRecommendations()
-        .then(response => {
-          let count = 0;
-          let recommendations = [];
+        // TMDBAPIUtil.getAllRecommendations()
+        // .then(response => {
+        //   let count = 0;
+        //   let recommendations = [];
 
-          const promises = response.data.results.map((recommendation) => {
-            let recId = recommendation.id;
-            return TMDBAPIUtil.getMovieInfo(recId)
-              .then(movie => {
-                if (!this.props.movieIds[movie.data.id]) {
-                  count += 1;
+        //   const promises = response.data.results.map((recommendation) => {
+        //     let recId = recommendation.id;
+        //     return TMDBAPIUtil.getMovieInfo(recId)
+        //       .then(movie => {
+        //         if (!this.props.movieIds[movie.data.id]) {
+        //           count += 1;
 
-                  recommendation.genres = movie.data.genres;
-                  recommendation.runtime = movie.data.runtime;
+        //           recommendation.genres = movie.data.genres;
+        //           recommendation.runtime = movie.data.runtime;
 
-                  recommendations.push(recommendation);
-                  if (count === 15) this.props.closeModal();
-                }
-              });
-          });
+        //           recommendations.push(recommendation);
+        //           if (count === 15) this.props.closeModal();
+        //         }
+        //       });
+        //   });
 
-          Promise.all(promises)
-            .then(() => {
-              this.props.createAllRecommendations(recommendations);
-              this.props.closeModal();
-            });
-        });
-    }
+        //   Promise.all(promises)
+        //     .then(() => {
+        //       this.props.createAllRecommendations(recommendations);
+        //       this.props.closeModal();
+        //     });
+        // });
+    };
     }
   
   render() {

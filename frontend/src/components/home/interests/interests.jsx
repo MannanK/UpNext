@@ -39,14 +39,15 @@ class Interests extends React.Component {
       // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
       // console.log(Object.values(this.props.genres).filter(ele => ele.tier === "superLike"));
       let superLikeArr = Object.values(this.props.genres).filter(ele => ele.tier === "superLike").map(el => el.id);
-      const promises = [];
+      // const promises = [];
       let recommendations = [];
       TMDBAPIUtil.getAllRecommendations(superLikeArr)
         .then(response => {
+          const promisesA = [];
           for (let i=0; i < Math.min(response.data.results.length,15); i++) {
             let recommendation = response.data.results[i];
             let recId = recommendation.id;
-            promises.push(TMDBAPIUtil.getMovieInfo(recId)
+            promisesA.push(TMDBAPIUtil.getMovieInfo(recId)
               .then(movie => {
                 if (!this.props.interests[movie.data.id]) {
                   recommendation.genres = movie.data.genres;
@@ -56,11 +57,33 @@ class Interests extends React.Component {
               })
             );
           }
-          Promise.all(promises)
+          Promise.all(promisesA)
             .then(() => {
-              this.props.createAllRecommendations(recommendations);
+              let likeArr = Object.values(this.props.genres).filter(ele => ele.tier === "like").map(el => el.id);
+              TMDBAPIUtil.getAllRecommendations(likeArr)
+              .then(response => {
+                const promisesC = [];
+                for (let i=0; i < Math.min(response.data.results.length,10); i++) {
+                  let recommendation = response.data.results[i];
+                  let recId = recommendation.id;
+                  promisesC.push(TMDBAPIUtil.getMovieInfo(recId)
+                    .then(movie => {
+                      if (!this.props.interests[movie.data.id]) {
+                        recommendation.genres = movie.data.genres;
+                        recommendation.runtime = movie.data.runtime;
+                        recommendations.push(recommendation);
+                      }
+                    })
+                  );
+                }
+                Promise.all(promisesC)
+                  .then(() => {
+                    this.props.createAllRecommendations(recommendations);
+                  });
+              });
             });
-          });
+          }
+        );
     }
   }
 

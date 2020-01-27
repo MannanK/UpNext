@@ -39,32 +39,28 @@ class Interests extends React.Component {
       // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
       // console.log(Object.values(this.props.genres).filter(ele => ele.tier === "superLike"));
       let superLikeArr = Object.values(this.props.genres).filter(ele => ele.tier === "superLike").map(el => el.id);
+      const promises = [];
+      let recommendations = [];
       TMDBAPIUtil.getAllRecommendations(superLikeArr)
         .then(response => {
-          let count = 0;
-          let recommendations = [];
-
-          const promises = response.data.results.map((recommendation) => {
+          for (let i=0; i < Math.min(response.data.results.length,15); i++) {
+            let recommendation = response.data.results[i];
             let recId = recommendation.id;
-            return TMDBAPIUtil.getMovieInfo(recId)
+            promises.push(TMDBAPIUtil.getMovieInfo(recId)
               .then(movie => {
                 if (!this.props.interests[movie.data.id]) {
-                  count += 1;
-
                   recommendation.genres = movie.data.genres;
                   recommendation.runtime = movie.data.runtime;
-
                   recommendations.push(recommendation);
-
                 }
-              });
-          });
-
+              })
+            );
+          }
           Promise.all(promises)
             .then(() => {
               this.props.createAllRecommendations(recommendations);
             });
-        });
+          });
     }
   }
 

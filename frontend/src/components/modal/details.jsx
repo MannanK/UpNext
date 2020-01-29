@@ -196,7 +196,6 @@ class Details extends React.Component {
 
   render() {
     const detailsItem = this.props.detailsItem || {};
-    // debugger;
 
     if (isEmpty(detailsItem)) {
       return "";
@@ -288,7 +287,6 @@ class Details extends React.Component {
 
 const msp = (state, ownProps) => {
   let detailsItem;
-  // debugger;
   if (ownProps.detailsType === "recommendations") {
     detailsItem = state.entities[ownProps.detailsType][ownProps.detailsRecType][ownProps.detailsId];
   } else {

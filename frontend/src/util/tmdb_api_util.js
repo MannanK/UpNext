@@ -16,19 +16,34 @@ export const getSimilarRecommendations = function(id) {
   return instance.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${tmdbApiKey}`);
 };
 
-export const getAllRecommendations = function (genreIds, sliceNum = 3, joinType="%2C", page = 1) {
+export const getAllRecommendations = function (genreIds, sliceNum = 3, joinType="%2C") {
   // put API docs URL
   // test out include_video
   let release_date = new Date(Date.now()).toISOString().split("T")[0];
   let genres = shuffleArray(genreIds).slice(0,sliceNum).join(joinType);
+  let totalPages;
+
   if (genreIds.length === 0) genres = 999999999;
-  return instance
+    return instance
     .get(
       `https://api.themoviedb.org/3/discover/movie?api_key=${tmdbApiKey}` +
       `&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false` + 
-      `&page=${page}&release_date.lte=${release_date}&vote_count.gte=100&vote_average.gte=5` + 
+      `&page=1&release_date.lte=${release_date}&vote_count.gte=100&vote_average.gte=5` + 
       `&with_genres=${genres}`
-    );
+      )
+      .then(response => {
+        totalPages = response.data.total_pages;
+      })
+      .then(() => {
+        let page = Math.floor(Math.random() * Math.min(10,totalPages)) + 1;
+        return instance
+          .get(
+            `https://api.themoviedb.org/3/discover/movie?api_key=${tmdbApiKey}` +
+          `&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false` + 
+          `&page=${page}&release_date.lte=${release_date}&vote_count.gte=100&vote_average.gte=5` + 
+          `&with_genres=${genres}`
+          );
+      });
 };
 
 export const getMovieSuggestions = function(keyword) {
@@ -37,8 +52,6 @@ export const getMovieSuggestions = function(keyword) {
   return instance
     .get(`https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${keyword}&include_adult=false`);
 };
-
-// ------------------------------------------------------------- //
 
 // 1. first check if user.preferences.high.length > 3
 //    - shuffle the array, then pick the first 3 high's

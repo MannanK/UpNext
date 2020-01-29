@@ -80,8 +80,6 @@ class Search extends React.Component {
         .then(response => {
           Promise.all([this.props.createInterest(response.data)]).then(() => {
             // genres calculation
-            // console.log("-----------------Interests------------------");
-            // console.log(this.props.interests);
             const { genres, movieIds } = this.props;
             response.data.genres.forEach(genre => {
               if (genres[genre.name]) {
@@ -90,7 +88,6 @@ class Search extends React.Component {
                 this.props.createGenre({genre, interestCount: Object.keys(movieIds).length} );
               }
             });
-            // this.props.fetchSimilarRecommendations();
             this.props.closeModal();
           });
       });
@@ -116,45 +113,16 @@ class Search extends React.Component {
                   if (count === 15) this.props.closeModal();
                 }
               });
-          })
+          });
 
           Promise.all(promises)
             .then(() => {
               this.props.createSimilarRecommendations(recommendations);
               this.props.closeModal();
-            })
-
+            });
         });
-
-        // TMDBAPIUtil.getAllRecommendations()
-        // .then(response => {
-        //   let count = 0;
-        //   let recommendations = [];
-
-        //   const promises = response.data.results.map((recommendation) => {
-        //     let recId = recommendation.id;
-        //     return TMDBAPIUtil.getMovieInfo(recId)
-        //       .then(movie => {
-        //         if (!this.props.movieIds[movie.data.id]) {
-        //           count += 1;
-
-        //           recommendation.genres = movie.data.genres;
-        //           recommendation.runtime = movie.data.runtime;
-
-        //           recommendations.push(recommendation);
-        //           if (count === 15) this.props.closeModal();
-        //         }
-        //       });
-        //   });
-
-        //   Promise.all(promises)
-        //     .then(() => {
-        //       this.props.createAllRecommendations(recommendations);
-        //       this.props.closeModal();
-        //     });
-        // });
     };
-    }
+  }
   
   render() {
     const {searchResults} = this.state;
@@ -193,8 +161,6 @@ class Search extends React.Component {
 
 const msp = state => {
   let movieIdObj = {};
-
-  ///refactor after algorithm
 
   if (!isEmpty(state.entities.interests)) {
     for (let key in state.entities.interests) {

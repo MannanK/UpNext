@@ -17,10 +17,7 @@ class Interests extends React.Component {
     // can check if interests have changed
     if (Object.keys(prevProps.interests).length !== Object.keys(this.props.interests).length) {
       const { genres, interests } = this.props;
-      // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~ first CL");
-      // console.log(genres);
       Object.values(genres).forEach(genre => {
-        // console.log("-----line 16 interests.jsx-----");
         this.props.updateGenre(genres[genre.name]._id, { value: 0 });
       });
     // without checking if the previous genres were not empty, we see a split second of the default API call where
@@ -28,18 +25,10 @@ class Interests extends React.Component {
       // state is empty
     }
     
-    // console.log("genresChanged: ");
-    // console.log(this.genresChanged(prevProps.genres, this.props.genres));
-    // console.log("!isEmpty: ");
-    // console.log(!isEmpty(prevProps.genres));
-    
-    if (this.genresChanged(prevProps.genres, this.props.genres) && !isEmpty(this.props.genres) && !isEmpty(this.props.interests)) {
+    if (this.genresChanged(prevProps.genres, this.props.genres) && !isEmpty(this.props.genres)) {
       // filter genre slice of state to get superlike genre array
       // call getAllRecommendations
-      // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      // console.log(Object.values(this.props.genres).filter(ele => ele.tier === "superLike"));
       let superLikeArr = Object.values(this.props.genres).filter(ele => ele.tier === "superLike").map(el => el.id);
-      // const promises = [];
       let recommendations = [];
       let movieIdTrack = new Set();
       // Pull out random 3 superLiked-tier genres, joined by AND
@@ -49,7 +38,6 @@ class Interests extends React.Component {
           for (let i=0; i < Math.min(response.data.results.length,15); i++) {
             let recommendation = response.data.results[i];
             let recId = recommendation.id;
-            // movieIdTrack.add(recId);
             promisesA.push(TMDBAPIUtil.getMovieInfo(recId)
               .then(movie => {
                 if (!this.props.interests[movie.data.id]) {
@@ -88,19 +76,13 @@ class Interests extends React.Component {
                   });
               });
             });
-          }
-        );
+        });
     }
   }
 
   genresChanged(prevGenres, currentGenres) {
     let prevValues = Object.values(prevGenres);
     let currentValues = Object.values(currentGenres);
-
-    // console.log("prevValues: ");
-    // console.log(prevValues);
-    // console.log("currentValues: ");
-    // console.log(currentValues);
 
     if (prevValues.length !== currentValues.length) return true;
 

@@ -100,16 +100,21 @@ router.post('/all', passport.authenticate('jwt', { session: false }), (req, res)
     });
 
     let count = 0;
-    Object.values(allRecommendations).forEach(recommendation => {
-      recommendation
-        .save()
-        .then(() => {
-          count += 1;
-          if (count === req.body.data.length)
-            res.json(allRecommendations);
-        })
-        .catch(err => console.log(err));
-    });
+    if (Object.values(allRecommendations).length > 0) {
+      Object.values(allRecommendations).forEach(recommendation => {
+        recommendation
+          .save()
+          .then(() => {
+            count += 1;
+            if (count === req.body.data.length)
+              res.json(allRecommendations);
+          })
+          .catch(err => console.log(err));
+      });
+    } else {
+      res.json(allRecommendations);
+    }
+    
   });
 });
 

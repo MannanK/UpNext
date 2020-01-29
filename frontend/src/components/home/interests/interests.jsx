@@ -55,73 +55,72 @@ class Interests extends React.Component {
           }
 
           Promise.all(promisesA)
-          .then(() => {
-            if ( checkSuperLikeArr.length >= 2 ) {
-              mixLikeArr = checkSuperLikeArr;
-            // } else if (checkLikeArr.length >= 1 && checkSuperLikeArr.length >= 1) {
-            //   let randSuperLikeIndex = Math.floor(Math.random() * (checkSuperLikeArr.length-1));
-            //   let randLikeIndex = Math.floor(Math.random() * (checkLikeArr.length-1));
-            //   mixLikeArr = [].push(checkSuperLikeArr[randSuperLikeIndex],checkLikeArr[randLikeIndex]);
-            } else {
-              mixLikeArr = [];
-            }
-            // Pull out random 2 liked-tier genres, joined by OR
-            TMDBAPIUtil.getAllRecommendations(mixLikeArr, 2, "%2C")
-            .then(response => {
-              const promisesB = [];
-              for (let i=0; i < Math.min(response.data.results.length,10); i++) {
-                let recommendation = response.data.results[i];
-                let recId = recommendation.id;
-                if (!movieIdTrack.has(recId)) {
-                  promisesB.push(TMDBAPIUtil.getMovieInfo(recId)
-                    .then(movie => {
-                      if (!this.props.interests[movie.data.id]) {
-                        recommendation.genres = movie.data.genres;
-                        recommendation.runtime = movie.data.runtime;
-                        recommendations.push(recommendation);
-                      }
-                    })
-                  );
-                }
-              }
-
-
-          Promise.all(promisesB)
             .then(() => {
-              // check if there are at least two like-tier genres
-              if (checkLikeArr.length >= 2) {
-                mixLikeArr = checkLikeArr;
+              if ( checkSuperLikeArr.length >= 2 ) {
+                mixLikeArr = checkSuperLikeArr;
+              // } else if (checkLikeArr.length >= 1 && checkSuperLikeArr.length >= 1) {
+              //   let randSuperLikeIndex = Math.floor(Math.random() * (checkSuperLikeArr.length-1));
+              //   let randLikeIndex = Math.floor(Math.random() * (checkLikeArr.length-1));
+              //   mixLikeArr = [].push(checkSuperLikeArr[randSuperLikeIndex],checkLikeArr[randLikeIndex]);
               } else {
                 mixLikeArr = [];
               }
-              // Pull out random 2 liked-tier genres, joined by AND
+              // Pull out random 2 liked-tier genres, joined by OR
               TMDBAPIUtil.getAllRecommendations(mixLikeArr, 2, "%2C")
-              .then(response => {
-                const promisesD = [];
-                for (let i=0; i < Math.min(response.data.results.length,10); i++) {
-                  let recommendation = response.data.results[i];
-                  let recId = recommendation.id;
-                  if (!movieIdTrack.has(recId)) {
-                    promisesD.push(TMDBAPIUtil.getMovieInfo(recId)
-                      .then(movie => {
-                        if (!this.props.interests[movie.data.id]) {
-                          recommendation.genres = movie.data.genres;
-                          recommendation.runtime = movie.data.runtime;
-                          recommendations.push(recommendation);
-                        }
-                      })
-                    );
+                .then(response => {
+                  const promisesB = [];
+                  for (let i=0; i < Math.min(response.data.results.length,10); i++) {
+                    let recommendation = response.data.results[i];
+                    let recId = recommendation.id;
+                    if (!movieIdTrack.has(recId)) {
+                      promisesB.push(TMDBAPIUtil.getMovieInfo(recId)
+                        .then(movie => {
+                          if (!this.props.interests[movie.data.id]) {
+                            recommendation.genres = movie.data.genres;
+                            recommendation.runtime = movie.data.runtime;
+                            recommendations.push(recommendation);
+                          }
+                        })
+                      );
+                    }
                   }
-                }
-                Promise.all(promisesD)
-                  .then(() => {
-                    this.props.createAllRecommendations(recommendations);
-                  });
-               });
+
+                  Promise.all(promisesB)
+                    .then(() => {
+                      // check if there are at least two like-tier genres
+                      if (checkLikeArr.length >= 2) {
+                        mixLikeArr = checkLikeArr;
+                      } else {
+                        mixLikeArr = [];
+                      }
+                      // Pull out random 2 liked-tier genres, joined by AND
+                      TMDBAPIUtil.getAllRecommendations(mixLikeArr, 2, "%2C")
+                        .then(response => {
+                          const promisesD = [];
+                          for (let i=0; i < Math.min(response.data.results.length,10); i++) {
+                            let recommendation = response.data.results[i];
+                            let recId = recommendation.id;
+                            if (!movieIdTrack.has(recId)) {
+                              promisesD.push(TMDBAPIUtil.getMovieInfo(recId)
+                                .then(movie => {
+                                  if (!this.props.interests[movie.data.id]) {
+                                    recommendation.genres = movie.data.genres;
+                                    recommendation.runtime = movie.data.runtime;
+                                    recommendations.push(recommendation);
+                                  }
+                                })
+                              );
+                            }
+                          }
+                          Promise.all(promisesD)
+                            .then(() => {
+                              this.props.createAllRecommendations(recommendations);
+                            });
+                        });
+                    });
+                });
             });
-          });
         });
-      });
     }
 
     if (isEmpty(this.props.interests)) {

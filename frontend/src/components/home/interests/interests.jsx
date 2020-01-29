@@ -84,24 +84,25 @@ class Interests extends React.Component {
                       );
                     }
                   }
-
                   Promise.all(promisesB)
                     .then(() => {
-                      // check if there are at least two like-tier genres
-                      if (checkLikeArr.length >= 2) {
-                        mixLikeArr = checkLikeArr;
+                      if (checkLikeArr.length >= 1 && checkSuperLikeArr.length >= 1) {
+                        let randSuperLikeIndex = Math.floor(Math.random() * (checkSuperLikeArr.length-1));
+                        let randLikeIndex = Math.floor(Math.random() * (checkLikeArr.length-1));
+                        mixLikeArr = [];
+                        mixLikeArr.push(checkSuperLikeArr[randSuperLikeIndex],checkLikeArr[randLikeIndex]);
                       } else {
                         mixLikeArr = [];
                       }
-                      // Pull out random 2 liked-tier genres, joined by AND
+                      // Pull out random 2 liked-tier genres, joined by OR
                       TMDBAPIUtil.getAllRecommendations(mixLikeArr, 2, "%2C")
                         .then(response => {
-                          const promisesD = [];
+                          const promisesC = [];
                           for (let i=0; i < Math.min(response.data.results.length,10); i++) {
                             let recommendation = response.data.results[i];
                             let recId = recommendation.id;
                             if (!movieIdTrack.has(recId)) {
-                              promisesD.push(TMDBAPIUtil.getMovieInfo(recId)
+                              promisesC.push(TMDBAPIUtil.getMovieInfo(recId)
                                 .then(movie => {
                                   if (!this.props.interests[movie.data.id]) {
                                     recommendation.genres = movie.data.genres;
@@ -112,9 +113,66 @@ class Interests extends React.Component {
                               );
                             }
                           }
-                          Promise.all(promisesD)
+
+                          Promise.all(promisesC)
                             .then(() => {
-                              this.props.createAllRecommendations(recommendations);
+                              // check if there are at least two like-tier genres
+                              if (checkLikeArr.length >= 2) {
+                                mixLikeArr = checkLikeArr;
+                              } else {
+                                mixLikeArr = [];
+                              }
+                              // Pull out random 2 liked-tier genres, joined by AND
+                              TMDBAPIUtil.getAllRecommendations(mixLikeArr, 2, "%2C")
+                                .then(response => {
+                                  const promisesD = [];
+                                  for (let i=0; i < Math.min(response.data.results.length,10); i++) {
+                                    let recommendation = response.data.results[i];
+                                    let recId = recommendation.id;
+                                    if (!movieIdTrack.has(recId)) {
+                                      promisesD.push(TMDBAPIUtil.getMovieInfo(recId)
+                                        .then(movie => {
+                                          if (!this.props.interests[movie.data.id]) {
+                                            recommendation.genres = movie.data.genres;
+                                            recommendation.runtime = movie.data.runtime;
+                                            recommendations.push(recommendation);
+                                          }
+                                        })
+                                      );
+                                    }
+                                  }
+
+                                  Promise.all(promisesD)
+                                    .then(() => {
+                                      // check if there are at least two like-tier genres
+                                        mixLikeArr = checkLikeArr.concat(checkSuperLikeArr);
+                                      // Pull out random 2 liked-tier genres, joined by AND
+                                      TMDBAPIUtil.getAllRecommendations(mixLikeArr, mixLikeArr.length, "%7C")
+                                        .then(response => {
+                                          const promisesE = [];
+                                          for (let i=0; i < Math.min(response.data.results.length,10); i++) {
+                                            let recommendation = response.data.results[i];
+                                            let recId = recommendation.id;
+                                            if (!movieIdTrack.has(recId)) {
+                                              promisesE.push(TMDBAPIUtil.getMovieInfo(recId)
+                                                .then(movie => {
+                                                  if (!this.props.interests[movie.data.id]) {
+                                                    recommendation.genres = movie.data.genres;
+                                                    recommendation.runtime = movie.data.runtime;
+                                                    recommendations.push(recommendation);
+                                                  }
+                                                })
+                                              );
+                                            }
+                                          }
+
+                                          Promise.all(promisesE)
+                                            .then(() => {
+                                              this.props.createAllRecommendations(recommendations);
+                                            });
+                                        });
+                                    });
+                                });
                             });
                         });
                     });

@@ -96,33 +96,33 @@ class Details extends React.Component {
       });
     });
 
-    TMDBAPIUtil.getAllRecommendations()
-      .then(response => {
-        let count = 0;
-        let recommendations = [];
+    // TMDBAPIUtil.getAllRecommendations()
+    //   .then(response => {
+    //     let count = 0;
+    //     let recommendations = [];
 
-        const promises = response.data.results.map((recommendation) => {
-          let recId = recommendation.id;
-          return TMDBAPIUtil.getMovieInfo(recId)
-            .then(movie => {
-              if (!this.props.movieIds[movie.data.id]) {
-                count += 1;
+    //     const promises = response.data.results.map((recommendation) => {
+    //       let recId = recommendation.id;
+    //       return TMDBAPIUtil.getMovieInfo(recId)
+    //         .then(movie => {
+    //           if (!this.props.movieIds[movie.data.id]) {
+    //             count += 1;
 
-                recommendation.genres = movie.data.genres;
-                recommendation.runtime = movie.data.runtime;
+    //             recommendation.genres = movie.data.genres;
+    //             recommendation.runtime = movie.data.runtime;
 
-                recommendations.push(recommendation);
-                if (count === 15) this.props.closeModal();
-              }
-            });
-        });
+    //             recommendations.push(recommendation);
+    //             if (count === 15) this.props.closeModal();
+    //           }
+    //         });
+    //     });
 
-        Promise.all(promises)
-          .then(() => {
-            this.props.createAllRecommendations(recommendations);
-            this.props.closeModal();
-          });
-      });
+    //     Promise.all(promises)
+    //       .then(() => {
+    //         this.props.createAllRecommendations(recommendations);
+    //         this.props.closeModal();
+    //       });
+    //   });
   }
 
   removeFromInterests(e) {
@@ -150,33 +150,33 @@ class Details extends React.Component {
       this.props.closeModal();
     });
 
-    TMDBAPIUtil.getAllRecommendations()
-      .then(response => {
-        let count = 0;
-        let recommendations = [];
+    // TMDBAPIUtil.getAllRecommendations()
+    //   .then(response => {
+    //     let count = 0;
+    //     let recommendations = [];
 
-        const promises = response.data.results.map((recommendation) => {
-          let recId = recommendation.id;
-          return TMDBAPIUtil.getMovieInfo(recId)
-            .then(movie => {
-              if (!this.props.movieIds[movie.data.id]) {
-                count += 1;
+    //     const promises = response.data.results.map((recommendation) => {
+    //       let recId = recommendation.id;
+    //       return TMDBAPIUtil.getMovieInfo(recId)
+    //         .then(movie => {
+    //           if (!this.props.movieIds[movie.data.id]) {
+    //             count += 1;
 
-                recommendation.genres = movie.data.genres;
-                recommendation.runtime = movie.data.runtime;
+    //             recommendation.genres = movie.data.genres;
+    //             recommendation.runtime = movie.data.runtime;
 
-                recommendations.push(recommendation);
-                if (count === 15) this.props.closeModal();
-              }
-            });
-        });
+    //             recommendations.push(recommendation);
+    //             if (count === 15) this.props.closeModal();
+    //           }
+    //         });
+    //     });
 
-        Promise.all(promises)
-          .then(() => {
-            this.props.createAllRecommendations(recommendations);
-            this.props.closeModal();
-          });
-      });
+    //     Promise.all(promises)
+    //       .then(() => {
+    //         this.props.createAllRecommendations(recommendations);
+    //         this.props.closeModal();
+    //       });
+    //   });
   }
 
   handleDate(date) {
@@ -196,7 +196,6 @@ class Details extends React.Component {
 
   render() {
     const detailsItem = this.props.detailsItem || {};
-    // debugger;
 
     if (isEmpty(detailsItem)) {
       return "";
@@ -288,7 +287,6 @@ class Details extends React.Component {
 
 const msp = (state, ownProps) => {
   let detailsItem;
-  // debugger;
   if (ownProps.detailsType === "recommendations") {
     detailsItem = state.entities[ownProps.detailsType][ownProps.detailsRecType][ownProps.detailsId];
   } else {

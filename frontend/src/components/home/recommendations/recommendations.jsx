@@ -20,8 +20,6 @@ class Recommendations extends React.Component {
   }
 
   render() {
-    // if (this.props.loading[`${this.props.type}Loading`]) {
-
     const { lastViewedInterest, type, loading } = this.props;
 
     let lastViewedInterestTitle = "";
@@ -40,7 +38,7 @@ class Recommendations extends React.Component {
       recommendations = this.props.recommendations.all;
     };
 
-    
+    /////LOADING////// 
     if (loading[`${type}Loading`]) {
       return (
         <div className="recommendations-container">
@@ -53,6 +51,8 @@ class Recommendations extends React.Component {
         </div>
       );
     }
+    ////////////
+    
     return (
       <div className='recommendations-container'>
         <section className='recommendations-similar'>

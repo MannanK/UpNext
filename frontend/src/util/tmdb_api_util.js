@@ -32,7 +32,11 @@ export const getAllRecommendations = function (genreIds, sliceNum = 3, joinType=
       `&with_genres=${genres}`
       )
       .then(response => {
-        totalPages = response.data.total_pages;
+        if (response.data.total_pages >= 1) {
+          totalPages = parseInt(response.data.total_pages)-1;
+        } else {
+          totalPages = 1;
+        }
       })
       .then(() => {
         let page = Math.floor(Math.random() * Math.min(10,totalPages)) + 1;

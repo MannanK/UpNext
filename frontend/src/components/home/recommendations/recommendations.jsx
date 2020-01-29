@@ -4,6 +4,7 @@ import SimpleSlider from '../slider/simple_slider';
 import { fetchGenres } from '../../../actions/genre_actions';
 import { fetchInterests } from '../../../actions/interest_actions';
 import { fetchSimilarRecommendations, fetchAllRecommendations } from '../../../actions/recommendation_actions';
+import Loading from "../loading/loading";
 
 class Recommendations extends React.Component {
   componentDidMount() {
@@ -19,7 +20,9 @@ class Recommendations extends React.Component {
   }
 
   render() {
-    const { lastViewedInterest, type } = this.props;
+    // if (this.props.loading[`${this.props.type}Loading`]) {
+
+    const { lastViewedInterest, type, loading } = this.props;
 
     let lastViewedInterestTitle = "";
     let sliderTitle;
@@ -37,6 +40,19 @@ class Recommendations extends React.Component {
       recommendations = this.props.recommendations.all;
     };
 
+    
+    if (loading[`${type}Loading`]) {
+      return (
+        <div className="recommendations-container">
+          <section className="recommendations-similar">
+            <header className="slider-header">
+              <div className="slider-title">{sliderTitle}</div>
+            </header>
+            <Loading />
+          </section>
+        </div>
+      );
+    }
     return (
       <div className='recommendations-container'>
         <section className='recommendations-similar'>
@@ -61,7 +77,8 @@ const msp = state => ({
       return 1;
     }
     return 0;
-  }).shift()
+  }).shift(),
+  loading: state.ui.loading
 });
 
 const mdp = dispatch => ({

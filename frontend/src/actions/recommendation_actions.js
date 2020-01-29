@@ -72,3 +72,11 @@ export const fetchAllRecommendations = () => dispatch => {
     dispatch(receiveAllRecommendations(res.data));
   })
 };
+
+
+
+export const deleteAllRecommendations = () => dispatch => {
+  return RecommendationAPIUtil.deleteAllRecommendations().then(res => {
+    dispatch(receiveAllRecommendations(res.data));
+  });
+};

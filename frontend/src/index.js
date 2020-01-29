@@ -11,7 +11,7 @@ import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions';
 
 // TODO: FOR TESTING ONLY
-import { getAllRecommendations } from './util/tmdb_api_util';
+import { deleteAllRecommendations } from './actions/recommendation_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //remove these, for testing only
   window.getState = store.getState;
   window.dispatch = store.dispatch;
-  window.getAllRecommendations = getAllRecommendations;
+  window.deleteAllRecommendations = deleteAllRecommendations;
 
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);

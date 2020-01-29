@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SimpleSlider from '../slider/simple_slider';
 import { fetchGenres } from '../../../actions/genre_actions';
 import { fetchInterests } from '../../../actions/interest_actions';
-import { fetchSimilarRecommendations, fetchAllRecommendations } from '../../../actions/recommendation_actions';
+import { fetchSimilarRecommendations, fetchAllRecommendations, deleteAllRecommendations } from '../../../actions/recommendation_actions';
 
 class Recommendations extends React.Component {
   componentDidMount() {
@@ -13,8 +13,8 @@ class Recommendations extends React.Component {
     if (this.props.type === "similar") {
       this.props.fetchSimilarRecommendations();
     } else {
-      this.props.fetchAllRecommendations();
       // this.props.fetchAllRecommendations();
+      this.props.deleteAllRecommendations();
     }
   }
 
@@ -68,6 +68,7 @@ const mdp = dispatch => ({
   fetchGenres: () => dispatch(fetchGenres()),
   fetchSimilarRecommendations: () => dispatch(fetchSimilarRecommendations()),
   fetchAllRecommendations: () => dispatch(fetchAllRecommendations()),
+  deleteAllRecommendations: () => dispatch(deleteAllRecommendations()),
   fetchInterests: () => dispatch(fetchInterests())
 });
 

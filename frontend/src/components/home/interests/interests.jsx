@@ -4,7 +4,7 @@ import SimpleSlider from '../slider/simple_slider';
 import { fetchInterests } from '../../../actions/interest_actions';
 import { updateGenre } from '../../../actions/genre_actions';
 import * as TMDBAPIUtil from '../../../util/tmdb_api_util';
-import { createAllRecommendations } from '../../../actions/recommendation_actions';
+import { createAllRecommendations, deleteAllRecommendations } from '../../../actions/recommendation_actions';
 
 const isEmpty = require("lodash.isempty");
 
@@ -25,7 +25,7 @@ class Interests extends React.Component {
       // state is empty
     }
     
-    if (this.genresChanged(prevProps.genres, this.props.genres) && !isEmpty(this.props.genres)) {
+    if (this.genresChanged(prevProps.genres, this.props.genres) && !isEmpty(this.props.genres) && !isEmpty(this.props.interests)) {
       // filter genre slice of state to get superlike genre array
       // call getAllRecommendations
       let superLikeArr = Object.values(this.props.genres).filter(ele => ele.tier === "superLike").map(el => el.id);
@@ -78,6 +78,10 @@ class Interests extends React.Component {
             });
         });
     }
+
+    if (isEmpty(this.props.interests)) {
+      this.props.deleteAllRecommendations();
+    }
   }
 
   genresChanged(prevGenres, currentGenres) {
@@ -117,7 +121,8 @@ const msp = state => ({
 const mdp = dispatch => ({
   fetchInterests: () => dispatch(fetchInterests()),
   updateGenre: (genreId,value) => dispatch(updateGenre(genreId,value)),
-  createAllRecommendations: data => dispatch(createAllRecommendations(data))
+  createAllRecommendations: data => dispatch(createAllRecommendations(data)),
+  deleteAllRecommendations: () => dispatch(deleteAllRecommendations())
 });
 
 export default connect(msp, mdp)(Interests);

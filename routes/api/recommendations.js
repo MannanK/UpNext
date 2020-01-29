@@ -140,6 +140,12 @@ router.get('/all', passport.authenticate('jwt', { session: false }), (req, res) 
     .catch(err => console.log(err));
 });
 
+router.delete('/all', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Recommendation.deleteMany({ user: req.user.id, similarMovieId: null }).then(() => {
+    res.json({});
+  });
+});
+
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({
     id: req.user.id

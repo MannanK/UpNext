@@ -19,3 +19,7 @@ export const fetchAllRecommendations = () => {
 export const createAllRecommendations = (data) => {
   return axios.post('/api/recommendations/all', { data });
 };
+
+export const deleteAllRecommendations = () => {
+  return axios.delete('/api/recommendations/all');
+};

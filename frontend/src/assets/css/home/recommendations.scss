@@ -40,9 +40,7 @@ body {
   0%{
     transform: rotate(0deg);
   }
-  60%{
-    transform: rotate(1800deg);
-  }
+
   100%{
     transform: rotate(1800deg);
   }
@@ -52,9 +50,7 @@ body {
   0%{
     transform: rotate(0deg);
   }
-  60%{
-    transform: rotate(1800deg);
-  }
+ 
   100%{
     transform: rotate(1800deg);
   }
@@ -64,9 +60,7 @@ body {
   0%{
     transform: rotate(0deg);
   }
-  60%{
-    transform: rotate(1800deg);
-  }
+
   100%{
     transform: rotate(1800deg);
   }
@@ -77,7 +71,7 @@ body {
   height: 100%;
   width: auto;
   // filter: brightness(2);
-  animation: rotate 4s .75s infinite;
-  -webkit-animation: rotate 4s 0s infinite;
-  -moz-animation: rotate 4s 0s infinite;
+  animation: rotate 2s 0s infinite;
+  -webkit-animation: rotate 2s 0s infinite;
+  -moz-animation: rotate 2s 0s infinite;
 }

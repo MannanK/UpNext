@@ -36,11 +36,16 @@ class Interests extends React.Component {
       
       let recommendations = [];
       let movieIdTrack = new Set();
+      let totalExpected = 50;
+      let promiseAExpected = 15;
+      let promiseBExpected = 15;
+      let promiseCExpected = 10;
+      let promiseDExpected = 10;
       // Pull out random 3 superLiked-tier genres, joined by AND
       TMDBAPIUtil.getAllRecommendations(mixLikeArr)
         .then(response => {
           const promisesA = [];
-          for (let i=0; i < Math.min(response.data.results.length,15); i++) {
+          for (let i=0; i < Math.min(response.data.results.length,promiseAExpected); i++) {
             let recommendation = response.data.results[i];
             let recId = recommendation.id;
             promisesA.push(TMDBAPIUtil.getMovieInfo(recId)
@@ -69,7 +74,10 @@ class Interests extends React.Component {
               TMDBAPIUtil.getAllRecommendations(mixLikeArr, 2, "%2C")
                 .then(response => {
                   const promisesB = [];
-                  for (let i=0; i < Math.min(response.data.results.length,10); i++) {
+                  
+                  if (recommendations.length < promiseAExpected) promiseBExpected = promiseBExpected + (promiseAExpected - recommendations.length);
+                  promiseBExpected = Math.min(20, promiseBExpected);
+                  for (let i=0; i < Math.min(response.data.results.length,promiseBExpected); i++) {
                     let recommendation = response.data.results[i];
                     let recId = recommendation.id;
                     if (!movieIdTrack.has(recId)) {
@@ -98,7 +106,10 @@ class Interests extends React.Component {
                       TMDBAPIUtil.getAllRecommendations(mixLikeArr, 2, "%2C")
                         .then(response => {
                           const promisesC = [];
-                          for (let i=0; i < Math.min(response.data.results.length,10); i++) {
+
+                          if (recommendations.length < promiseBExpected) promiseCExpected = promiseCExpected + (promiseBExpected - recommendations.length);
+                          promiseCExpected = Math.min(20, promiseCExpected);
+                          for (let i=0; i < Math.min(response.data.results.length,promiseCExpected); i++) {
                             let recommendation = response.data.results[i];
                             let recId = recommendation.id;
                             if (!movieIdTrack.has(recId)) {
@@ -126,7 +137,10 @@ class Interests extends React.Component {
                               TMDBAPIUtil.getAllRecommendations(mixLikeArr, 2, "%2C")
                                 .then(response => {
                                   const promisesD = [];
-                                  for (let i=0; i < Math.min(response.data.results.length,10); i++) {
+
+                                  if (recommendations.length < promiseCExpected) promiseDExpected = promiseDExpected + (promiseCExpected - recommendations.length);
+                                  promiseDExpected = Math.min(20, promiseDExpected);
+                                  for (let i=0; i < Math.min(response.data.results.length,promiseDExpected); i++) {
                                     let recommendation = response.data.results[i];
                                     let recId = recommendation.id;
                                     if (!movieIdTrack.has(recId)) {
@@ -147,10 +161,15 @@ class Interests extends React.Component {
                                       // check if there are at least two like-tier genres
                                         mixLikeArr = checkLikeArr.concat(checkSuperLikeArr);
                                       // Pull out random 2 liked-tier genres, joined by AND
+                                      let remainder = Math.max(0,totalExpected - recommendations.length);
+                                      console.log("~~~~~~~~~~~~~~~~~~~~~~~");
+                                      console.log(remainder);
+                                      remainder = Math.min(20,remainder);
                                       TMDBAPIUtil.getAllRecommendations(mixLikeArr, mixLikeArr.length, "%7C")
                                         .then(response => {
                                           const promisesE = [];
-                                          for (let i=0; i < Math.min(response.data.results.length,10); i++) {
+                                          
+                                          for (let i=0; i < Math.min(response.data.results.length,remainder); i++) {
                                             let recommendation = response.data.results[i];
                                             let recId = recommendation.id;
                                             if (!movieIdTrack.has(recId)) {

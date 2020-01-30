@@ -66,12 +66,10 @@ section.about-container {
   }
 }
 
-.close-modal:hover, .project-link a:hover, .about-links a:hover {
-  @media (min-width: 900px) {
-    cursor: pointer;
-    color: $button-color-hover;
-    transition: color 200ms ease-out ;
-  }
+.close-modal:hover {
+  cursor: pointer;
+  color: $button-color-hover;
+  transition: color 200ms ease-out ;
 
 }
 
@@ -116,7 +114,7 @@ h3.about-title {
 }
 
 .project-link > * {
-  color: $detail-font-color;
+  color: $button-color-hover;
 
 }
 
@@ -162,9 +160,17 @@ li.about-teammember > * {
 .about-links {
     width: 100%;
 }
-.about-links a{
-  color: $detail-font-color;
+.about-links a, .project-link a{
+  color: $button-color-hover;
   font-size: 0.9em;
+  transition: color 200ms ease-out ;
+
+}
+
+.about-links a:hover, .project-link a:hover {
+  color: $detail-font-color;
+  transition: color 200ms ease-out ;
+
 }
 
 

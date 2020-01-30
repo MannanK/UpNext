@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import SimpleSlider from '../slider/simple_slider';
 import { fetchInterests } from '../../../actions/interest_actions';
 import { updateGenre } from '../../../actions/genre_actions';
+import {startLoadingAll, endLoadingAll} from "../../../actions/recommendation_actions";
 import * as TMDBAPIUtil from '../../../util/tmdb_api_util';
 import { createAllRecommendations, deleteAllRecommendations } from '../../../actions/recommendation_actions';
 
@@ -34,6 +35,9 @@ class Interests extends React.Component {
       let checkLikeArr = Object.values(this.props.genres).filter(ele => ele.tier === "like").map(el => el.id);
       if (checkSuperLikeArr.length >= 3) mixLikeArr = checkSuperLikeArr;
       
+      this.props.startLoadingAll();
+
+
       let recommendations = [];
       let movieIdTrack = new Set();
       let totalExpected = 50;
@@ -61,6 +65,17 @@ class Interests extends React.Component {
 
           Promise.all(promisesA)
             .then(() => {
+              if (!this.loadingTimeout) {
+                this.loadingTimeout = setTimeout(() => {
+                  this.props.endLoadingAll();
+                }, 700);
+              } else {
+                clearTimeout(this.loadingTimeout);
+                this.loadingTimeout = setTimeout(() => {
+                  this.props.endLoadingAll();
+                }, 700);
+              }
+
               if ( checkSuperLikeArr.length >= 2 ) {
                 mixLikeArr = checkSuperLikeArr;
               // } else if (checkLikeArr.length >= 1 && checkSuperLikeArr.length >= 1) {
@@ -95,6 +110,17 @@ class Interests extends React.Component {
                   }
                   Promise.all(promisesB)
                     .then(() => {
+                      if (!this.loadingTimeout) {
+                        this.loadingTimeout = setTimeout(() => {
+                          this.props.endLoadingAll();
+                        }, 700);
+                      } else {
+                        clearTimeout(this.loadingTimeout);
+                        this.loadingTimeout = setTimeout(() => {
+                          this.props.endLoadingAll();
+                        }, 700);
+                      }
+
                       if (checkLikeArr.length >= 1 && checkSuperLikeArr.length >= 1) {
                         let randSuperLikeIndex = Math.floor(Math.random() * (checkSuperLikeArr.length-1));
                         let randLikeIndex = Math.floor(Math.random() * (checkLikeArr.length-1));
@@ -165,8 +191,6 @@ class Interests extends React.Component {
                                         mixLikeArr = checkLikeArr.concat(checkSuperLikeArr);
                                       // Pull out random 2 liked-tier genres, joined by AND
                                       let remainder = Math.max(0,totalExpected - recommendations.length);
-                                      console.log("~~~~~~~~~~~~~~~~~~~~~~~");
-                                      console.log(remainder);
                                       remainder = Math.min(20,remainder);
                                       TMDBAPIUtil.getAllRecommendations(mixLikeArr, mixLikeArr.length, "%7C")
                                         .then(response => {
@@ -191,6 +215,16 @@ class Interests extends React.Component {
 
                                           Promise.all(promisesE)
                                             .then(() => {
+                                              if (!this.loadingTimeout) {
+                                                this.loadingTimeout = setTimeout(() => {
+                                                  this.props.endLoadingAll();
+                                                }, 700);
+                                              } else {
+                                                clearTimeout(this.loadingTimeout);
+                                                this.loadingTimeout = setTimeout(() => {
+                                                  this.props.endLoadingAll();
+                                                }, 700);
+                                              }
                                               this.props.createAllRecommendations(recommendations);
                                             });
                                         });
@@ -205,6 +239,16 @@ class Interests extends React.Component {
     }
 
     if (isEmpty(this.props.interests)) {
+      if (!this.loadingTimeout) {
+        this.loadingTimeout = setTimeout(() => {
+          this.props.endLoadingAll();
+        }, 700);
+      } else {
+        clearTimeout(this.loadingTimeout);
+        this.loadingTimeout = setTimeout(() => {
+          this.props.endLoadingAll();
+        }, 700);
+      }
       this.props.deleteAllRecommendations();
     }
   }
@@ -249,7 +293,9 @@ const mdp = dispatch => ({
   fetchInterests: () => dispatch(fetchInterests()),
   updateGenre: (genreId,value) => dispatch(updateGenre(genreId,value)),
   createAllRecommendations: data => dispatch(createAllRecommendations(data)),
-  deleteAllRecommendations: () => dispatch(deleteAllRecommendations())
+  deleteAllRecommendations: () => dispatch(deleteAllRecommendations()),
+  startLoadingAll: () => dispatch(startLoadingAll()),
+  endLoadingAll: () => dispatch(endLoadingAll())
 });
 
 export default connect(msp, mdp)(Interests);

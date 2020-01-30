@@ -50,7 +50,7 @@ class Interests extends React.Component {
             let recId = recommendation.id;
             promisesA.push(TMDBAPIUtil.getMovieInfo(recId)
               .then(movie => {
-                if (!this.props.interests[movie.data.id]) {
+                if (!this.props.interests[movie.data.id] && TMDBAPIUtil.hasValidMovieFields(movie.data)) {
                   recommendation.genres = movie.data.genres;
                   recommendation.runtime = movie.data.runtime;
                   recommendations.push(recommendation);
@@ -83,9 +83,10 @@ class Interests extends React.Component {
                     if (!movieIdTrack.has(recId)) {
                       promisesB.push(TMDBAPIUtil.getMovieInfo(recId)
                         .then(movie => {
-                          if (!this.props.interests[movie.data.id]) {
+                          if (!this.props.interests[movie.data.id] && TMDBAPIUtil.hasValidMovieFields(movie.data)) {
                             recommendation.genres = movie.data.genres;
                             recommendation.runtime = movie.data.runtime;
+                            recommendation.overview = recommendation.overview === "" ? "N/A" : recommendation.overview;
                             recommendations.push(recommendation);
                           }
                         })
@@ -115,9 +116,10 @@ class Interests extends React.Component {
                             if (!movieIdTrack.has(recId)) {
                               promisesC.push(TMDBAPIUtil.getMovieInfo(recId)
                                 .then(movie => {
-                                  if (!this.props.interests[movie.data.id]) {
+                                  if (!this.props.interests[movie.data.id] && TMDBAPIUtil.hasValidMovieFields(movie.data)) {
                                     recommendation.genres = movie.data.genres;
                                     recommendation.runtime = movie.data.runtime;
+                                    recommendation.overview = recommendation.overview === "" ? "N/A" : recommendation.overview;
                                     recommendations.push(recommendation);
                                   }
                                 })
@@ -146,9 +148,10 @@ class Interests extends React.Component {
                                     if (!movieIdTrack.has(recId)) {
                                       promisesD.push(TMDBAPIUtil.getMovieInfo(recId)
                                         .then(movie => {
-                                          if (!this.props.interests[movie.data.id]) {
+                                          if (!this.props.interests[movie.data.id] && TMDBAPIUtil.hasValidMovieFields(movie.data)) {
                                             recommendation.genres = movie.data.genres;
                                             recommendation.runtime = movie.data.runtime;
+                                            recommendation.overview = recommendation.overview === "" ? "N/A" : recommendation.overview;
                                             recommendations.push(recommendation);
                                           }
                                         })
@@ -175,9 +178,10 @@ class Interests extends React.Component {
                                             if (!movieIdTrack.has(recId)) {
                                               promisesE.push(TMDBAPIUtil.getMovieInfo(recId)
                                                 .then(movie => {
-                                                  if (!this.props.interests[movie.data.id]) {
+                                                  if (!this.props.interests[movie.data.id] && TMDBAPIUtil.hasValidMovieFields(movie.data)) {
                                                     recommendation.genres = movie.data.genres;
                                                     recommendation.runtime = movie.data.runtime;
+                                                    recommendation.overview = recommendation.overview === "" ? "N/A" : recommendation.overview;
                                                     recommendations.push(recommendation);
                                                   }
                                                 })

@@ -34,7 +34,6 @@ export const getAllRecommendations = function (genreIds, sliceNum = 3, joinType=
       .then(response => {
         if (response.data.total_pages >= 1) {
           totalPages = parseInt(response.data.total_pages)-1;
-          debugger
         } else {
           totalPages = 1;
         }

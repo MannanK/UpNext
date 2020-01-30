@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import SimpleSlider from '../slider/simple_slider';
 import { fetchGenres } from '../../../actions/genre_actions';
 import { fetchInterests } from '../../../actions/interest_actions';
+import Loading from "../loading/loading";
 import { fetchSimilarRecommendations, fetchAllRecommendations, deleteAllRecommendations } from '../../../actions/recommendation_actions';
 
 class Recommendations extends React.Component {
@@ -19,7 +20,7 @@ class Recommendations extends React.Component {
   }
 
   render() {
-    const { lastViewedInterest, type } = this.props;
+    const { lastViewedInterest, type, loading } = this.props;
 
     let lastViewedInterestTitle = "";
     let sliderTitle;
@@ -37,6 +38,21 @@ class Recommendations extends React.Component {
       recommendations = this.props.recommendations.all;
     };
 
+    /////LOADING////// 
+    if (loading[`${type}Loading`]) {
+      return (
+        <div className="recommendations-container">
+          <section className="recommendations-similar">
+            <header className="slider-header">
+              <div className="slider-title">{sliderTitle}</div>
+            </header>
+            <Loading />
+          </section>
+        </div>
+      );
+    }
+    ////////////
+    
     return (
       <div className='recommendations-container'>
         <section className='recommendations-similar'>
@@ -61,7 +77,8 @@ const msp = state => ({
       return 1;
     }
     return 0;
-  }).shift()
+  }).shift(),
+  loading: state.ui.loading
 });
 
 const mdp = dispatch => ({

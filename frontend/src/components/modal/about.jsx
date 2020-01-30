@@ -34,15 +34,27 @@ class About extends React.Component {
             <li key="1" className="about-teammember">
               <span>Mannan Kasliwal</span>
               <div className="about-links">
-                <a href="https://www.linkedin.com/in/mannank/" target="_blank">
+                <a
+                  href="https://www.linkedin.com/in/mannank/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   LinkedIn
                 </a>{" "}
                 /{" "}
-                <a href="https://github.com/MannanK" target="_blank">
+                <a
+                  href="https://github.com/MannanK"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Github
                 </a>{" "}
                 /{" "}
-                <a href="https://mannank.github.io/" target="_blank">
+                <a
+                  href="https://mannank.github.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Portfolio
                 </a>
               </div>
@@ -54,15 +66,24 @@ class About extends React.Component {
                 <a
                   href="https://www.linkedin.com/in/mike-shen/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   LinkedIn
                 </a>{" "}
                 /{" "}
-                <a href="https://github.com/imshentastic" target="_blank">
+                <a
+                  href="https://github.com/imshentastic"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Github
                 </a>{" "}
                 /{" "}
-                <a href="https://michaelshen.dev/" target="_blank">
+                <a
+                  href="https://michaelshen.dev/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Portfolio
                 </a>
               </div>
@@ -74,15 +95,24 @@ class About extends React.Component {
                 <a
                   href="https://www.linkedin.com/in/bchung014/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   LinkedIn
                 </a>{" "}
                 /{" "}
-                <a href="#" target="_blank">
+                <a
+                  href="https://github.com/bchung014"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Github
                 </a>{" "}
                 /{" "}
-                <a href="#" target="_blank">
+                <a
+                  href="https://bchung014.github.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Portfolio
                 </a>
               </div>
@@ -94,15 +124,24 @@ class About extends React.Component {
                 <a
                   href="https://www.linkedin.com/in/seanswoodruff/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   LinkedIn
                 </a>{" "}
                 /{" "}
-                <a href="https://github.com/sswoodruff89" target="_blank">
+                <a
+                  href="https://github.com/sswoodruff89"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Github
                 </a>{" "}
                 /{" "}
-                <a href="https://sswoodruff89.github.io/" target="_blank">
+                <a
+                  href="https://sswoodruff89.github.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Portfolio
                 </a>
               </div>
@@ -119,7 +158,11 @@ class About extends React.Component {
             games, and music.
           </div>
           <div className="project-link">
-            <a href="https://github.com/MannanK/UpNext" target="_blank">
+            <a
+              href="https://github.com/MannanK/UpNext"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               --UpNext Repo Link--
             </a>
           </div>

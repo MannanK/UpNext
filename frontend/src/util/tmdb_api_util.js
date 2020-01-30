@@ -32,10 +32,15 @@ export const getAllRecommendations = function (genreIds, sliceNum = 3, joinType=
       `&with_genres=${genres}`
       )
       .then(response => {
-        totalPages = response.data.total_pages;
+        if (response.data.total_pages >= 1) {
+          totalPages = parseInt(response.data.total_pages)-1;
+          debugger
+        } else {
+          totalPages = 1;
+        }
       })
       .then(() => {
-        let page = Math.floor(Math.random() * Math.min(10,totalPages)) + 1;
+        let page = Math.floor(Math.random() * Math.min(9,totalPages)) + 1;
         return instance
           .get(
             `https://api.themoviedb.org/3/discover/movie?api_key=${tmdbApiKey}` +
@@ -65,3 +70,15 @@ const shuffleArray = (array) => {
   return array;
 };
 
+
+export const hasValidMovieFields = movie => {
+  if (movie.title === "" || movie.title === null) return false;
+  if (movie.poster_path === "" || movie.poster_path === null) return false;
+  if (movie.vote_average === null) return false;
+  if (movie.vote_count === null) return false;
+  if (movie.release_date === "" || movie.release_date === null) return false;
+  if (movie.runtime === null) return false;
+  if (movie.genres === null || movie.genres.length === 0) return false;
+  if (movie.overview === "" || movie.overview === null) return false;
+  return true;
+}

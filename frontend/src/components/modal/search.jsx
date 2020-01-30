@@ -78,19 +78,23 @@ class Search extends React.Component {
 
       TMDBAPIUtil.getMovieInfo(id)
         .then(response => {
-          Promise.all([this.props.createInterest(response.data)]).then(() => {
-            // genres calculation
-            const { genres, movieIds } = this.props;
-            response.data.genres.forEach(genre => {
-              if (genres[genre.name]) {
-                this.props.updateGenre(genres[genre.name]._id, { value: 1, interestCount: Object.keys(movieIds).length});
-              } else {
-                this.props.createGenre({genre, interestCount: Object.keys(movieIds).length} );
-              }
+          if (TMDBAPIUtil.hasValidMovieFields(response.data)) {
+             Promise.all([this.props.createInterest(response.data)]).then(() => {
+              // genres calculation
+              const { genres, movieIds } = this.props;
+              response.data.genres.forEach(genre => {
+                if (genres[genre.name]) {
+                  this.props.updateGenre(genres[genre.name]._id, { value: 1, interestCount: Object.keys(movieIds).length});
+                } else {
+                  this.props.createGenre({genre, interestCount: Object.keys(movieIds).length} );
+                }
+              });
+              this.props.closeModal();
             });
+          } else {
             this.props.closeModal();
-          });
-      });
+          }
+        });
 
       // May refactor in the future so that recommendations are made only after and if createInterest and closeModal are successful
       TMDBAPIUtil.getSimilarRecommendations(id)

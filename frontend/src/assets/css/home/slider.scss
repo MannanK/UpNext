@@ -73,12 +73,10 @@
   display: flex;
   justify-content: center;
   padding: 5px;
-
   min-width: 80px;
 
   // transform: scale(1);
   // transition: all 200ms ease;
-
 }
 
 .slider-image {
@@ -87,6 +85,10 @@
   // max-width:118px;
   border-radius: 3px;
   box-shadow: 3px 3px 4px black;
+}
+
+.slider-image:hover {
+  cursor: pointer;
 }
 
 .slider-item:hover {
